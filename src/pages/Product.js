@@ -12,7 +12,7 @@ class Product extends Component {
   }
 
   componentDidMount() {
-    axios.get("https://www.warung-makan.com/api/product").then(response => {
+    axios.get("http://159.65.13.206/api/product").then(response => {
       this.setState({
         products: response.data
       });
