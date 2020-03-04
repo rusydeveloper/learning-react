@@ -6,7 +6,7 @@ import { Badge, Pagination } from "react-bootstrap";
 class Product extends Component {
   constructor(props) {
     super(props);
-
+    this.url_api = "http://159.65.13.206";
     this.state = {
       products: [],
       next_page_url: "",
@@ -26,7 +26,7 @@ class Product extends Component {
   searchProduct(event) {
     this.setState({ search: event.target.value });
     axios
-      .get("http://127.0.0.1:8000/api/product/search/" + this.state.search)
+      .get(this.url_api + "/api/product/search/" + this.state.search)
       .then(response => {
         this.setState({
           products: response.data.data,
@@ -41,20 +41,18 @@ class Product extends Component {
       });
   }
   selectCategory(id, e) {
-    axios
-      .get("http://127.0.0.1:8000/api/product/category/" + id)
-      .then(response => {
-        this.setState({
-          products: response.data.data,
-          total: response.data.total,
-          current_page: response.data.current_page,
-          last_page: response.data.last_page,
-          next_page_url: response.data.next_page_url,
-          prev_page_url: response.data.prev_page_url,
-          first_page_url: response.data.first_page_url,
-          last_page_url: response.data.last_page_url
-        });
+    axios.get(this.url_api + "/api/product/category/" + id).then(response => {
+      this.setState({
+        products: response.data.data,
+        total: response.data.total,
+        current_page: response.data.current_page,
+        last_page: response.data.last_page,
+        next_page_url: response.data.next_page_url,
+        prev_page_url: response.data.prev_page_url,
+        first_page_url: response.data.first_page_url,
+        last_page_url: response.data.last_page_url
       });
+    });
   }
 
   changePage(url, e) {
@@ -72,7 +70,7 @@ class Product extends Component {
     });
   }
   componentDidMount() {
-    axios.get("http://127.0.0.1:8000/api/product").then(response => {
+    axios.get(this.url_api + "/api/product").then(response => {
       this.setState({
         products: response.data.data,
         total: response.data.total,
@@ -85,7 +83,7 @@ class Product extends Component {
       });
     });
 
-    axios.get("http://127.0.0.1:8000/api/category").then(response => {
+    axios.get(this.url_api + "/api/category").then(response => {
       this.setState({
         categories: response.data
       });
