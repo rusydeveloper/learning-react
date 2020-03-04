@@ -1,6 +1,39 @@
 .App {
   text-align: center;
 }
+.search-section {
+  margin: 10px;
+}
+.product-card {
+  margin: 10px 0px;
+}
+.small-header {
+  text-align: right;
+  color: grey;
+}
+.product-title {
+  font-size: 14pt;
+  font-weight: bold;
+}
+.product-price {
+  font-size: 12pt;
+  font-weight: bold;
+}
+.search-box {
+  width: 300px;
+  border-radius: 0px 5px 5px 0px;
+  height: 40px;
+}
+.horizontal-menu {
+  margin-left: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.horizontal-scroll {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 15px;
+}
 
 .App-logo {
   height: 40vmin;

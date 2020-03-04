@@ -1,22 +1,24 @@
 import React, { Component } from "react";
+import { Card } from "react-bootstrap";
 
 class ProductList extends Component {
   render() {
     return (
       <div>
-        <h3> Products </h3>
-        <table>
-          <tr>
-            <th>Nama</th>
-            <th>Harga</th>
-          </tr>
-
-          {this.props.products.map(product => (
-            <tr>
-              <td>{product.name}</td> <td>Rp {product.price}</td>
-            </tr>
-          ))}
-        </table>
+        {this.props.products.map(product => (
+          <Card className="product-card">
+            <Card.Body>
+              <small className="product-title">
+                {product.name.toLowerCase()}
+              </small>
+              <br />
+              <small className="product-price">
+                Rp{" "}
+                {product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+              </small>
+            </Card.Body>
+          </Card>
+        ))}
       </div>
     );
   }
