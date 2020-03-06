@@ -44,7 +44,7 @@
 }
 
 .App-logo {
-  height: 20vmin;
+  width: 100%;
   pointer-events: none;
   vertical-align: middle;
   text-align: center;
@@ -86,5 +86,5 @@
 }
 .product-icon {
   height: 50px;
-  background-color: #fff8d8;
+  background-color: #f3f3f3;
 }

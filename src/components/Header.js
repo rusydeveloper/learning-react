@@ -13,7 +13,7 @@ class Header extends Component {
     return (
       <div>
         <Navbar bg="light" expand="lg" sticky="top">
-          <Navbar.Brand className="center" href="/">
+          <Navbar.Brand href="/">
             <img src={logoFKBK} className="App-logo" alt="logo" />
           </Navbar.Brand>
           {/* <Navbar.Toggle aria-controls="basic-navbar-nav" />
