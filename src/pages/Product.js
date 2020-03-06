@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import ProductList from "../components/ProductList";
-import { Badge, Pagination } from "react-bootstrap";
+import { Badge, Pagination, Row, Col } from "react-bootstrap";
 
 class Product extends Component {
   constructor(props) {
@@ -125,23 +125,31 @@ class Product extends Component {
           produk, halaman {this.state.current_page} dari {this.state.last_page}
         </small>
         <ProductList products={this.state.products} />{" "}
-        <Pagination>
-          <Pagination.First
-            onClick={e => this.changePage(this.state.first_page_url, e)}
-          />
-          <Pagination.Prev
-            onClick={e => this.changePage(this.state.prev_page_url, e)}
-          />
+        <Row>
+          <Col></Col>
+          <Col>
+            <Pagination>
+              <Pagination.First
+                onClick={e => this.changePage(this.state.first_page_url, e)}
+              />
+              <Pagination.Prev
+                onClick={e => this.changePage(this.state.prev_page_url, e)}
+              />
 
-          <Pagination.Item active>{this.state.current_page}</Pagination.Item>
+              <Pagination.Item active>
+                {this.state.current_page}
+              </Pagination.Item>
 
-          <Pagination.Next
-            onClick={e => this.changePage(this.state.next_page_url, e)}
-          />
-          <Pagination.Last
-            onClick={e => this.changePage(this.state.last_page_url, e)}
-          />
-        </Pagination>
+              <Pagination.Next
+                onClick={e => this.changePage(this.state.next_page_url, e)}
+              />
+              <Pagination.Last
+                onClick={e => this.changePage(this.state.last_page_url, e)}
+              />
+            </Pagination>
+          </Col>
+          <Col></Col>
+        </Row>
       </div>
     );
   }
