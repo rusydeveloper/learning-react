@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import ProductList from "../components/ProductList";
-import { Badge, Pagination, Row, Col } from "react-bootstrap";
+import { Badge, Pagination, Row, Col, Navbar } from "react-bootstrap";
+import logoFKBK from "../assets/logo-fkbk.png";
 
 class Product extends Component {
   constructor(props) {
@@ -19,9 +20,11 @@ class Product extends Component {
       last_page: 0,
       total: 0
     };
+
     this.selectCategory = this.selectCategory.bind(this);
     this.searchProduct = this.searchProduct.bind(this);
     this.changePage = this.changePage.bind(this);
+    this.allCategory = this.allCategory.bind(this);
   }
   searchProduct(event) {
     this.setState({ search: event.target.value });
@@ -40,6 +43,22 @@ class Product extends Component {
         });
       });
   }
+
+  allCategory(e) {
+    axios.get(this.url_api + "/api/product/").then(response => {
+      this.setState({
+        products: response.data.data,
+        total: response.data.total,
+        current_page: response.data.current_page,
+        last_page: response.data.last_page,
+        next_page_url: response.data.next_page_url,
+        prev_page_url: response.data.prev_page_url,
+        first_page_url: response.data.first_page_url,
+        last_page_url: response.data.last_page_url
+      });
+    });
+  }
+
   selectCategory(id, e) {
     axios.get(this.url_api + "/api/product/category/" + id).then(response => {
       this.setState({
@@ -93,21 +112,41 @@ class Product extends Component {
   render() {
     return (
       <div>
-        <div className="input-group search-section">
-          <div className="input-group-prepend">
-            <span className="input-group-text">
-              <i className="fas fa-search"></i>
-            </span>
+        <Navbar bg="light" expand="lg" fixed="top">
+          {/* <Navbar.Brand href="/"></Navbar.Brand>
+           */}
+          <div className="input-group search-section">
+            <div className="input-group-prepend">
+              <a href="/">
+                <img src={logoFKBK} className="App-logo" alt="logo" />
+              </a>
+            </div>
+            <input
+              className="search-box"
+              onChange={this.searchProduct}
+              value={this.state.search}
+              placeholder="Cari nama barang"
+            />
           </div>
-          <input
-            className="search-box"
-            onChange={this.searchProduct}
-            value={this.state.search}
-            placeholder="Cari nama barang"
-          />
-        </div>
+          {/* <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto">
+              <Nav.Link href="/">Produk</Nav.Link>
+              <Nav.Link href="/monitoring">Monitoring</Nav.Link>
+            </Nav>
+          </Navbar.Collapse> */}
+        </Navbar>
+        <br />
+        <br />
         <hr />
         <div className="horizontal-scroll">
+          <Badge
+            variant="warning"
+            className="horizontal-menu "
+            onClick={e => this.allCategory(e)}
+          >
+            Semua
+          </Badge>
           {this.state.categories.map(category => (
             <Badge
               variant="warning"

@@ -28,9 +28,10 @@
   font-weight: bold;
 }
 .search-box {
-  width: 250px;
+  width: 230px;
   border-radius: 0px 5px 5px 0px;
   height: 40px;
+  padding-left: 5px;
 }
 .horizontal-menu {
   margin-left: 5px;
@@ -44,7 +45,7 @@
 }
 
 .App-logo {
-  width: 100%;
+  width: 80px;
   pointer-events: none;
   vertical-align: middle;
   text-align: center;

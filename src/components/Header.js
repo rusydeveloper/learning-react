@@ -10,22 +10,7 @@ class Header extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <Navbar bg="light" expand="lg" sticky="top">
-          <Navbar.Brand href="/">
-            <img src={logoFKBK} className="App-logo" alt="logo" />
-          </Navbar.Brand>
-          {/* <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-              <Nav.Link href="/">Produk</Nav.Link>
-              <Nav.Link href="/monitoring">Monitoring</Nav.Link>
-            </Nav>
-          </Navbar.Collapse> */}
-        </Navbar>
-      </div>
-    );
+    return <div></div>;
   }
 }
 export default Header;
