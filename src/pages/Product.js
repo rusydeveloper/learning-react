@@ -112,12 +112,14 @@ class Product extends Component {
   render() {
     return (
       <div>
-        <input
-          className="search-box"
-          onChange={this.searchProduct}
-          value={this.state.search}
-          placeholder="Cari nama barang"
-        />
+        <div className="search-container">
+          <input
+            className="search-box"
+            onChange={this.searchProduct}
+            value={this.state.search}
+            placeholder="Cari nama barang"
+          />
+        </div>
         <hr />
         <div className="horizontal-scroll">
           <Badge
