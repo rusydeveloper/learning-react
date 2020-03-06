@@ -112,32 +112,12 @@ class Product extends Component {
   render() {
     return (
       <div>
-        <Navbar bg="light" expand="lg" fixed="top">
-          {/* <Navbar.Brand href="/"></Navbar.Brand>
-           */}
-          <div className="input-group search-section">
-            <div className="input-group-prepend">
-              <a href="/">
-                <img src={logoFKBK} className="App-logo" alt="logo" />
-              </a>
-            </div>
-            <input
-              className="search-box"
-              onChange={this.searchProduct}
-              value={this.state.search}
-              placeholder="Cari nama barang"
-            />
-          </div>
-          {/* <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-              <Nav.Link href="/">Produk</Nav.Link>
-              <Nav.Link href="/monitoring">Monitoring</Nav.Link>
-            </Nav>
-          </Navbar.Collapse> */}
-        </Navbar>
-        <br />
-        <br />
+        <input
+          className="search-box"
+          onChange={this.searchProduct}
+          value={this.state.search}
+          placeholder="Cari nama barang"
+        />
         <hr />
         <div className="horizontal-scroll">
           <Badge
