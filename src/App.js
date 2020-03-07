@@ -17,14 +17,14 @@ class App extends React.Component {
         <Row>
           <Col>
             <BrowserRouter>
-              <Link className="navbar-brand" to="/product">
+              <Link className="navbar-brand" to="/">
                 Produk
               </Link>
               <Link className="navbar-brand" to="/dashboard">
                 Dashboard
               </Link>
               <Switch>
-                <Route exact path="/product" component={Product} />
+                <Route exact path="/" component={Product} />
                 <Route path="/dashboard" component={Monitoring} />
               </Switch>
             </BrowserRouter>
