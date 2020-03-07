@@ -5,7 +5,6 @@ class Monitoring extends Component {
   render() {
     return (
       <div>
-        <h3> Monitoring </h3>
         <Chart
           width={"100%"}
           chartType="BarChart"

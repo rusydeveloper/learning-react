@@ -18,18 +18,14 @@ class App extends React.Component {
           <Col>
             <BrowserRouter>
               <Link className="navbar-brand" to="/product">
-                Product
+                Produk
               </Link>
               <Link className="navbar-brand" to="/dashboard">
                 Dashboard
               </Link>
-              <Link className="navbar-brand" to="/page3">
-                Page3
-              </Link>
               <Switch>
-                <Route exact path="/" component={Product} />
+                <Route exact path="/product" component={Product} />
                 <Route path="/dashboard" component={Monitoring} />
-                <Route path="/page3" component={Page3} />
               </Switch>
             </BrowserRouter>
           </Col>
