@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
 import ProductList from "../components/ProductList";
-import { Badge, Pagination, Row, Col, Navbar } from "react-bootstrap";
-import logoFKBK from "../assets/logo-fkbk.png";
+import { Badge, Pagination, Row, Col } from "react-bootstrap";
 
 class Product extends Component {
   constructor(props) {
     super(props);
-    this.url_api = "http://159.65.13.206";
+    this.url_api = "https://fkbk-api.nectico.com";
     this.state = {
       products: [],
       next_page_url: "",
