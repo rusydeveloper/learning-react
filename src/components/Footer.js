@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import logoNectico from "../assets/logo-nectico.png";
 import logoDinas from "../assets/logo-dinas.png";
 
-class Header extends Component {
+class Footer extends Component {
   constructor(props) {
     super(props);
-    this.url_api = "http://159.65.13.206";
+    this.url_api = "https://fkbk-api.nectico.com";
     this.state = {};
   }
 
@@ -29,4 +29,4 @@ class Header extends Component {
     );
   }
 }
-export default Header;
+export default Footer;

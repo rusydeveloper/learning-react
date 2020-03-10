@@ -4,7 +4,7 @@ import { Button, Card } from "react-bootstrap";
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.url_api = "http://159.65.13.206";
+    this.url_api = "https://fkbk-api.nectico.com";
     this.state = {
       user: [],
       token: "",
