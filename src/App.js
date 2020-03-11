@@ -5,9 +5,10 @@ import Monitoring from "./pages/Monitoring";
 import Login from "./pages/Login";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row, Col } from "react-bootstrap";
+import Signup from "./pages/Signup";
 
 class App extends React.Component {
   render() {
@@ -17,19 +18,11 @@ class App extends React.Component {
           <Header></Header>
           <Row>
             <Col>
-              <Link className="navbar-brand" to="/">
-                Produk
-              </Link>
-              <Link className="navbar-brand" to="/dashboard">
-                Dashboard
-              </Link>
-              <Link className="navbar-brand" to="/login">
-                Login
-              </Link>
               <Switch>
                 <Route exact path="/" component={Product} />
                 <Route path="/dashboard" component={Monitoring} />
                 <Route path="/login" component={Login} />
+                <Route path="/signup" component={Signup} />
               </Switch>
             </Col>
           </Row>

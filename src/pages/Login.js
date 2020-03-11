@@ -8,29 +8,27 @@ class Login extends Component {
     this.state = {
       user: [],
       token: "",
-      user_name: "",
+      email: "",
       password: ""
     };
 
     this.login = this.login.bind(this);
-    this.usernameChange = this.usernameChange.bind(this);
+    this.emailChange = this.emailChange.bind(this);
     this.passwordChange = this.passwordChange.bind(this);
   }
 
   login(event) {
     this.setState({
-      user_name: this.state.user_name,
+      email: this.state.email,
       password: this.state.password
     });
-    alert(
-      "A name was submitted: " + this.state.user_name + this.state.password
-    );
+    alert("A name was submitted: " + this.state.email + this.state.password);
     event.preventDefault();
   }
 
-  usernameChange(event) {
+  emailChange(event) {
     this.setState({
-      user_name: event.target.value
+      email: event.target.value
     });
   }
   passwordChange(event) {
@@ -47,12 +45,13 @@ class Login extends Component {
             <Card.Body>
               <Card.Title>Masuk</Card.Title>
               <Card.Text>
-                <label>Name:</label>
+                <label>email:</label>
                 <br />
                 <input
                   type="email"
-                  value={this.state.user_name}
-                  onChange={this.usernameChange}
+                  value={this.state.email}
+                  onChange={this.emailChange}
+                  placeholder="email"
                 />
                 <br />
                 <label>Password:</label>
@@ -66,7 +65,7 @@ class Login extends Component {
                 <br />
               </Card.Text>
               <Button type="submit" value="Submit">
-                Sign In
+                Kirim
               </Button>
             </Card.Body>
             <h4> </h4>
