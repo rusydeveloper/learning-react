@@ -39,7 +39,7 @@ class Login extends Component {
       .post(this.url_api + "/api/auth/login", loginInput)
       .then(response => {
         // redirect to the homepage
-
+        sessionStorage.setItem("userData", response.data);
         console.log(response);
         history.push("/");
       })
