@@ -9,11 +9,19 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row, Col } from "react-bootstrap";
 import Signup from "./pages/Signup";
+import Form from "./components/Form";
 
 class App extends React.Component {
   render() {
     return (
       <Container>
+        <div>
+          <h2>Articles</h2>
+        </div>
+        <div>
+          <h2>Add a new article</h2>
+          <Form />
+        </div>
         <BrowserRouter>
           <Header></Header>
           <Row>

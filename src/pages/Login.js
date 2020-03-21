@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { Button, Card } from "react-bootstrap";
+import axios from "axios";
+import List from "../components/List";
 
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.url_api = "https://fkbk-api.nectico.com";
+    // this.url_api = "https://fkbk-api.nectico.com";
+    this.url_api = "http://localhost:8000";
     this.state = {
       user: [],
       token: "",
@@ -22,8 +25,41 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     });
-    alert("A name was submitted: " + this.state.email + this.state.password);
+    // alert("A name was submitted: " + this.state.email + this.state.password);
     event.preventDefault();
+
+    const { history } = this.props;
+
+    const loginInput = {
+      email: this.state.email,
+      password: this.state.password
+    };
+
+    axios
+      .post(this.url_api + "/api/auth/login", loginInput)
+      .then(response => {
+        // redirect to the homepage
+
+        console.log(response);
+        history.push("/");
+      })
+      .catch(error => {
+        if (error != "Error: Network Error") {
+          if (error.response.status === 401) {
+            alert("email atau password anda salah");
+          }
+          if (error.response.status === 422) {
+            alert("email atau password anda salah");
+          }
+          this.setState({
+            errors: error.response.data.errors
+          });
+        } else {
+          alert(
+            "Mohon maaf sistem bermasalah, mohon kembali beberapa saat lagi"
+          );
+        }
+      });
   }
 
   emailChange(event) {
@@ -40,6 +76,7 @@ class Login extends Component {
   render() {
     return (
       <div>
+        <List />
         <form onSubmit={this.login}>
           <Card>
             <Card.Body>
@@ -52,6 +89,7 @@ class Login extends Component {
                   value={this.state.email}
                   onChange={this.emailChange}
                   placeholder="email"
+                  required
                 />
                 <br />
                 <label>Password:</label>
@@ -61,6 +99,7 @@ class Login extends Component {
                   value={this.state.password}
                   onChange={this.passwordChange}
                   placeholder="password"
+                  required
                 />
                 <br />
               </Card.Text>
