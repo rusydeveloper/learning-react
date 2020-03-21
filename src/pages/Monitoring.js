@@ -1,7 +1,18 @@
 import React, { Component } from "react";
 import { Chart } from "react-google-charts";
+import { server } from "../constants/server";
 
 class Monitoring extends Component {
+  constructor(props) {
+    super(props);
+    this.url_api = server;
+    this.state = {
+      user: [],
+      token: "",
+      email: "",
+      password: ""
+    };
+  }
   render() {
     return (
       <div>
