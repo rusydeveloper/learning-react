@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { Button, Card } from "react-bootstrap";
 import axios from "axios";
 import List from "../components/List";
+import { local, production } from "../constants/server";
 
 class Login extends Component {
   constructor(props) {
     super(props);
-    // this.url_api = "https://fkbk-api.nectico.com";
-    this.url_api = "http://localhost:8000";
+    this.url_api = local;
     this.state = {
       user: [],
       token: "",
