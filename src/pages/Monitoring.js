@@ -10,12 +10,26 @@ class Monitoring extends Component {
       user: [],
       token: "",
       email: "",
-      password: ""
+      userName: "",
+      userId: "",
+      userToken: "",
+      isLoggedIn: false
     };
+  }
+
+  componentDidMount() {
+    this.setState({
+      isLoggedIn: sessionStorage.getItem("isLoggedIn"),
+      userName: sessionStorage.getItem("userName"),
+      userToken: sessionStorage.getItem("userToken"),
+      userId: sessionStorage.getItem("userId")
+    });
   }
   render() {
     return (
       <div>
+        {this.state.isLoggedIn}
+
         <Chart
           width={"100%"}
           chartType="BarChart"
