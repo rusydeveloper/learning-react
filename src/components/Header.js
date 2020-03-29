@@ -21,33 +21,43 @@ function Header() {
             Produk
           </Link>
         </Nav>
-        <Nav>
-          <Link className="navbar" to="/dashboard">
-            Dashboard
-          </Link>
-        </Nav>
+        {isLogged ? (
+          <Nav>
+            <Link className="navbar" to="/dashboard">
+              Dashboard
+            </Link>
+          </Nav>
+        ) : null}
+
         <Nav>
           <NavDropdown
             title={isLogged ? "Sudah Masuk" : "Akun"}
             id="nav-dropdown"
           >
-            <NavDropdown.Item eventKey="4.2" onClick={() => dispatch(logout())}>
-              <Link className="navbar" to="/">
-                Keluar
-              </Link>
-            </NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item eventKey="4.3">
-              <Link className="navbar" to="/login">
-                Masuk
-              </Link>
-            </NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item eventKey="4.4">
-              <Link className="navbar" to="/signup">
-                Daftar
-              </Link>
-            </NavDropdown.Item>
+            {isLogged ? (
+              <NavDropdown.Item
+                eventKey="4.2"
+                onClick={() => dispatch(logout())}
+              >
+                <Link className="navbar" to="/">
+                  Keluar
+                </Link>
+              </NavDropdown.Item>
+            ) : (
+              <span>
+                <NavDropdown.Item eventKey="4.3">
+                  <Link className="navbar" to="/login">
+                    Masuk
+                  </Link>
+                </NavDropdown.Item>{" "}
+                <NavDropdown.Divider />
+                <NavDropdown.Item eventKey="4.4">
+                  <Link className="navbar" to="/signup">
+                    Daftar
+                  </Link>
+                </NavDropdown.Item>
+              </span>
+            )}
           </NavDropdown>
         </Nav>
       </Nav>
