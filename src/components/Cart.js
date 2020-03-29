@@ -1,11 +1,15 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
+
 function Cart() {
+  const cart = useSelector(state => state.cart);
   return (
     <div>
       <Card className="cart-container">
         {" "}
-        0 Barang | Rp 0
+        {cart.totalItem} Barang | Rp{" "}
+        {cart.totalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
         <Button size="sm" block variant="danger">
           selesai
         </Button>

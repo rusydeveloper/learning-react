@@ -58,3 +58,28 @@ export const logout = () => {
     dispatch({ type: "LOGOUT" });
   };
 };
+
+export const addCart = item => {
+  console.log(item);
+
+  return function action(dispatch) {
+    // dispatch(push("/"));
+    dispatch({ type: "ADD", payload: item });
+  };
+  // const loginInput = {
+  //   email: email,
+  //   password: password
+  // };
+  // return function action(dispatch) {
+  //   dispatch({ type: "LOGIN" });
+  // const url_api = server;
+
+  // return axios.post(url_api + "/api/auth/login", loginInput).then(
+  //   response => {
+  //     dispatch(loginSuccess(response));
+  //     dispatch(push("/"));
+  //   },
+  //   err => dispatch(loginFailed(err))
+  // );
+  // };
+};
