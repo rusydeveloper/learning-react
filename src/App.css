@@ -5,6 +5,17 @@
 .search-section {
   margin: 10px;
 }
+
+.cart-container {
+  padding: 5px;
+  position: fixed !important;
+  bottom: 10px;
+  width: 90%;
+  margin: auto;
+  background-color: darkblue !important;
+  color: white;
+  z-index: 99 !important;
+}
 .text-center {
   text-align: center;
   width: 90%;
