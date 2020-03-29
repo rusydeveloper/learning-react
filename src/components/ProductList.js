@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Row, Col, Image } from "react-bootstrap";
+import { Card, Row, Col, Image, Button } from "react-bootstrap";
 import defaultProductImage from "../assets/open-box.png";
 
 class ProductList extends Component {
@@ -29,6 +29,10 @@ class ProductList extends Component {
                       .toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                   </small>
+                  <br />
+                  <Button size="sm" variant="warning" block>
+                    pesan
+                  </Button>
                 </Col>
               </Row>
             </Card.Body>

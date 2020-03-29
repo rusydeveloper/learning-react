@@ -35,69 +35,6 @@ export const login = (email, password) => {
       err => dispatch(loginFailed(err))
     );
   };
-
-  // const url_api = server;
-  // // const dispatch = useDispatch();
-  // const loginInput = {
-  //   email: email,
-  //   password: password
-  // };
-  // axios
-  //   .post(url_api + "/api/auth/login", loginInput)
-  //   .then(response => {
-  //     console.log("success");
-  //     sessionStorage.setItem("userName", response.data.user.name);
-  //     sessionStorage.setItem("userId", response.data.user.id);
-  //     sessionStorage.setItem("userToken", response.data.access_token);
-  //     sessionStorage.setItem("isLoggedIn", true);
-  //     // dispatch(loginSuccess(response.data));
-  //     // dispatch(loginSuccess(response.data));
-  //     return {
-  //       type: "LOGIN"
-  //     };
-  //   })
-  //   .catch(error => {
-  //     // dispatch(loginFailed(response.data));
-  //     if (error !== "Error: Network Error") {
-  //       if (error.response.status === 401) {
-  //         alert("email atau password anda salah");
-  //       }
-  //       if (error.response.status === 422) {
-  //         alert("email atau password anda salah");
-  //       }
-  //     } else {
-  //       alert("Mohon maaf sistem bermasalah, mohon kembali beberapa saat lagi");
-  //     }
-  //     return {
-  //       type: "LOGOUT"
-  //     };
-  //   });
-  // return dispatch => {
-  //   return axios
-  //     .post(url_api + "/api/auth/login", loginInput)
-  //     .then(response => {
-  //       console.log("success");
-  //       sessionStorage.setItem("userName", response.data.user.name);
-  //       sessionStorage.setItem("userId", response.data.user.id);
-  //       sessionStorage.setItem("userToken", response.data.access_token);
-  //       sessionStorage.setItem("isLoggedIn", true);
-  //       dispatch(loginSuccess(response.data));
-  //     })
-  //     .catch(error => {
-  //       if (error !== "Error: Network Error") {
-  //         if (error.response.status === 401) {
-  //           alert("email atau password anda salah");
-  //         }
-  //         if (error.response.status === 422) {
-  //           alert("email atau password anda salah");
-  //         }
-  //       } else {
-  //         alert(
-  //           "Mohon maaf sistem bermasalah, mohon kembali beberapa saat lagi"
-  //         );
-  //       }
-  //     });
-  // };
 };
 
 export const loginSuccess = data => {
@@ -119,3 +56,66 @@ export const logout = () => {
     type: "LOGOUT"
   };
 };
+
+// const url_api = server;
+// // const dispatch = useDispatch();
+// const loginInput = {
+//   email: email,
+//   password: password
+// };
+// axios
+//   .post(url_api + "/api/auth/login", loginInput)
+//   .then(response => {
+//     console.log("success");
+//     sessionStorage.setItem("userName", response.data.user.name);
+//     sessionStorage.setItem("userId", response.data.user.id);
+//     sessionStorage.setItem("userToken", response.data.access_token);
+//     sessionStorage.setItem("isLoggedIn", true);
+//     // dispatch(loginSuccess(response.data));
+//     // dispatch(loginSuccess(response.data));
+//     return {
+//       type: "LOGIN"
+//     };
+//   })
+//   .catch(error => {
+//     // dispatch(loginFailed(response.data));
+//     if (error !== "Error: Network Error") {
+//       if (error.response.status === 401) {
+//         alert("email atau password anda salah");
+//       }
+//       if (error.response.status === 422) {
+//         alert("email atau password anda salah");
+//       }
+//     } else {
+//       alert("Mohon maaf sistem bermasalah, mohon kembali beberapa saat lagi");
+//     }
+//     return {
+//       type: "LOGOUT"
+//     };
+//   });
+// return dispatch => {
+//   return axios
+//     .post(url_api + "/api/auth/login", loginInput)
+//     .then(response => {
+//       console.log("success");
+//       sessionStorage.setItem("userName", response.data.user.name);
+//       sessionStorage.setItem("userId", response.data.user.id);
+//       sessionStorage.setItem("userToken", response.data.access_token);
+//       sessionStorage.setItem("isLoggedIn", true);
+//       dispatch(loginSuccess(response.data));
+//     })
+//     .catch(error => {
+//       if (error !== "Error: Network Error") {
+//         if (error.response.status === 401) {
+//           alert("email atau password anda salah");
+//         }
+//         if (error.response.status === 422) {
+//           alert("email atau password anda salah");
+//         }
+//       } else {
+//         alert(
+//           "Mohon maaf sistem bermasalah, mohon kembali beberapa saat lagi"
+//         );
+//       }
+//     });
+// };
