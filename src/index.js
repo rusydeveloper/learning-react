@@ -11,25 +11,6 @@ import configureStore, { history } from "./configureStore";
 
 const store = configureStore();
 
-// export const history = createBrowserHistory();
-
-// const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-// // const store = createStore(allReducer, composeEnhancer(applyMiddleware(thunk)));
-
-// const store = createStore(
-//   // createRootReducer(history), // root reducer with router state
-//   allReducer,
-//   compose(
-//     applyMiddleware(
-//       routerMiddleware(history), // for dispatching history actions
-//       applyMiddleware(thunk),
-//       composeEnhancer
-//       // ... other middlewares ...
-//     )
-//   )
-// );
-
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>

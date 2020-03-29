@@ -4,6 +4,7 @@ import logoFKBK from "../assets/logo-fkbk.png";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../actions";
+import { push } from "connected-react-router";
 
 function Header() {
   const isLogged = useSelector(state => state.isLogged);
@@ -39,22 +40,22 @@ function Header() {
                 eventKey="4.2"
                 onClick={() => dispatch(logout())}
               >
-                <Link className="navbar" to="/">
-                  Keluar
-                </Link>
+                Keluar
               </NavDropdown.Item>
             ) : (
               <span>
-                <NavDropdown.Item eventKey="4.3">
-                  <Link className="navbar" to="/login">
-                    Masuk
-                  </Link>
+                <NavDropdown.Item
+                  eventKey="4.3"
+                  onClick={() => dispatch(push("/login"))}
+                >
+                  Masuk
                 </NavDropdown.Item>{" "}
                 <NavDropdown.Divider />
-                <NavDropdown.Item eventKey="4.4">
-                  <Link className="navbar" to="/signup">
-                    Daftar
-                  </Link>
+                <NavDropdown.Item
+                  eventKey="4.4"
+                  onClick={() => dispatch(push("/signup"))}
+                >
+                  Daftar
                 </NavDropdown.Item>
               </span>
             )}
