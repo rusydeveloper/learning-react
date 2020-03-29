@@ -1,6 +1,8 @@
 import axios from "axios";
 
 import { server } from "../constants/server";
+import { push } from "connected-react-router";
+import swal from "sweetalert";
 
 export const increment = nr => {
   return {
@@ -25,7 +27,11 @@ export const login = (email, password) => {
     const url_api = server;
 
     return axios.post(url_api + "/api/auth/login", loginInput).then(
-      response => dispatch(loginSuccess(response)),
+      response => {
+        dispatch(loginSuccess(response));
+        dispatch(push("/"));
+        swal("Berhasil!", "Anda berhasil masuk", "success");
+      },
       err => dispatch(loginFailed(err))
     );
   };
@@ -100,6 +106,7 @@ export const loginSuccess = data => {
     payload: data
   };
 };
+
 export const loginFailed = data => {
   return {
     type: "LOGIN_FAILED",

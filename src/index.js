@@ -5,17 +5,36 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Provider } from "react-redux";
-import allReducer from "./reducers";
-import { createStore, compose, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
+import { ConnectedRouter } from "connected-react-router";
 
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+import configureStore, { history } from "./configureStore";
 
-const store = createStore(allReducer, composeEnhancer(applyMiddleware(thunk)));
+const store = configureStore();
+
+// export const history = createBrowserHistory();
+
+// const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+// // const store = createStore(allReducer, composeEnhancer(applyMiddleware(thunk)));
+
+// const store = createStore(
+//   // createRootReducer(history), // root reducer with router state
+//   allReducer,
+//   compose(
+//     applyMiddleware(
+//       routerMiddleware(history), // for dispatching history actions
+//       applyMiddleware(thunk),
+//       composeEnhancer
+//       // ... other middlewares ...
+//     )
+//   )
+// );
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <ConnectedRouter history={history}>
+      <App />
+    </ConnectedRouter>
   </Provider>,
   document.getElementById("root")
 );
