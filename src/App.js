@@ -5,11 +5,11 @@ import Monitoring from "./pages/Monitoring";
 import Login from "./pages/Login";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Cart from "./components/Cart";
 import { Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row, Col } from "react-bootstrap";
 import Signup from "./pages/Signup";
+import Order from "./pages/Order";
 
 function App() {
   return (
@@ -22,11 +22,11 @@ function App() {
             <Route path="/dashboard" component={Monitoring} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route path="/order" component={Order} />
           </Switch>
         </Col>
       </Row>
       <Footer></Footer>
-      <Cart></Cart>
     </Container>
   );
 }

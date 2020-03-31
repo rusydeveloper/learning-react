@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { Card, Row, Col, Image, Button } from "react-bootstrap";
 import defaultProductImage from "../assets/open-box.png";
@@ -6,7 +6,6 @@ import { addCart } from "../actions";
 import { useDispatch } from "react-redux";
 
 function ProductList(props) {
-  const [item, setItem] = useState("");
   const dispatch = useDispatch();
 
   return (
