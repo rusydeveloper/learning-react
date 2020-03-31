@@ -4,19 +4,6 @@ import { server } from "../constants/server";
 import { push } from "connected-react-router";
 import swal from "sweetalert";
 
-export const increment = nr => {
-  return {
-    type: "INCREMENT",
-    payload: nr
-  };
-};
-
-export const decrement = () => {
-  return {
-    type: "DECREMENT"
-  };
-};
-
 export const login = (email, password) => {
   const loginInput = {
     email: email,
@@ -71,6 +58,12 @@ export const removeCart = (item, index) => {
   };
 };
 
+export const clearCart = () => {
+  return function action(dispatch) {
+    dispatch({ type: "CLEAR" });
+  };
+};
+
 export const checkout = (
   item,
   totalItem,
@@ -86,16 +79,13 @@ export const checkout = (
     address: address,
     paymentMethod: paymentMethod
   };
-  console.log(item);
-  console.log(totalItem);
-  console.log(totalAmount);
-  console.log(checkoutInput);
 
   return function action(dispatch) {
     dispatch(checkoutSuccess(item, totalItem, totalAmount, checkoutInput));
+    dispatch(clearCart());
+
     dispatch(push("/"));
 
-    // dispatch({ type: "LOGIN" });
     // const url_api = server;
 
     // return axios.post(url_api + "/api/auth/login", checkoutInput).then(
@@ -109,7 +99,8 @@ export const checkout = (
 };
 
 export const checkoutSuccess = (item, totalItem, totalAmount, buyer) => {
-  swal("Berhasil!", "Anda berhasil melakukan pesanan", "success");
+  swal("Berhasil Memesan!", "Tunggu tim kami menghubungi Anda", "success");
+
   return {
     type: "CHECKOUT_SUCCESS",
     payload: item,

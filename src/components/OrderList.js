@@ -25,7 +25,6 @@ function OrderList(props) {
               </Col>
               <Col>
                 {" "}
-                {index}
                 <small className="product-title">
                   {product.name.toLowerCase()}
                 </small>

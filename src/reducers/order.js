@@ -10,7 +10,7 @@ const orderReducer = (state = initialOrderState, action) => {
     case "CHECKOUT_SUCCESS":
       return {
         ...state,
-        items: [...state.items, action.payload],
+        items: action.payload,
         totalItem: action.totalItem,
         totalAmount: action.totalAmount,
         buyer: action.buyer
