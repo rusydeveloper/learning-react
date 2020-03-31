@@ -1,16 +1,24 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { push } from "connected-react-router";
 
 function Cart() {
   const cart = useSelector(state => state.cart);
+  const dispatch = useDispatch();
+
   return (
     <div>
       <Card className="cart-container">
         {" "}
         {cart.totalItem} Barang | Rp{" "}
         {cart.totalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-        <Button size="sm" block variant="danger">
+        <Button
+          size="sm"
+          block
+          variant="danger"
+          onClick={() => dispatch(push("/order"))}
+        >
           selesai
         </Button>
       </Card>

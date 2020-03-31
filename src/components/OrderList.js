@@ -5,12 +5,12 @@ import defaultProductImage from "../assets/open-box.png";
 import { addCart } from "../actions";
 import { useDispatch } from "react-redux";
 
-function ProductList(props) {
+function OrderList(props) {
   const dispatch = useDispatch();
-
+  // console.log(props.products);
   return (
     <div>
-      {props.products.map(product => (
+      {props.products.map((product, index) => (
         <Card className="product-card">
           <Card.Body>
             <Row>
@@ -23,6 +23,7 @@ function ProductList(props) {
               </Col>
               <Col>
                 {" "}
+                {index}
                 <small className="product-title">
                   {product.name.toLowerCase()}
                 </small>
@@ -34,14 +35,27 @@ function ProductList(props) {
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                 </small>
                 <br />
-                <Button
-                  size="sm"
-                  variant="warning"
-                  block
-                  onClick={() => dispatch(addCart(product))}
-                >
-                  pesan
-                </Button>
+                <Row>
+                  <Col size="3">
+                    <Button
+                      size="sm"
+                      variant="outline-dark"
+                      onClick={() => dispatch(addCart(product))}
+                    >
+                      hapus
+                    </Button>
+                  </Col>
+                  <Col size="9">
+                    <Button
+                      size="sm"
+                      variant="warning"
+                      block
+                      onClick={() => dispatch(addCart(product))}
+                    >
+                      tambah
+                    </Button>
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </Card.Body>
@@ -50,4 +64,4 @@ function ProductList(props) {
     </div>
   );
 }
-export default ProductList;
+export default OrderList;
