@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import ProductList from "../components/ProductList";
 import { Badge, Pagination, Row, Col } from "react-bootstrap";
+import Cart from "../components/Cart";
 
 class Product extends Component {
   constructor(props) {
@@ -170,6 +171,7 @@ class Product extends Component {
           </Col>
           <Col></Col>
         </Row>
+        <Cart></Cart>
       </div>
     );
   }
