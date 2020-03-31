@@ -4,6 +4,7 @@ import { combineReducers } from "redux";
 import { connectRouter } from "connected-react-router";
 import userReducer from "./user";
 import cartReducer from "./cart";
+import orderReducer from "./order";
 
 const allReducers = history =>
   combineReducers({
@@ -11,6 +12,7 @@ const allReducers = history =>
     counter: counterReducer,
     isLogged: loggedReducer,
     user: userReducer,
-    cart: cartReducer
+    cart: cartReducer,
+    order: orderReducer
   });
 export default allReducers;

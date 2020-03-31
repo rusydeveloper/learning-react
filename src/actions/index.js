@@ -60,18 +60,68 @@ export const logout = () => {
 };
 
 export const addCart = item => {
-  console.log(item);
-
   return function action(dispatch) {
     dispatch({ type: "ADD", payload: item });
   };
 };
 
 export const removeCart = (item, index) => {
-  console.log(item);
-  console.log(index);
-
   return function action(dispatch) {
     dispatch({ type: "REMOVE", payload: item, position: index });
+  };
+};
+
+export const checkout = (
+  item,
+  totalItem,
+  totalAmount,
+  name,
+  phone,
+  address,
+  paymentMethod
+) => {
+  const checkoutInput = {
+    name: name,
+    phone: phone,
+    address: address,
+    paymentMethod: paymentMethod
+  };
+  console.log(item);
+  console.log(totalItem);
+  console.log(totalAmount);
+  console.log(checkoutInput);
+
+  return function action(dispatch) {
+    dispatch(checkoutSuccess(item, totalItem, totalAmount, checkoutInput));
+    dispatch(push("/"));
+
+    // dispatch({ type: "LOGIN" });
+    // const url_api = server;
+
+    // return axios.post(url_api + "/api/auth/login", checkoutInput).then(
+    //   response => {
+    //     dispatch(checkoutSuccess(response));
+    //     dispatch(push("/"));
+    //   },
+    //   err => dispatch(checkoutFailed(err))
+    // );
+  };
+};
+
+export const checkoutSuccess = (item, totalItem, totalAmount, buyer) => {
+  swal("Berhasil!", "Anda berhasil melakukan pesanan", "success");
+  return {
+    type: "CHECKOUT_SUCCESS",
+    payload: item,
+    totalItem: totalItem,
+    totalAmount: totalAmount,
+    buyer: buyer
+  };
+};
+
+export const checkoutFailed = () => {
+  swal("Gagal!", "Maaf, Pemesanan Anda Gagal", "error");
+  return {
+    type: "CHECKOUT_FAILED"
   };
 };

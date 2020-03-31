@@ -1,14 +1,34 @@
 import React from "react";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import OrderList from "../components/OrderList";
+import { push } from "connected-react-router";
+import { Button } from "react-bootstrap";
 
 function Order() {
   const cart = useSelector(state => state.cart);
 
+  const dispatch = useDispatch();
+
   return (
     <div>
       <OrderList products={cart.items} />{" "}
+      <div className="checkout-container">
+        <div className="checkout-title">
+          <span className="darkgrey-text">SUBTOTAL: </span>
+          <br />
+          Rp {cart.totalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+        </div>
+        <small>harga belum termasuk biaya kirim</small>
+        <Button
+          size="sm"
+          variant="danger"
+          block
+          onClick={() => dispatch(push("/checkout"))}
+        >
+          Selesai
+        </Button>
+      </div>
     </div>
   );
 }

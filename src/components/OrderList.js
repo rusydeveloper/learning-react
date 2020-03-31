@@ -3,13 +3,12 @@ import React from "react";
 import { Card, Row, Col, Image, Button } from "react-bootstrap";
 import defaultProductImage from "../assets/open-box.png";
 import { addCart, removeCart } from "../actions";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { FaTrashAlt } from "react-icons/fa";
 
 function OrderList(props) {
   const dispatch = useDispatch();
 
-  const cart = useSelector(state => state.cart);
   return (
     <div>
       <h4>Konfirmasi Pesanan</h4>
@@ -64,17 +63,6 @@ function OrderList(props) {
           </Card.Body>
         </Card>
       ))}
-      <div className="checkout-container">
-        <div className="checkout-title">
-          <span className="darkgrey-text">SUBTOTAL: </span>
-          <br />
-          Rp {cart.totalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-        </div>
-        <small>harga belum termasuk biaya kirim</small>
-        <Button size="sm" variant="danger" block>
-          Selesai
-        </Button>
-      </div>
     </div>
   );
 }
