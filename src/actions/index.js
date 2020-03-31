@@ -4,19 +4,6 @@ import { server } from "../constants/server";
 import { push } from "connected-react-router";
 import swal from "sweetalert";
 
-export const increment = nr => {
-  return {
-    type: "INCREMENT",
-    payload: nr
-  };
-};
-
-export const decrement = () => {
-  return {
-    type: "DECREMENT"
-  };
-};
-
 export const login = (email, password) => {
   const loginInput = {
     email: email,
@@ -60,18 +47,72 @@ export const logout = () => {
 };
 
 export const addCart = item => {
-  console.log(item);
-
   return function action(dispatch) {
     dispatch({ type: "ADD", payload: item });
   };
 };
 
 export const removeCart = (item, index) => {
-  console.log(item);
-  console.log(index);
-
   return function action(dispatch) {
     dispatch({ type: "REMOVE", payload: item, position: index });
+  };
+};
+
+export const clearCart = () => {
+  return function action(dispatch) {
+    dispatch({ type: "CLEAR" });
+  };
+};
+
+export const checkout = (
+  item,
+  totalItem,
+  totalAmount,
+  name,
+  phone,
+  address,
+  paymentMethod
+) => {
+  const checkoutInput = {
+    name: name,
+    phone: phone,
+    address: address,
+    paymentMethod: paymentMethod
+  };
+
+  return function action(dispatch) {
+    dispatch(checkoutSuccess(item, totalItem, totalAmount, checkoutInput));
+    dispatch(clearCart());
+
+    dispatch(push("/"));
+
+    // const url_api = server;
+
+    // return axios.post(url_api + "/api/auth/login", checkoutInput).then(
+    //   response => {
+    //     dispatch(checkoutSuccess(response));
+    //     dispatch(push("/"));
+    //   },
+    //   err => dispatch(checkoutFailed(err))
+    // );
+  };
+};
+
+export const checkoutSuccess = (item, totalItem, totalAmount, buyer) => {
+  swal("Berhasil Memesan!", "Tunggu tim kami menghubungi Anda", "success");
+
+  return {
+    type: "CHECKOUT_SUCCESS",
+    payload: item,
+    totalItem: totalItem,
+    totalAmount: totalAmount,
+    buyer: buyer
+  };
+};
+
+export const checkoutFailed = () => {
+  swal("Gagal!", "Maaf, Pemesanan Anda Gagal", "error");
+  return {
+    type: "CHECKOUT_FAILED"
   };
 };

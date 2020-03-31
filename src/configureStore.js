@@ -11,7 +11,6 @@ export default function configureStore(allReducer) {
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const store = createStore(
     createRootReducer(history),
-
     allReducer,
     composeEnhancer(applyMiddleware(thunk, routerMiddleware(history)))
   );
