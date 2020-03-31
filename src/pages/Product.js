@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import ProductList from "../components/ProductList";
 import { Badge, Pagination, Row, Col } from "react-bootstrap";
-import Cart from "./components/Cart";
+import Cart from "../components/Cart";
 
 class Product extends Component {
   constructor(props) {
