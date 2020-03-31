@@ -26,7 +26,6 @@ function App() {
         </Col>
       </Row>
       <Footer></Footer>
-      <Cart></Cart>
     </Container>
   );
 }
