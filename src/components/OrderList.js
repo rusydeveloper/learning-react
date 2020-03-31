@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { Card, Row, Col, Image, Button } from "react-bootstrap";
 import defaultProductImage from "../assets/open-box.png";
-import { addCart } from "../actions";
-import { useDispatch } from "react-redux";
+import { addCart, removeCart } from "../actions";
+import { useSelector, useDispatch } from "react-redux";
+import { FaTrashAlt } from "react-icons/fa";
 
 function OrderList(props) {
   const dispatch = useDispatch();
-  // console.log(props.products);
+
+  const cart = useSelector(state => state.cart);
   return (
     <div>
+      <h4>Konfirmasi Pesanan</h4>
       {props.products.map((product, index) => (
         <Card className="product-card">
           <Card.Body>
@@ -40,15 +43,15 @@ function OrderList(props) {
                     <Button
                       size="sm"
                       variant="outline-dark"
-                      onClick={() => dispatch(addCart(product))}
+                      onClick={() => dispatch(removeCart(product, index))}
                     >
-                      hapus
+                      <FaTrashAlt />
                     </Button>
                   </Col>
                   <Col size="9">
                     <Button
                       size="sm"
-                      variant="warning"
+                      variant="outline-danger"
                       block
                       onClick={() => dispatch(addCart(product))}
                     >
@@ -61,6 +64,17 @@ function OrderList(props) {
           </Card.Body>
         </Card>
       ))}
+      <div className="checkout-container">
+        <div className="checkout-title">
+          <span className="darkgrey-text">SUBTOTAL: </span>
+          <br />
+          Rp {cart.totalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+        </div>
+        <small>harga belum termasuk biaya kirim</small>
+        <Button size="sm" variant="danger" block>
+          Selesai
+        </Button>
+      </div>
     </div>
   );
 }
