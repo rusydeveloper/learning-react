@@ -10,7 +10,7 @@ function Checkout() {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("Potong Gaji");
 
   const dispatch = useDispatch();
 
@@ -20,42 +20,42 @@ function Checkout() {
         <Card.Body>
           <Card.Title>Keterangan Pembeli</Card.Title>
           <Card.Text>
-            <label>Nama Lengkap:</label>
-            <br />
             <input
               type="text"
               onChange={event => setName(event.target.value)}
               placeholder="Nama Lengkap"
               required
             />
-            <br />
-            <label>Alamat:</label>
-            <br />
-            <input
-              type="text"
-              onChange={event => setAddress(event.target.value)}
-              placeholder="Alamat"
-              required
-            />
-            <label>Nomor Telphone:</label>
-            <br />
+            <hr />
+
             <input
               type="text"
               onChange={event => setPhone(event.target.value)}
-              placeholder="Alamat"
+              placeholder="Nomor handphone"
               required
             />
 
+            <hr />
+            <label>Alamat Lengkap:</label>
             <br />
-            <label>Pilih metode bayar:</label>
+            <textarea
+              onChange={event => setAddress(event.target.value)}
+              placeholder="Alamat"
+              required
+            ></textarea>
+
+            <hr />
 
             <div class="form-group">
-              <label for="sel1">Select list:</label>
+              <label>Pilih metode bayar:</label>
+
               <select
                 class="form-control"
                 onChange={event => setPaymentMethod(event.target.value)}
               >
-                <option value="Potong Gaji">Potong Gaji</option>
+                <option value="Potong Gaji" selected>
+                  Potong Gaji
+                </option>
                 <option value="Transfer">Transfer</option>
                 <option value="Cash">Tunai</option>
               </select>
@@ -71,8 +71,8 @@ function Checkout() {
                   cart.totalItem,
                   cart.totalAmount,
                   name,
-                  address,
                   phone,
+                  address,
                   paymentMethod
                 )
               )
