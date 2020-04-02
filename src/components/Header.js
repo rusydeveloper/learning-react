@@ -16,7 +16,7 @@ function Header() {
           <img src={logoFKBK} className="App-logo" alt="logo" />
         </Navbar.Brand>
       </Navbar>
-      <Nav className="mr-auto">
+      {/* <Nav className="mr-auto">
         <Nav>
           <Link className="navbar" to="/">
             Produk
@@ -61,7 +61,7 @@ function Header() {
             )}
           </NavDropdown>
         </Nav>
-      </Nav>
+      </Nav> */}
     </div>
   );
 }

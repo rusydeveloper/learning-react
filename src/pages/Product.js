@@ -3,11 +3,12 @@ import axios from "axios";
 import ProductList from "../components/ProductList";
 import { Badge, Pagination, Row, Col } from "react-bootstrap";
 import Cart from "../components/Cart";
+import { server } from "../constants/server";
 
 class Product extends Component {
   constructor(props) {
     super(props);
-    this.url_api = "https://fkbk-api.nectico.com";
+    this.url_api = server;
     this.state = {
       products: [],
       next_page_url: "",

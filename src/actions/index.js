@@ -80,21 +80,23 @@ export const checkout = (
     paymentMethod: paymentMethod
   };
 
+  const orderInput = {
+    item,
+    totalItem,
+    totalAmount,
+    checkoutInput
+  };
+  const url_api = server;
+
   return function action(dispatch) {
-    dispatch(checkoutSuccess(item, totalItem, totalAmount, checkoutInput));
-    dispatch(clearCart());
-
-    dispatch(push("/"));
-
-    // const url_api = server;
-
-    // return axios.post(url_api + "/api/auth/login", checkoutInput).then(
-    //   response => {
-    //     dispatch(checkoutSuccess(response));
-    //     dispatch(push("/"));
-    //   },
-    //   err => dispatch(checkoutFailed(err))
-    // );
+    return axios.post(url_api + "/api/order/submit", orderInput).then(
+      response => {
+        dispatch(checkoutSuccess(item, totalItem, totalAmount, checkoutInput));
+        dispatch(clearCart());
+        dispatch(push("/"));
+      },
+      err => dispatch(checkoutFailed(err))
+    );
   };
 };
 
