@@ -1,180 +1,95 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import ProductList from "../components/ProductList";
 import { Badge, Pagination, Row, Col } from "react-bootstrap";
 import Cart from "../components/Cart";
-import { server } from "../constants/server";
+import {
+  loadProducts,
+  loadCategories,
+  searchProduct,
+  selectCategory,
+  loadProductPageUrl,
+} from "../actions";
+import { useDispatch, useSelector } from "react-redux";
 
-class Product extends Component {
-  constructor(props) {
-    super(props);
-    this.url_api = server;
-    this.state = {
-      products: [],
-      next_page_url: "",
-      prev_page_url: "",
-      first_page_url: "",
-      last_page_url: "",
-      categories: [],
-      search: "",
-      current_page: 0,
-      last_page: 0,
-      total: 0
-    };
+function Product() {
+  const dispatch = useDispatch();
 
-    this.selectCategory = this.selectCategory.bind(this);
-    this.searchProduct = this.searchProduct.bind(this);
-    this.changePage = this.changePage.bind(this);
-    this.allCategory = this.allCategory.bind(this);
-  }
-  searchProduct(event) {
-    this.setState({ search: event.target.value });
-    axios
-      .get(this.url_api + "/api/product/search/" + this.state.search)
-      .then(response => {
-        this.setState({
-          products: response.data.data,
-          total: response.data.total,
-          current_page: response.data.current_page,
-          last_page: response.data.last_page,
-          next_page_url: response.data.next_page_url,
-          prev_page_url: response.data.prev_page_url,
-          first_page_url: response.data.first_page_url,
-          last_page_url: response.data.last_page_url
-        });
-      });
-  }
+  useEffect(() => {
+    dispatch(loadProducts());
+    dispatch(loadCategories());
+  }, []);
 
-  allCategory(e) {
-    axios.get(this.url_api + "/api/product/").then(response => {
-      this.setState({
-        products: response.data.data,
-        total: response.data.total,
-        current_page: response.data.current_page,
-        last_page: response.data.last_page,
-        next_page_url: response.data.next_page_url,
-        prev_page_url: response.data.prev_page_url,
-        first_page_url: response.data.first_page_url,
-        last_page_url: response.data.last_page_url
-      });
-    });
-  }
+  const products = useSelector((state) => state.product.items);
+  const categories = useSelector((state) => state.product.categories);
+  const next_page_url = useSelector((state) => state.product.next_page_url);
+  const prev_page_url = useSelector((state) => state.product.prev_page_url);
+  const first_page_url = useSelector((state) => state.product.first_page_url);
+  const last_page_url = useSelector((state) => state.product.last_page_url);
+  const current_page = useSelector((state) => state.product.current_page);
+  const last_page = useSelector((state) => state.product.last_page);
+  const total = useSelector((state) => state.product.total);
 
-  selectCategory(id, e) {
-    axios.get(this.url_api + "/api/product/category/" + id).then(response => {
-      this.setState({
-        products: response.data.data,
-        total: response.data.total,
-        current_page: response.data.current_page,
-        last_page: response.data.last_page,
-        next_page_url: response.data.next_page_url,
-        prev_page_url: response.data.prev_page_url,
-        first_page_url: response.data.first_page_url,
-        last_page_url: response.data.last_page_url
-      });
-    });
-  }
-
-  changePage(url, e) {
-    axios.get(url).then(response => {
-      this.setState({
-        products: response.data.data,
-        total: response.data.total,
-        current_page: response.data.current_page,
-        last_page: response.data.last_page,
-        next_page_url: response.data.next_page_url,
-        prev_page_url: response.data.prev_page_url,
-        first_page_url: response.data.first_page_url,
-        last_page_url: response.data.last_page_url
-      });
-    });
-  }
-  componentDidMount() {
-    axios.get(this.url_api + "/api/product").then(response => {
-      this.setState({
-        products: response.data.data,
-        total: response.data.total,
-        current_page: response.data.current_page,
-        last_page: response.data.last_page,
-        next_page_url: response.data.next_page_url,
-        prev_page_url: response.data.prev_page_url,
-        first_page_url: response.data.first_page_url,
-        last_page_url: response.data.last_page_url
-      });
-    });
-
-    axios.get(this.url_api + "/api/category").then(response => {
-      this.setState({
-        categories: response.data
-      });
-    });
-  }
-
-  render() {
-    return (
+  return (
+    <div>
       <div>
         <div className="search-container">
           <input
             className="search-box"
-            onChange={this.searchProduct}
-            value={this.state.search}
+            onChange={(event) => dispatch(searchProduct(event.target.value))}
             placeholder="Cari nama barang"
           />
         </div>
         <hr />
-        <div className="horizontal-scroll">
+      </div>
+      <div className="horizontal-scroll">
+        <Badge
+          variant="warning"
+          className="horizontal-menu "
+          onClick={() => dispatch(loadProducts())}
+        >
+          Semua
+        </Badge>
+        {categories.map((category) => (
           <Badge
             variant="warning"
             className="horizontal-menu "
-            onClick={e => this.allCategory(e)}
+            onClick={() => dispatch(selectCategory(category.id))}
           >
-            Semua
+            {category.name}
           </Badge>
-          {this.state.categories.map(category => (
-            <Badge
-              variant="warning"
-              className="horizontal-menu "
-              onClick={e => this.selectCategory(category.id, e)}
-            >
-              {category.name}
-            </Badge>
-          ))}{" "}
-        </div>
-        <hr />
-        <small className="small-header">
-          total:{" "}
-          {this.state.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
-          produk, halaman {this.state.current_page} dari {this.state.last_page}
-        </small>
-        <ProductList products={this.state.products} />{" "}
-        <Row>
-          <Col></Col>
-          <Col>
-            <Pagination>
-              <Pagination.First
-                onClick={e => this.changePage(this.state.first_page_url, e)}
-              />
-              <Pagination.Prev
-                onClick={e => this.changePage(this.state.prev_page_url, e)}
-              />
-
-              <Pagination.Item active>
-                {this.state.current_page}
-              </Pagination.Item>
-
-              <Pagination.Next
-                onClick={e => this.changePage(this.state.next_page_url, e)}
-              />
-              <Pagination.Last
-                onClick={e => this.changePage(this.state.last_page_url, e)}
-              />
-            </Pagination>
-          </Col>
-          <Col></Col>
-        </Row>
-        <Cart></Cart>
+        ))}{" "}
       </div>
-    );
-  }
+      <hr />
+      <small className="small-header">
+        total: {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} produk,
+        halaman {current_page} dari {last_page}
+      </small>
+      <ProductList products={products} />{" "}
+      <Row>
+        <Col></Col>
+        <Col>
+          <Pagination>
+            <Pagination.First
+              onClick={() => dispatch(loadProductPageUrl(first_page_url))}
+            />
+            <Pagination.Prev
+              onClick={() => dispatch(loadProductPageUrl(prev_page_url))}
+            />
+
+            <Pagination.Item active>{current_page}</Pagination.Item>
+
+            <Pagination.Next
+              onClick={() => dispatch(loadProductPageUrl(next_page_url))}
+            />
+            <Pagination.Last
+              onClick={() => dispatch(loadProductPageUrl(last_page_url))}
+            />
+          </Pagination>
+        </Col>
+        <Col></Col>
+      </Row>
+      <Cart></Cart>
+    </div>
+  );
 }
 export default Product;
