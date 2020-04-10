@@ -4,13 +4,15 @@ import loggedReducer from "./isLogged";
 import userReducer from "./user";
 import cartReducer from "./cart";
 import orderReducer from "./order";
+import productReducer from "./product";
 
-const allReducers = history =>
+const allReducers = (history) =>
   combineReducers({
     router: connectRouter(history),
     isLogged: loggedReducer,
     user: userReducer,
+    product: productReducer,
     cart: cartReducer,
-    order: orderReducer
+    order: orderReducer,
   });
 export default allReducers;

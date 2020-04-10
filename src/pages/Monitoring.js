@@ -5,9 +5,11 @@ import { server } from "../constants/server";
 function Monitoring() {
   const url_api = server;
 
-  const [isLoggedIn, setEmail] = useState(sessionStorage.getItem("isLoggedIn"));
-  const [userName, setPassword] = useState(sessionStorage.getItem("userName"));
-  const [userToken, setPassword] = useState(
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    sessionStorage.getItem("isLoggedIn")
+  );
+  const [userName, setUserName] = useState(sessionStorage.getItem("userName"));
+  const [userToken, setUserToken] = useState(
     sessionStorage.getItem("userToken")
   );
   const [userId, setPassword] = useState(sessionStorage.getItem("userId"));

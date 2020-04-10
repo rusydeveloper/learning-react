@@ -11,13 +11,12 @@ class Signup extends Component {
       email: "",
       phone: "",
       password: "",
-      repassword: ""
+      repassword: "",
     };
 
     this.signup = this.signup.bind(this);
     this.emailChange = this.emailChange.bind(this);
     this.phoneChange = this.phoneChange.bind(this);
-
     this.passwordChange = this.passwordChange.bind(this);
     this.repasswordChange = this.repasswordChange.bind(this);
   }
@@ -28,7 +27,7 @@ class Signup extends Component {
       email: this.state.email,
       phone: this.state.phone,
       password: this.state.password,
-      repassword: this.state.repassword
+      repassword: this.state.repassword,
     });
     alert(
       "A name was submitted: " +
@@ -42,28 +41,28 @@ class Signup extends Component {
   }
   nameChange(event) {
     this.setState({
-      name: event.target.value
+      name: event.target.value,
     });
   }
 
   emailChange(event) {
     this.setState({
-      email: event.target.value
+      email: event.target.value,
     });
   }
   phoneChange(event) {
     this.setState({
-      phone: event.target.value
+      phone: event.target.value,
     });
   }
   passwordChange(event) {
     this.setState({
-      password: event.target.value
+      password: event.target.value,
     });
   }
   repasswordChange(event) {
     this.setState({
-      repassword: event.target.value
+      repassword: event.target.value,
     });
   }
 
