@@ -1,7 +1,7 @@
 const initialCartState = {
   items: [],
   totalItem: 0,
-  totalAmount: 0
+  totalAmount: 0,
 };
 
 const cartReducer = (state = initialCartState, action) => {
@@ -11,24 +11,24 @@ const cartReducer = (state = initialCartState, action) => {
         ...state,
         items: [...state.items, action.payload],
         totalItem: state.totalItem + 1,
-        totalAmount: state.totalAmount + action.payload.price
+        totalAmount: state.totalAmount + action.payload.buying_price,
       };
     case "REMOVE":
       return {
         ...state,
         items: [
           ...state.items.slice(0, action.position),
-          ...state.items.slice(action.position + 1)
+          ...state.items.slice(action.position + 1),
         ],
         totalItem: state.totalItem - 1,
-        totalAmount: state.totalAmount - action.payload.price
+        totalAmount: state.totalAmount - action.payload.buying_price,
       };
     case "CLEAR":
       return {
         ...state,
         items: [],
         totalItem: 0,
-        totalAmount: 0
+        totalAmount: 0,
       };
     default:
       return state;
