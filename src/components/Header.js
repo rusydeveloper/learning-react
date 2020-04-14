@@ -7,15 +7,17 @@ import { logout } from "../actions";
 import { push } from "connected-react-router";
 
 function Header() {
-  const isLogged = useSelector(state => state.isLogged);
+  const isLogged = useSelector((state) => state.isLogged);
   const dispatch = useDispatch();
   return (
     <div>
       <Navbar bg="light" expand="lg" sticky="top">
         <Navbar.Brand href="/">
-          <img src={logoFKBK} className="App-logo" alt="logo" />
+          SEJUK Bandung
+          {/* <img src={logoFKBK} className="App-logo" alt="logo" /> */}
         </Navbar.Brand>
       </Navbar>
+      <small>Beli barang supplier untuk koperasi</small>
       {/* <Nav className="mr-auto">
         <Nav>
           <Link className="navbar" to="/">
