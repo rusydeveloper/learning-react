@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import ProductList from "../components/ProductList";
-import { Badge, Pagination, Row, Col } from "react-bootstrap";
+import { Badge, Pagination, Row, Col, Navbar } from "react-bootstrap";
 import Cart from "../components/Cart";
 import {
   loadProducts,
@@ -31,7 +31,7 @@ function Product() {
 
   return (
     <div>
-      <div>
+      <Navbar sticky="top">
         <div className="search-container">
           <input
             className="search-box"
@@ -39,8 +39,8 @@ function Product() {
             placeholder="Cari nama barang"
           />
         </div>
-        <hr />
-      </div>
+      </Navbar>
+      <hr />
       <div className="horizontal-scroll">
         <Badge
           variant="warning"

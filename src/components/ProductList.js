@@ -12,35 +12,32 @@ function ProductList(props) {
 
   return (
     <div>
-      {props.products.map((product) => (
-        <Card className="product-card">
-          <Card.Body>
-            <Row>
-              <Col xs={3} s={3} md={3} lg={3} style={{ textAlign: "right" }}>
-                {product.image ? (
-                  <Image
-                    className="product-icon"
-                    src={server_url + product.image}
-                    rounded
-                  />
-                ) : (
-                  <Image
-                    className="product-icon"
-                    src={defaultProductImage}
-                    rounded
-                  />
-                )}
-              </Col>
-              <Col>
-                {" "}
-                <small className="product-title">{product.name}</small>
-                <br />
-                <small className="product-price">
+      <div class="flex-container">
+        {props.products.map((product) => (
+          <div class="card card-product">
+            {product.image ? (
+              <img
+                class="card-img-top product-icon"
+                src={server_url + product.image}
+                alt="Card image cap"
+              />
+            ) : (
+              <img
+                class="card-img-top product-icon"
+                src={defaultProductImage}
+                alt="Card image cap"
+              />
+            )}
+
+            <div class="card-body">
+              <p class="card-text">
+                <div className="product-title">{product.name}</div>
+                <div className="product-price">
                   Rp{" "}
                   {product.buying_price
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-                </small>
+                </div>
                 <br />
                 <Button
                   size="sm"
@@ -50,11 +47,11 @@ function ProductList(props) {
                 >
                   pesan
                 </Button>
-              </Col>
-            </Row>
-          </Card.Body>
-        </Card>
-      ))}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

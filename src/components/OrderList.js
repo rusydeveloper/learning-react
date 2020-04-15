@@ -16,7 +16,7 @@ function OrderList(props) {
         <Card className="product-card">
           <Card.Body>
             <Row>
-              <Col xs={3} s={3} md={3} lg={3} style={{ textAlign: "right" }}>
+              <Col xs={6} s={6} md={6} lg={6} style={{ textAlign: "right" }}>
                 <Image
                   className="product-icon"
                   src={defaultProductImage}
@@ -31,7 +31,7 @@ function OrderList(props) {
                 <br />
                 <small className="product-price">
                   Rp{" "}
-                  {product.price
+                  {product.buying_price
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                 </small>

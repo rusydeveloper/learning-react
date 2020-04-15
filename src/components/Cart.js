@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { push } from "connected-react-router";
 
 function Cart() {
-  const cart = useSelector(state => state.cart);
+  const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   return (
@@ -16,7 +16,7 @@ function Cart() {
         <Button
           size="sm"
           block
-          variant="danger"
+          variant="warning"
           onClick={() => dispatch(push("/order"))}
         >
           selesai

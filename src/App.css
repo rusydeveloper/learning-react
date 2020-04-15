@@ -2,17 +2,14 @@
   text-align: center;
 }
 
-.search-section {
-  margin: 10px;
-}
-
 .cart-container {
   padding: 5px;
   position: fixed !important;
   bottom: 10px;
-  width: 90%;
+  left: 25px;
+  width: 90% !important;
   margin: auto;
-  background-color: darkblue !important;
+  background-color: #004d8c !important;
   color: white;
   z-index: 99 !important;
 }
@@ -30,18 +27,11 @@
   text-align: right;
   color: grey;
 }
-.product-title {
-  font-size: 14pt;
-  font-weight: bold;
-}
-.product-price {
-  font-size: 12pt;
-  font-weight: bold;
-}
+
 .search-box {
-  width: 100%;
+  width: 300px;
   border-radius: 0px 5px 5px 0px;
-  height: 40px;
+  height: 50px;
   padding-left: 5px;
 }
 .search-container {
@@ -49,9 +39,11 @@
   position: sticky;
   top: 0;
   z-index: 99;
-  height: 55px;
+  width: 400px;
+  height: 65px;
   padding-top: 10px;
   background-color: #f7f7f7;
+  margin-left: -20px;
 }
 .horizontal-menu {
   margin-left: 5px;
@@ -89,17 +81,9 @@
   color: #61dafb;
 }
 
-.nectico-logo {
-  height: 8vmin;
-  pointer-events: none;
-}
-
-.dinas-logo {
-  height: 18vmin;
-  pointer-events: none;
-}
 .footer {
   text-align: center;
+  height: 100px;
 }
 
 .grey {
@@ -109,6 +93,46 @@
   background-color: #fcd736 !important;
 }
 .product-icon {
-  height: 50px;
+  width: 150px !important;
   background-color: #f3f3f3;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.card-product {
+  margin: 5px;
+  width: 150px;
+}
+
+.product-title {
+  font-size: 10pt;
+  width: 120px;
+  height: 40px;
+}
+.product-price {
+  font-size: 10pt;
+  height: 10px;
+}
+
+.powered-nectico-logo {
+  height: 25px;
+  padding: 5px;
+}
+.sejuk-logo {
+  height: 75px;
+  padding: 5px;
+}
+.dinas-logo {
+  height: 75px;
+  padding: 5px;
+  margin: 5px;
+}
+
+.flex-container-brand {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
 }

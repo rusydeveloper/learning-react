@@ -6,7 +6,7 @@ import { push } from "connected-react-router";
 import { Button } from "react-bootstrap";
 
 function Order() {
-  const cart = useSelector(state => state.cart);
+  const cart = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
 
@@ -22,7 +22,7 @@ function Order() {
         <small>harga belum termasuk biaya kirim</small>
         <Button
           size="sm"
-          variant="danger"
+          variant="warning"
           block
           onClick={() => dispatch(push("/checkout"))}
         >
