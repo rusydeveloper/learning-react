@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { checkout } from "../actions";
 
 function Checkout() {
-  const cart = useSelector(state => state.cart);
+  const cart = useSelector((state) => state.cart);
 
   const [name, setName] = useState("");
+  const [cooperative, setCooperative] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("Potong Gaji");
@@ -22,15 +23,22 @@ function Checkout() {
           <Card.Text>
             <input
               type="text"
-              onChange={event => setName(event.target.value)}
+              onChange={(event) => setName(event.target.value)}
               placeholder="Nama Lengkap"
+              required
+            />
+            <hr />
+            <input
+              type="text"
+              onChange={(event) => setCooperative(event.target.value)}
+              placeholder="Nama Koperasi"
               required
             />
             <hr />
 
             <input
               type="text"
-              onChange={event => setPhone(event.target.value)}
+              onChange={(event) => setPhone(event.target.value)}
               placeholder="Nomor handphone"
               required
             />
@@ -39,7 +47,7 @@ function Checkout() {
             <label>Alamat Lengkap:</label>
             <br />
             <textarea
-              onChange={event => setAddress(event.target.value)}
+              onChange={(event) => setAddress(event.target.value)}
               placeholder="Alamat"
               required
             ></textarea>
@@ -51,11 +59,8 @@ function Checkout() {
 
               <select
                 class="form-control"
-                onChange={event => setPaymentMethod(event.target.value)}
+                onChange={(event) => setPaymentMethod(event.target.value)}
               >
-                <option value="Potong Gaji" selected>
-                  Potong Gaji
-                </option>
                 <option value="Transfer">Transfer</option>
                 <option value="Cash">Tunai</option>
               </select>
@@ -73,7 +78,8 @@ function Checkout() {
                   name,
                   phone,
                   address,
-                  paymentMethod
+                  paymentMethod,
+                  cooperative
                 )
               )
             }

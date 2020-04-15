@@ -138,13 +138,15 @@ export const checkout = (
   name,
   phone,
   address,
-  paymentMethod
+  paymentMethod,
+  cooperative
 ) => {
   const checkoutInput = {
     name: name,
     phone: phone,
     address: address,
     paymentMethod: paymentMethod,
+    cooperative: cooperative,
   };
 
   const orderInput = {
