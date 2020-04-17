@@ -16,16 +16,22 @@ function ProductList(props) {
         {props.products.map((product) => (
           <div class="card card-product">
             {product.image ? (
-              <img
-                class="card-img-top product-icon"
-                src={server_url + product.image}
-                alt="Card image cap"
-              />
+              <div>
+                {" "}
+                <img
+                  class="card-img-top product-icon"
+                  src={server_url + product.image}
+                  alt="Image Broken Link"
+                  onError={(e) => {
+                    e.target.src = defaultProductImage;
+                  }}
+                />
+              </div>
             ) : (
               <img
                 class="card-img-top product-icon"
                 src={defaultProductImage}
-                alt="Card image cap"
+                alt="No Default Product Image"
               />
             )}
 
