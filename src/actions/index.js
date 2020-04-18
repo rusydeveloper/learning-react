@@ -114,8 +114,63 @@ export const selectCategory = (id) => {
 };
 
 export const addCart = (item) => {
+  const addCardInput = {
+    id: item.id,
+    user_id: item.user_id,
+    business_id: item.business_id,
+    barcode: item.barcode,
+    name: item.name,
+    type: item.type,
+    price: item.price,
+    buying_price: item.buying_price,
+    stock: item.stock,
+    status: item.status,
+    unique_id: item.unique_id,
+    totalSubitem: 1,
+    totalSubamount: item.buying_price,
+  };
   return function action(dispatch) {
-    dispatch({ type: "ADD", payload: item });
+    dispatch({ type: "ADD", payload: addCardInput });
+  };
+};
+
+export const plusCart = (item) => {
+  const plusCardInput = {
+    id: item.id,
+    user_id: item.user_id,
+    business_id: item.business_id,
+    barcode: item.barcode,
+    name: item.name,
+    type: item.type,
+    price: item.price,
+    buying_price: item.buying_price,
+    stock: item.stock,
+    status: item.status,
+    unique_id: item.unique_id,
+  };
+
+  return function action(dispatch) {
+    dispatch({ type: "PLUS", payload: plusCardInput });
+  };
+};
+
+export const minusCart = (item) => {
+  const minusCardInput = {
+    id: item.id,
+    user_id: item.user_id,
+    business_id: item.business_id,
+    barcode: item.barcode,
+    name: item.name,
+    type: item.type,
+    price: item.price,
+    buying_price: item.buying_price,
+    stock: item.stock,
+    status: item.status,
+    unique_id: item.unique_id,
+  };
+
+  return function action(dispatch) {
+    dispatch({ type: "MINUS", payload: minusCardInput });
   };
 };
 

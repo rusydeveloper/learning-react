@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { Button } from "react-bootstrap";
 import defaultProductImage from "../assets/open-box.png";
-import { addCart } from "../actions";
+import { addCart, plusCart, minusCart } from "../actions";
 import { useDispatch } from "react-redux";
 import { server } from "../constants/server";
 
@@ -48,7 +48,10 @@ function ProductItem(props) {
               <Button
                 size="sm"
                 variant="light"
-                onClick={() => setCount(count - 1)}
+                onClick={() => {
+                  dispatch(minusCart(props.product));
+                  setCount(count - 1);
+                }}
               >
                 -{" "}
               </Button>
@@ -57,7 +60,7 @@ function ProductItem(props) {
                 size="sm"
                 variant="warning"
                 onClick={() => {
-                  dispatch(addCart(props.product));
+                  dispatch(plusCart(props.product));
                   setCount(count + 1);
                 }}
               >
