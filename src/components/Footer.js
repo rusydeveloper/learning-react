@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import logoNectico from "../assets/logo-nectico.png";
-import logoDinas from "../assets/logo-dinas.png";
 
 class Footer extends Component {
   constructor(props) {

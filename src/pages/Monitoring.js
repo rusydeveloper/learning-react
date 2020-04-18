@@ -1,19 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Chart } from "react-google-charts";
-import { server } from "../constants/server";
 
 function Monitoring() {
-  const url_api = server;
-
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    sessionStorage.getItem("isLoggedIn")
-  );
-  const [userName, setUserName] = useState(sessionStorage.getItem("userName"));
-  const [userToken, setUserToken] = useState(
-    sessionStorage.getItem("userToken")
-  );
-  const [userId, setPassword] = useState(sessionStorage.getItem("userId"));
-
   return (
     <div>
       <Chart

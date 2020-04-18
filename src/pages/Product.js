@@ -17,7 +17,7 @@ function Product() {
   useEffect(() => {
     dispatch(loadProducts());
     dispatch(loadCategories());
-  }, []);
+  }, [dispatch]);
 
   const products = useSelector((state) => state.product.items);
   const categories = useSelector((state) => state.product.categories);

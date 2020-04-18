@@ -1,6 +1,4 @@
 import React from "react";
-import { Nav, Navbar } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
 import logoDinasBandung from "../assets/logo-bandung-dinas.png";
 import logoSejuk from "../assets/logo-sejuk.png";
 import logoPoweredNectico from "../assets/logo-powered-nectico.png";
