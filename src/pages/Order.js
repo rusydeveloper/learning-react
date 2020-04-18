@@ -12,10 +12,10 @@ function Order() {
 
   return (
     <div>
-      <OrderList products={cart.items} />{" "}
+      <OrderList carts={cart.items} />{" "}
       <div className="checkout-container">
         <div className="checkout-title">
-          <span className="darkgrey-text">SUBTOTAL: </span>
+          <span className="darkgrey-text">TOTAL: </span>
           <br />
           Rp {cart.totalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
         </div>

@@ -32,10 +32,8 @@ const cartReducer = (state = initialCartState, action) => {
     case "MINUS":
       var j;
       for (j = 0; j < state.items.length; j++) {
-        console.log(j);
         if (action.payload.id === state.items[j].id) {
           if (state.items[j].totalSubitem > 1) {
-            console.log(state.items);
             state.items[j].totalSubitem -= 1;
             state.items[j].totalSubamount -= state.items[j].buying_price;
             return {
@@ -67,8 +65,8 @@ const cartReducer = (state = initialCartState, action) => {
           ...state.items.slice(0, action.position),
           ...state.items.slice(action.position + 1),
         ],
-        totalItem: state.totalItem - 1,
-        totalAmount: state.totalAmount - action.payload.buying_price,
+        totalItem: state.totalItem - action.payload.totalSubitem,
+        totalAmount: state.totalAmount - action.payload.totalSubamount,
       };
     case "CLEAR":
       return {

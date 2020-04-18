@@ -1,10 +1,6 @@
 import React from "react";
-
-import { Card, Row, Col, Image, Button } from "react-bootstrap";
-import defaultProductImage from "../assets/open-box.png";
-import { addCart, removeCart } from "../actions";
 import { useDispatch } from "react-redux";
-import { FaTrashAlt } from "react-icons/fa";
+import OrderItem from "../components/OrderItem";
 
 function OrderList(props) {
   const dispatch = useDispatch();
@@ -12,55 +8,10 @@ function OrderList(props) {
   return (
     <div>
       <h4>Konfirmasi Pesanan</h4>
-      {props.products.map((product, index) => (
-        <Card className="product-card">
-          <Card.Body>
-            <Row>
-              <Col xs={6} s={6} md={6} lg={6} style={{ textAlign: "right" }}>
-                <Image
-                  className="product-icon"
-                  src={defaultProductImage}
-                  rounded
-                />
-              </Col>
-              <Col>
-                {" "}
-                <small className="product-title">
-                  {product.name.toLowerCase()}
-                </small>
-                <br />
-                <small className="product-price">
-                  Rp{" "}
-                  {product.buying_price
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-                </small>
-                <br />
-                <Row>
-                  <Col size="3">
-                    <Button
-                      size="sm"
-                      variant="outline-dark"
-                      onClick={() => dispatch(removeCart(product, index))}
-                    >
-                      <FaTrashAlt />
-                    </Button>
-                  </Col>
-                  <Col size="9">
-                    <Button
-                      size="sm"
-                      variant="outline-danger"
-                      block
-                      onClick={() => dispatch(addCart(product))}
-                    >
-                      tambah
-                    </Button>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-          </Card.Body>
-        </Card>
+      {props.carts.map((cart, index) => (
+        <div>
+          <OrderItem cart={cart} index={index} />
+        </div>
       ))}
     </div>
   );

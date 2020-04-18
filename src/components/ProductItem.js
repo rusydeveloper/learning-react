@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { Button } from "react-bootstrap";
 import defaultProductImage from "../assets/open-box.png";
-import { addCart, plusCart, minusCart } from "../actions";
+import { addCart } from "../actions";
 import { useDispatch } from "react-redux";
 import { server } from "../constants/server";
 
@@ -43,7 +43,7 @@ function ProductItem(props) {
               .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
           </div>
           <br />
-          {count > 0 ? (
+          {/* {count > 0 ? (
             <div>
               <Button
                 size="sm"
@@ -81,7 +81,20 @@ function ProductItem(props) {
                 pesan
               </Button>
             </div>
-          )}
+          )} */}
+          <div>
+            <Button
+              size="sm"
+              variant="warning"
+              block
+              onClick={() => {
+                dispatch(addCart(props.product));
+                setCount(count + 1);
+              }}
+            >
+              pesan
+            </Button>
+          </div>
         </p>
       </div>
     </div>
