@@ -17,7 +17,7 @@ function ProductItem(props) {
         <div>
           {" "}
           <img
-            class="card-img-top product-icon"
+            class="card-img-top product-icon image-fit "
             src={server_url + props.product.image}
             alt=""
             onError={(e) => {

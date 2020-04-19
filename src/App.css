@@ -140,3 +140,9 @@
 .count-product-order {
   margin: 0px 10px;
 }
+
+.image-fit {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}

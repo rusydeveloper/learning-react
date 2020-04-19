@@ -9,19 +9,23 @@ function Cart() {
 
   return (
     <div>
-      <Card className="cart-container">
-        {" "}
-        {cart.totalItem} Barang | Rp{" "}
-        {cart.totalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-        <Button
-          size="sm"
-          block
-          variant="warning"
-          onClick={() => dispatch(push("/order"))}
-        >
-          selesai
-        </Button>
-      </Card>
+      {cart.totalItem > 0 ? (
+        <Card className="cart-container">
+          {" "}
+          {cart.totalItem} Barang | Rp{" "}
+          {cart.totalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+          <Button
+            size="sm"
+            block
+            variant="warning"
+            onClick={() => dispatch(push("/order"))}
+          >
+            selesai
+          </Button>
+        </Card>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
