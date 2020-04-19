@@ -128,6 +128,7 @@ export const addCart = (item) => {
     unique_id: item.unique_id,
     totalSubitem: 1,
     totalSubamount: item.buying_price,
+    image: item.image,
   };
   return function action(dispatch) {
     dispatch({ type: "ADD", payload: addCardInput });
@@ -147,6 +148,7 @@ export const plusCart = (item) => {
     stock: item.stock,
     status: item.status,
     unique_id: item.unique_id,
+    image: item.image,
   };
 
   return function action(dispatch) {
@@ -167,6 +169,7 @@ export const minusCart = (item) => {
     stock: item.stock,
     status: item.status,
     unique_id: item.unique_id,
+    image: item.image,
   };
 
   return function action(dispatch) {

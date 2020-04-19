@@ -5,9 +5,11 @@ import defaultProductImage from "../assets/open-box.png";
 import { removeCart, plusCart, minusCart } from "../actions";
 import { useDispatch } from "react-redux";
 import { FaTrashAlt } from "react-icons/fa";
+import { server } from "../constants/server";
 
 function OrderItem(props) {
   const dispatch = useDispatch();
+  const server_url = server + "/";
 
   return (
     <div>
@@ -15,11 +17,30 @@ function OrderItem(props) {
         <Card.Body>
           <Row>
             <Col xs={6} s={6} md={6} lg={6} style={{ textAlign: "right" }}>
-              <Image
+              {props.cart.image ? (
+                <div>
+                  {" "}
+                  <img
+                    class="card-img-top product-icon image-fit "
+                    src={server_url + props.cart.image}
+                    alt=""
+                    onError={(e) => {
+                      e.target.src = defaultProductImage;
+                    }}
+                  />
+                </div>
+              ) : (
+                <img
+                  class="card-img-top product-icon"
+                  src={defaultProductImage}
+                  alt=""
+                />
+              )}
+              {/* <Image
                 className="product-icon"
                 src={defaultProductImage}
                 rounded
-              />
+              /> */}
             </Col>
             <Col>
               {" "}
