@@ -19,9 +19,10 @@ function ProductItem(props) {
           <img
             class="card-img-top product-icon image-fit "
             src={server_url + props.product.image}
-            alt="no image"
+            alt="image"
             onError={(e) => {
               e.target.src = defaultProductImage;
+              e.target.alt = "broken";
             }}
           />
         </div>
