@@ -19,7 +19,7 @@ function ProductItem(props) {
           <img
             class="card-img-top product-icon image-fit "
             src={server_url + props.product.image}
-            alt=""
+            alt="no image"
             onError={(e) => {
               e.target.src = defaultProductImage;
             }}
@@ -29,7 +29,7 @@ function ProductItem(props) {
         <img
           class="card-img-top product-icon"
           src={defaultProductImage}
-          alt=""
+          alt="no link"
         />
       )}
 
