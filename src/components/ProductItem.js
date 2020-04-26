@@ -89,7 +89,7 @@ function ProductItem(props) {
               variant="warning"
               block
               onClick={() => {
-                dispatch(addCart(props.product));
+                dispatch(addCart(props.product, ""));
                 setCount(count + 1);
               }}
             >

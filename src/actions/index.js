@@ -76,6 +76,36 @@ export const searchProduct = (event) => {
   };
 };
 
+export const loadCampaigns = () => {
+  const url_api = server;
+
+  return function action(dispatch) {
+    return axios.get(url_api + "/api/campaigns").then(
+      (response) => {
+        dispatch({ type: "LOAD_CAMPAIGN", payload: response });
+      },
+      (err) => dispatch(loadFailed(err))
+    );
+  };
+};
+
+export const searchCampaign = (event) => {
+  const url_api = server;
+
+  return function action(dispatch) {
+    if (event) {
+      return axios.get(url_api + "/api/campaign/search/" + event).then(
+        (response) => {
+          dispatch({ type: "LOAD_CAMPAIGN", payload: response });
+        },
+        (err) => dispatch(loadFailed(err))
+      );
+    } else {
+      dispatch(loadCampaigns());
+    }
+  };
+};
+
 export const loadProductPageUrl = (productPageUrl) => {
   return function action(dispatch) {
     return axios.get(productPageUrl).then(
@@ -113,7 +143,30 @@ export const selectCategory = (id) => {
   };
 };
 
-export const addCart = (item) => {
+export const addCartOrder = (item, campaign_id) => {
+  const addCardInput = {
+    id: item.product.id,
+    user_id: item.product.user_id,
+    business_id: item.product.business_id,
+    barcode: item.product.barcode,
+    name: item.product.name,
+    type: item.product.type,
+    price: item.product.price,
+    buying_price: item.product_initial_price,
+    stock: item.product.stock,
+    status: item.product.status,
+    unique_id: item.product.unique_id,
+    totalSubitem: 1,
+    totalSubamount: item.product_initial_price,
+    image: item.image,
+    campaign_id: campaign_id,
+  };
+  return function action(dispatch) {
+    dispatch({ type: "ADD_CAMPAIGN_ORDER", payload: addCardInput });
+  };
+};
+
+export const addCart = (item, campaign_id) => {
   const addCardInput = {
     id: item.id,
     user_id: item.user_id,
@@ -129,6 +182,7 @@ export const addCart = (item) => {
     totalSubitem: 1,
     totalSubamount: item.buying_price,
     image: item.image,
+    campaign_id: campaign_id,
   };
   return function action(dispatch) {
     dispatch({ type: "ADD", payload: addCardInput });

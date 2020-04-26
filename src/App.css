@@ -108,13 +108,53 @@
 }
 
 .product-title {
-  font-size: 10pt;
-  width: 120px;
-  height: 75px;
+  font-size: 13pt;
+  width: 100%;
+  height: 20px;
+  font-weight: 700;
 }
 .product-price {
   font-size: 10pt;
   height: 10px;
+}
+
+.card-campaign {
+  margin: 5px;
+  width: 250px;
+}
+
+.campaign-target {
+  font-size: 10pt;
+  width: 100%;
+}
+
+.campaign-container {
+  margin: 20px 0px;
+}
+
+.product-initial-price {
+  font-size: 10pt;
+  height: 10px;
+  text-decoration: line-through;
+}
+
+.campaign-notes {
+  font-size: 8pt;
+  color: red;
+}
+.campaign-duration {
+  font-size: 10pt;
+  color: #067bff;
+  font-weight: 900;
+  text-align: right;
+  margin: 10px 0px;
+}
+
+.product-tiering-price {
+  font-size: 14pt;
+  height: 10px;
+  color: red;
+  font-weight: 900;
 }
 
 .powered-nectico-logo {

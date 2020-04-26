@@ -13,6 +13,14 @@ const cartReducer = (state = initialCartState, action) => {
         totalItem: state.totalItem + 1,
         totalAmount: state.totalAmount + action.payload.buying_price,
       };
+    case "ADD_CAMPAIGN_ORDER":
+      return {
+        ...state,
+        items: [...state.items, action.payload],
+        totalItem: state.totalItem + 1,
+        totalAmount: state.totalAmount + action.payload.buying_price,
+      };
+
     case "PLUS":
       var i;
       for (i = 0; i < state.items.length; i++) {

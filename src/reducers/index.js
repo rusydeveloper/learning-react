@@ -5,6 +5,7 @@ import userReducer from "./user";
 import cartReducer from "./cart";
 import orderReducer from "./order";
 import productReducer from "./product";
+import campaignReducer from "./campaign";
 
 const allReducers = (history) =>
   combineReducers({
@@ -14,5 +15,6 @@ const allReducers = (history) =>
     product: productReducer,
     cart: cartReducer,
     order: orderReducer,
+    campaign: campaignReducer,
   });
 export default allReducers;
