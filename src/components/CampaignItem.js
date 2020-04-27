@@ -45,12 +45,12 @@ function CampaignItem(props) {
   }
   return (
     <div class="card card-campaign">
-      {props.campaign.image ? (
+      {props.campaign.product.image ? (
         <div>
           {" "}
           <img
             class="card-img-top campaign-icon image-fit "
-            src={server_url + props.campaign.image}
+            src={server_url + props.campaign.product.image}
             alt="image"
             onError={(e) => {
               e.target.src = defaultProductImage;
