@@ -5,6 +5,7 @@ import Monitoring from "./pages/Monitoring";
 import Login from "./pages/Login";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import BottomNav from "./components/BottomNav";
 import { Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row, Col } from "react-bootstrap";
@@ -28,6 +29,7 @@ function App() {
           </Switch>
         </Col>
       </Row>
+      <BottomNav></BottomNav>
       <Footer></Footer>
     </Container>
   );

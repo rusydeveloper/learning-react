@@ -4,6 +4,74 @@ import { server } from "../constants/server";
 import { push } from "connected-react-router";
 import swal from "sweetalert";
 
+export const signup = (
+  name,
+  registerEmail,
+  phone,
+  address,
+  cooperative,
+  registerPassword,
+  registerRepassword
+) => {
+  const signupInput = {
+    name: name,
+    email: registerEmail,
+    phone: phone,
+    address: address,
+    cooperative: cooperative,
+    password: registerPassword,
+    password_confirmation: registerRepassword,
+  };
+
+  return function action(dispatch) {
+    dispatch({ type: "SIGNUP" });
+    const url_api = server;
+    if (registerPassword != registerRepassword) {
+      dispatch(passwordNotMatch());
+    }
+
+    return axios.post(url_api + "/api/auth/signup", signupInput).then(
+      (response) => {
+        dispatch(signupSuccess(response));
+        dispatch(signupLoginSuccess(response));
+
+        dispatch(push("/login"));
+      },
+      (err) => dispatch(signupFailed(err))
+    );
+  };
+};
+
+export const signupSuccess = (data) => {
+  swal("Berhasil!", "Anda berhasil terdaftar dan masuk", "success");
+  return {
+    type: "SIGNUP_SUCCESS",
+    payload: data,
+  };
+};
+
+export const signupLoginSuccess = (data) => {
+  return {
+    type: "LOGIN_SUCCESS",
+    payload: data,
+  };
+};
+
+export const signupFailed = (data) => {
+  swal("Gagal!", "Data yang anda masukan salah " + data, "error");
+  return {
+    type: "SIGNUP_FAILED",
+    payload: data,
+  };
+};
+
+export const passwordNotMatch = () => {
+  swal("Gagal!", "Password dan Ulangi Password tidak sama", "error");
+  return {
+    type: "PASSWORD_NOT_MATCH",
+  };
+};
+
 export const login = (email, password) => {
   const loginInput = {
     email: email,
@@ -16,7 +84,8 @@ export const login = (email, password) => {
     return axios.post(url_api + "/api/auth/login", loginInput).then(
       (response) => {
         dispatch(loginSuccess(response));
-        dispatch(push("/"));
+        dispatch(loadUser(response));
+        dispatch(push("/login"));
       },
       (err) => dispatch(loginFailed(err))
     );
@@ -27,6 +96,12 @@ export const loginSuccess = (data) => {
   swal("Berhasil!", "Anda berhasil masuk", "success");
   return {
     type: "LOGIN_SUCCESS",
+    payload: data,
+  };
+};
+export const loadUser = (data) => {
+  return {
+    type: "LOAD_USER",
     payload: data,
   };
 };
