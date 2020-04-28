@@ -29,7 +29,7 @@ function BottomNav() {
         <br />
         Pesanan
       </div>
-      <div class="bottom-nav-menu" onClick={() => dispatch(push("/login"))}>
+      <div class="bottom-nav-menu" onClick={() => dispatch(push("/user"))}>
         <span class="fa fa-user"></span>
         <br />
         Saya

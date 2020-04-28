@@ -34,6 +34,7 @@ export const signup = (
       (response) => {
         dispatch(signupSuccess(response));
         dispatch(signupLoginSuccess(response));
+        dispatch(loadBusiness(response));
 
         dispatch(push("/login"));
       },
@@ -85,6 +86,7 @@ export const login = (email, password) => {
       (response) => {
         dispatch(loginSuccess(response));
         dispatch(loadUser(response));
+        dispatch(loadBusiness(response));
         dispatch(push("/login"));
       },
       (err) => dispatch(loginFailed(err))
@@ -106,6 +108,13 @@ export const loadUser = (data) => {
   };
 };
 
+export const loadBusiness = (data) => {
+  return {
+    type: "LOAD_BUSINESS",
+    payload: data,
+  };
+};
+
 export const loginFailed = (data) => {
   swal("Gagal!", "Email atau password yang anda masukan salah", "error");
   return {
@@ -116,8 +125,25 @@ export const loginFailed = (data) => {
 
 export const logout = () => {
   return function action(dispatch) {
-    dispatch(push("/"));
-    dispatch({ type: "LOGOUT" });
+    swal({
+      title: "Apakah kamu yakin untuk keluar dari akun kamu?",
+      text:
+        "Kamu tidak dapat melakukan belanja online apabila keluar dari akun kamu!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        dispatch(push("/"));
+        dispatch({ type: "LOGOUT_USER" });
+        dispatch({ type: "REMOVE_BUSINESS" });
+        swal("Kamu berhasi keluar dari akun kamu!", {
+          icon: "success",
+        });
+      } else {
+        swal("Kamu dapat melanjutkan belanja online!");
+      }
+    });
   };
 };
 
@@ -322,15 +348,19 @@ export const checkout = (
   item,
   totalItem,
   totalAmount,
+  userId,
   name,
   phone,
+  businessId,
+  cooperative,
   address,
-  paymentMethod,
-  cooperative
+  paymentMethod
 ) => {
   const checkoutInput = {
+    user_id: userId,
     name: name,
     phone: phone,
+    business_id: businessId,
     address: address,
     paymentMethod: paymentMethod,
     cooperative: cooperative,
@@ -345,14 +375,23 @@ export const checkout = (
   const url_api = server;
 
   return function action(dispatch) {
-    return axios.post(url_api + "/api/order/submit", orderInput).then(
-      (response) => {
-        dispatch(checkoutSuccess(item, totalItem, totalAmount, checkoutInput));
-        dispatch(clearCart());
-        dispatch(push("/"));
-      },
-      (err) => dispatch(checkoutFailed(err))
-    );
+    if (checkoutInput.user_id) {
+      return axios.post(url_api + "/api/order/submit", orderInput).then(
+        (response) => {
+          dispatch(
+            checkoutSuccess(item, totalItem, totalAmount, checkoutInput)
+          );
+          dispatch(clearCart());
+          dispatch(push("/"));
+        },
+        (err) => dispatch(checkoutFailed(err))
+      );
+    } else {
+      swal(
+        "Maaf, kamu harus login atau daftar terlebih dahulu untuk melanjutkan pemesanan!"
+      );
+      dispatch(push("/login"));
+    }
   };
 };
 

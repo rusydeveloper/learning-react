@@ -12,8 +12,7 @@ function Cart() {
       {cart.totalItem > 0 ? (
         <Card className="cart-container">
           {" "}
-          {cart.totalItem} Barang | Rp{" "}
-          {cart.totalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+          {cart.totalItem} Barang Terpilih
           <Button
             size="sm"
             block
