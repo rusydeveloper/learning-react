@@ -24,7 +24,7 @@ function BottomNav() {
       <div class="bottom-nav-menu">
         <span
           class="fa fa-archive"
-          onClick={() => dispatch(push("/order"))}
+          onClick={() => dispatch(push("/invoice"))}
         ></span>
         <br />
         Pesanan

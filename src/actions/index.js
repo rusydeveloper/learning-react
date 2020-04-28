@@ -450,3 +450,16 @@ export const checkoutFailed = () => {
     type: "CHECKOUT_FAILED",
   };
 };
+
+export const loadInvoices = () => {
+  const url_api = server;
+
+  return function action(dispatch) {
+    return axios.get(url_api + "/api/invoice").then(
+      (response) => {
+        dispatch({ type: "LOAD_INVOICE", payload: response });
+      },
+      (err) => dispatch(loadFailed(err))
+    );
+  };
+};

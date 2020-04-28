@@ -7,6 +7,7 @@ import orderReducer from "./order";
 import productReducer from "./product";
 import campaignReducer from "./campaign";
 import businessReducer from "./business";
+import invoiceReducer from "./invoice";
 
 const allReducers = (history) =>
   combineReducers({
@@ -18,5 +19,6 @@ const allReducers = (history) =>
     cart: cartReducer,
     order: orderReducer,
     campaign: campaignReducer,
+    invoice: invoiceReducer,
   });
 export default allReducers;
