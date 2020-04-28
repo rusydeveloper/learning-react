@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Card, Row, Col, Image, Button } from "react-bootstrap";
+import { Card, Row, Col, Button } from "react-bootstrap";
 import defaultProductImage from "../assets/open-box.png";
 import { removeCart, plusCart, minusCart } from "../actions";
 import { useDispatch } from "react-redux";
@@ -36,11 +36,6 @@ function OrderItem(props) {
                   alt=""
                 />
               )}
-              {/* <Image
-                className="product-icon"
-                src={defaultProductImage}
-                rounded
-              /> */}
             </Col>
             <Col>
               {" "}

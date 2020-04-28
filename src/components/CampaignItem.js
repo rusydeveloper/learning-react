@@ -68,7 +68,9 @@ function CampaignItem(props) {
 
       <div class="card-body">
         <p class="card-text">
-          <div className="product-title">{props.campaign.product.name}</div>
+          <div className="campaign-product-title">
+            {props.campaign.product.name}
+          </div>
           <br />
           <span className="product-tiering-price">
             * Rp{" "}
@@ -158,7 +160,13 @@ function CampaignItem(props) {
               variant="warning"
               block
               onClick={() => {
-                dispatch(addCartOrder(props.campaign, props.campaign.id));
+                dispatch(
+                  addCartOrder(
+                    props.campaign,
+                    props.campaign.id,
+                    props.campaign.product.image
+                  )
+                );
                 setCount(count + 1);
               }}
             >

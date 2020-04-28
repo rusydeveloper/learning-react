@@ -11,7 +11,8 @@ export const signup = (
   address,
   cooperative,
   registerPassword,
-  registerRepassword
+  registerRepassword,
+  cartItem
 ) => {
   const signupInput = {
     name: name,
@@ -35,8 +36,22 @@ export const signup = (
         dispatch(signupSuccess(response));
         dispatch(signupLoginSuccess(response));
         dispatch(loadBusiness(response));
-
-        dispatch(push("/login"));
+        if (cartItem > 0) {
+          swal({
+            title: "Apakah kamu mau melanjutkan proses belanja?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          }).then((continueShopping) => {
+            if (continueShopping) {
+              dispatch(push("/order"));
+            } else {
+              dispatch(push("/user"));
+            }
+          });
+        } else {
+          dispatch(push("/user"));
+        }
       },
       (err) => dispatch(signupFailed(err))
     );
@@ -73,7 +88,7 @@ export const passwordNotMatch = () => {
   };
 };
 
-export const login = (email, password) => {
+export const login = (email, password, cartItem) => {
   const loginInput = {
     email: email,
     password: password,
@@ -87,7 +102,22 @@ export const login = (email, password) => {
         dispatch(loginSuccess(response));
         dispatch(loadUser(response));
         dispatch(loadBusiness(response));
-        dispatch(push("/login"));
+        if (cartItem > 0) {
+          swal({
+            title: "Apakah kamu mau melanjutkan proses belanja?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          }).then((continueShopping) => {
+            if (continueShopping) {
+              dispatch(push("/order"));
+            } else {
+              dispatch(push("/user"));
+            }
+          });
+        } else {
+          dispatch(push("/user"));
+        }
       },
       (err) => dispatch(loginFailed(err))
     );
@@ -244,7 +274,7 @@ export const selectCategory = (id) => {
   };
 };
 
-export const addCartOrder = (item, campaign_id) => {
+export const addCartOrder = (item, campaign_id, campaign_image) => {
   const addCardInput = {
     id: item.product.id,
     user_id: item.product.user_id,
@@ -259,7 +289,7 @@ export const addCartOrder = (item, campaign_id) => {
     unique_id: item.product.unique_id,
     totalSubitem: 1,
     totalSubamount: item.product_initial_price,
-    image: item.image,
+    image: campaign_image,
     campaign_id: campaign_id,
   };
   return function action(dispatch) {

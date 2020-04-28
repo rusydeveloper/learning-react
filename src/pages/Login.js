@@ -20,6 +20,7 @@ function Login() {
 
   const user = useSelector((state) => state.user);
   const business = useSelector((state) => state.business);
+  const cart = useSelector((state) => state.cart);
 
   return (
     <div>
@@ -81,7 +82,7 @@ function Login() {
               <Button
                 type="submit"
                 value="Submit"
-                onClick={() => dispatch(login(email, password))}
+                onClick={() => dispatch(login(email, password, cart.totalItem))}
                 block
                 variant="warning"
               >
@@ -166,7 +167,8 @@ function Login() {
                       address,
                       cooperative,
                       registerPassword,
-                      registerRepassword
+                      registerRepassword,
+                      cart.totalItem
                     )
                   )
                 }
