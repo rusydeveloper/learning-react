@@ -4,7 +4,91 @@ import { server } from "../constants/server";
 import { push } from "connected-react-router";
 import swal from "sweetalert";
 
-export const login = (email, password) => {
+export const signup = (
+  name,
+  registerEmail,
+  phone,
+  address,
+  cooperative,
+  registerPassword,
+  registerRepassword,
+  cartItem
+) => {
+  const signupInput = {
+    name: name,
+    email: registerEmail,
+    phone: phone,
+    address: address,
+    cooperative: cooperative,
+    password: registerPassword,
+    password_confirmation: registerRepassword,
+  };
+
+  return function action(dispatch) {
+    dispatch({ type: "SIGNUP" });
+    const url_api = server;
+    if (registerPassword != registerRepassword) {
+      dispatch(passwordNotMatch());
+    }
+
+    return axios.post(url_api + "/api/auth/signup", signupInput).then(
+      (response) => {
+        dispatch(signupSuccess(response));
+        dispatch(signupLoginSuccess(response));
+        dispatch(loadBusiness(response));
+        if (cartItem > 0) {
+          swal({
+            title: "Apakah kamu mau melanjutkan proses belanja?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          }).then((continueShopping) => {
+            if (continueShopping) {
+              dispatch(push("/order"));
+            } else {
+              dispatch(push("/user"));
+            }
+          });
+        } else {
+          dispatch(push("/user"));
+        }
+      },
+      (err) => dispatch(signupFailed(err))
+    );
+  };
+};
+
+export const signupSuccess = (data) => {
+  swal("Berhasil!", "Anda berhasil terdaftar dan masuk", "success");
+  return {
+    type: "SIGNUP_SUCCESS",
+    payload: data,
+  };
+};
+
+export const signupLoginSuccess = (data) => {
+  return {
+    type: "LOGIN_SUCCESS",
+    payload: data,
+  };
+};
+
+export const signupFailed = (data) => {
+  swal("Gagal!", "Data yang anda masukan salah " + data, "error");
+  return {
+    type: "SIGNUP_FAILED",
+    payload: data,
+  };
+};
+
+export const passwordNotMatch = () => {
+  swal("Gagal!", "Password dan Ulangi Password tidak sama", "error");
+  return {
+    type: "PASSWORD_NOT_MATCH",
+  };
+};
+
+export const login = (email, password, cartItem) => {
   const loginInput = {
     email: email,
     password: password,
@@ -16,7 +100,24 @@ export const login = (email, password) => {
     return axios.post(url_api + "/api/auth/login", loginInput).then(
       (response) => {
         dispatch(loginSuccess(response));
-        dispatch(push("/"));
+        dispatch(loadUser(response));
+        dispatch(loadBusiness(response));
+        if (cartItem > 0) {
+          swal({
+            title: "Apakah kamu mau melanjutkan proses belanja?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          }).then((continueShopping) => {
+            if (continueShopping) {
+              dispatch(push("/order"));
+            } else {
+              dispatch(push("/user"));
+            }
+          });
+        } else {
+          dispatch(push("/user"));
+        }
       },
       (err) => dispatch(loginFailed(err))
     );
@@ -27,6 +128,19 @@ export const loginSuccess = (data) => {
   swal("Berhasil!", "Anda berhasil masuk", "success");
   return {
     type: "LOGIN_SUCCESS",
+    payload: data,
+  };
+};
+export const loadUser = (data) => {
+  return {
+    type: "LOAD_USER",
+    payload: data,
+  };
+};
+
+export const loadBusiness = (data) => {
+  return {
+    type: "LOAD_BUSINESS",
     payload: data,
   };
 };
@@ -41,8 +155,25 @@ export const loginFailed = (data) => {
 
 export const logout = () => {
   return function action(dispatch) {
-    dispatch(push("/"));
-    dispatch({ type: "LOGOUT" });
+    swal({
+      title: "Apakah kamu yakin untuk keluar dari akun kamu?",
+      text:
+        "Kamu tidak dapat melakukan belanja online apabila keluar dari akun kamu!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        dispatch(push("/"));
+        dispatch({ type: "LOGOUT_USER" });
+        dispatch({ type: "REMOVE_BUSINESS" });
+        swal("Kamu berhasi keluar dari akun kamu!", {
+          icon: "success",
+        });
+      } else {
+        swal("Kamu dapat melanjutkan belanja online!");
+      }
+    });
   };
 };
 
@@ -72,6 +203,36 @@ export const searchProduct = (event) => {
       );
     } else {
       dispatch(loadProducts());
+    }
+  };
+};
+
+export const loadCampaigns = () => {
+  const url_api = server;
+
+  return function action(dispatch) {
+    return axios.get(url_api + "/api/campaigns").then(
+      (response) => {
+        dispatch({ type: "LOAD_CAMPAIGN", payload: response });
+      },
+      (err) => dispatch(loadFailed(err))
+    );
+  };
+};
+
+export const searchCampaign = (event) => {
+  const url_api = server;
+
+  return function action(dispatch) {
+    if (event) {
+      return axios.get(url_api + "/api/campaign/search/" + event).then(
+        (response) => {
+          dispatch({ type: "LOAD_CAMPAIGN", payload: response });
+        },
+        (err) => dispatch(loadFailed(err))
+      );
+    } else {
+      dispatch(loadCampaigns());
     }
   };
 };
@@ -113,7 +274,30 @@ export const selectCategory = (id) => {
   };
 };
 
-export const addCart = (item) => {
+export const addCartOrder = (item, campaign_id, campaign_image) => {
+  const addCardInput = {
+    id: item.product.id,
+    user_id: item.product.user_id,
+    business_id: item.product.business_id,
+    barcode: item.product.barcode,
+    name: item.product.name,
+    type: item.product.type,
+    price: item.product.price,
+    buying_price: item.product_initial_price,
+    stock: item.product.stock,
+    status: item.product.status,
+    unique_id: item.product.unique_id,
+    totalSubitem: 1,
+    totalSubamount: item.product_initial_price,
+    image: campaign_image,
+    campaign_id: campaign_id,
+  };
+  return function action(dispatch) {
+    dispatch({ type: "ADD_CAMPAIGN_ORDER", payload: addCardInput });
+  };
+};
+
+export const addCart = (item, campaign_id) => {
   const addCardInput = {
     id: item.id,
     user_id: item.user_id,
@@ -129,6 +313,7 @@ export const addCart = (item) => {
     totalSubitem: 1,
     totalSubamount: item.buying_price,
     image: item.image,
+    campaign_id: campaign_id,
   };
   return function action(dispatch) {
     dispatch({ type: "ADD", payload: addCardInput });
@@ -193,15 +378,19 @@ export const checkout = (
   item,
   totalItem,
   totalAmount,
+  userId,
   name,
   phone,
+  businessId,
+  cooperative,
   address,
-  paymentMethod,
-  cooperative
+  paymentMethod
 ) => {
   const checkoutInput = {
+    user_id: userId,
     name: name,
     phone: phone,
+    business_id: businessId,
     address: address,
     paymentMethod: paymentMethod,
     cooperative: cooperative,
@@ -216,14 +405,23 @@ export const checkout = (
   const url_api = server;
 
   return function action(dispatch) {
-    return axios.post(url_api + "/api/order/submit", orderInput).then(
-      (response) => {
-        dispatch(checkoutSuccess(item, totalItem, totalAmount, checkoutInput));
-        dispatch(clearCart());
-        dispatch(push("/"));
-      },
-      (err) => dispatch(checkoutFailed(err))
-    );
+    if (checkoutInput.user_id) {
+      return axios.post(url_api + "/api/order/submit", orderInput).then(
+        (response) => {
+          dispatch(
+            checkoutSuccess(item, totalItem, totalAmount, checkoutInput)
+          );
+          dispatch(clearCart());
+          dispatch(push("/"));
+        },
+        (err) => dispatch(checkoutFailed(err))
+      );
+    } else {
+      swal(
+        "Maaf, kamu harus login atau daftar terlebih dahulu untuk melanjutkan pemesanan!"
+      );
+      dispatch(push("/login"));
+    }
   };
 };
 

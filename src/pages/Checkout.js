@@ -11,7 +11,7 @@ function Checkout() {
   const [cooperative, setCooperative] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("Potong Gaji");
+  const [paymentMethod, setPaymentMethod] = useState("Transfer");
 
   const dispatch = useDispatch();
 

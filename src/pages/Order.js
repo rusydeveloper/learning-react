@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import OrderList from "../components/OrderList";
 import { push } from "connected-react-router";
 import { Button } from "react-bootstrap";
+import { checkout } from "../actions";
 
 function Order() {
   const cart = useSelector((state) => state.cart);
+  const user = useSelector((state) => state.user);
+  const business = useSelector((state) => state.business);
+
+  const [paymentMethod, setPaymentMethod] = useState("Transfer");
 
   const dispatch = useDispatch();
 
@@ -20,11 +25,40 @@ function Order() {
           Rp {cart.totalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
         </div>
         <small>harga belum termasuk biaya kirim</small>
+
+        <div class="form-group">
+          <label>Pilih metode bayar:</label>
+
+          <select
+            class="form-control"
+            onChange={(event) => setPaymentMethod(event.target.value)}
+          >
+            <option value="Transfer" selected>
+              Transfer
+            </option>
+          </select>
+        </div>
+
         <Button
           size="sm"
           variant="warning"
           block
-          onClick={() => dispatch(push("/checkout"))}
+          onClick={() =>
+            dispatch(
+              checkout(
+                cart.items,
+                cart.totalItem,
+                cart.totalAmount,
+                user.id,
+                user.name,
+                user.phone,
+                business.id,
+                business.name,
+                business.address,
+                paymentMethod
+              )
+            )
+          }
         >
           Selesai
         </Button>

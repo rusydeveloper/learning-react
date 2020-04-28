@@ -5,13 +5,37 @@
 .cart-container {
   padding: 5px;
   position: fixed !important;
-  bottom: 10px;
+  bottom: 60px;
   left: 25px;
   width: 90% !important;
   margin: auto;
   background-color: #004d8c !important;
   color: white;
   z-index: 99 !important;
+}
+
+.bottom-nav-container {
+  padding: 5px;
+  position: fixed !important;
+  bottom: 0px;
+  left: 0px;
+  width: 100% !important;
+  margin: auto;
+  height: 55px;
+  background-color: white !important;
+  color: #727272;
+  z-index: 99 !important;
+
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+.bottom-nav-menu {
+  width: 80px;
+  margin: 2px 5px;
+  text-align: center;
+  padding: 2px;
+  font-size: 10pt;
 }
 .text-center {
   text-align: center;
@@ -106,15 +130,61 @@
   margin: 5px;
   width: 150px;
 }
+.campaign-product-title {
+  font-size: 13pt;
+  width: 100%;
+  height: 20px;
+  font-weight: 700;
+}
 
 .product-title {
   font-size: 10pt;
-  width: 120px;
-  height: 75px;
+  width: 100%;
+  height: 60px;
+  font-weight: 500;
 }
 .product-price {
   font-size: 10pt;
   height: 10px;
+}
+
+.card-campaign {
+  margin: 5px;
+  width: 250px;
+}
+
+.campaign-target {
+  font-size: 10pt;
+  width: 100%;
+}
+
+.campaign-container {
+  margin: 20px 0px;
+}
+
+.product-initial-price {
+  font-size: 10pt;
+  height: 10px;
+  text-decoration: line-through;
+}
+
+.campaign-notes {
+  font-size: 8pt;
+  color: red;
+}
+.campaign-duration {
+  font-size: 10pt;
+  color: #067bff;
+  font-weight: 900;
+  text-align: right;
+  margin: 10px 0px;
+}
+
+.product-tiering-price {
+  font-size: 14pt;
+  height: 10px;
+  color: red;
+  font-weight: 900;
 }
 
 .powered-nectico-logo {

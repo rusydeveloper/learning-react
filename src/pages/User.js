@@ -4,7 +4,7 @@ import { Button, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { login, signup, logout } from "../actions";
 
-function Login() {
+function User() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,7 +20,6 @@ function Login() {
 
   const user = useSelector((state) => state.user);
   const business = useSelector((state) => state.business);
-  const cart = useSelector((state) => state.cart);
 
   return (
     <div>
@@ -82,7 +81,7 @@ function Login() {
               <Button
                 type="submit"
                 value="Submit"
-                onClick={() => dispatch(login(email, password, cart.totalItem))}
+                onClick={() => dispatch(login(email, password))}
                 block
                 variant="warning"
               >
@@ -167,8 +166,7 @@ function Login() {
                       address,
                       cooperative,
                       registerPassword,
-                      registerRepassword,
-                      cart.totalItem
+                      registerRepassword
                     )
                   )
                 }
@@ -184,4 +182,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default User;

@@ -1,9 +1,13 @@
-const userReducer = (state = [], action) => {
+const initialUserState = {};
+
+const userReducer = (state = initialUserState, action) => {
   switch (action.type) {
-    case "SAVING":
-      return (state = action.payload);
-    case "REMOVE":
-      return (state = []);
+    case "LOAD_USER":
+      return (state = action.payload.data.user);
+    case "SIGNUP_SUCCESS":
+      return (state = action.payload.data.user);
+    case "LOGOUT_USER":
+      return (state = {});
     default:
       return state;
   }

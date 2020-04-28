@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import ProductList from "../components/ProductList";
+import CampaignList from "../components/CampaignList";
 import { Badge, Pagination, Row, Col, Navbar } from "react-bootstrap";
 import Cart from "../components/Cart";
 import {
   loadProducts,
   loadCategories,
+  loadCampaigns,
   searchProduct,
   selectCategory,
   loadProductPageUrl,
@@ -16,10 +18,12 @@ function Product() {
 
   useEffect(() => {
     dispatch(loadProducts());
+    dispatch(loadCampaigns());
     dispatch(loadCategories());
   }, [dispatch]);
 
   const products = useSelector((state) => state.product.items);
+  const campaigns = useSelector((state) => state.campaign.items);
   const categories = useSelector((state) => state.product.categories);
   const next_page_url = useSelector((state) => state.product.next_page_url);
   const prev_page_url = useSelector((state) => state.product.prev_page_url);
@@ -41,6 +45,8 @@ function Product() {
         </div>
       </Navbar>
       <hr />
+      <h5>Belanja Bersama</h5>
+      <CampaignList campaigns={campaigns} /> <hr />
       <div className="horizontal-scroll">
         <Badge
           variant="warning"
@@ -64,7 +70,7 @@ function Product() {
         total: {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} produk,
         halaman {current_page} dari {last_page}
       </small>
-      <ProductList products={products} />{" "}
+      <ProductList products={products} />
       <Row>
         <Col></Col>
         <Col>
