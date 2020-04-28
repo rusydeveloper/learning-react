@@ -451,15 +451,22 @@ export const checkoutFailed = () => {
   };
 };
 
-export const loadInvoices = () => {
+export const loadInvoices = (user_id) => {
   const url_api = server;
 
   return function action(dispatch) {
-    return axios.get(url_api + "/api/invoice").then(
-      (response) => {
-        dispatch({ type: "LOAD_INVOICE", payload: response });
-      },
-      (err) => dispatch(loadFailed(err))
-    );
+    if (user_id) {
+      return axios.get(url_api + "/api/invoice/user/" + user_id).then(
+        (response) => {
+          dispatch({ type: "LOAD_INVOICE", payload: response });
+        },
+        (err) => dispatch(loadFailed(err))
+      );
+    } else {
+      swal(
+        "Maaf, kamu harus login atau daftar terlebih dahulu untuk melihat riwayat pemesanan!"
+      );
+      dispatch(push("/login"));
+    }
   };
 };

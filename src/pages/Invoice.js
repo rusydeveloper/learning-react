@@ -7,9 +7,10 @@ import { loadInvoices } from "../actions";
 
 function Invoice() {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(loadInvoices());
+    dispatch(loadInvoices(user.id));
   }, [dispatch]);
 
   const invoices = useSelector((state) => state.invoice.items);
