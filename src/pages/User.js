@@ -20,6 +20,7 @@ function User() {
 
   const user = useSelector((state) => state.user);
   const business = useSelector((state) => state.business);
+  const wallet = useSelector((state) => state.wallet);
 
   return (
     <div>
@@ -38,6 +39,19 @@ function User() {
           </p>
           <p>{business.name}</p>
           <p>{business.address}</p>
+          <hr />
+          <div class="alert alert-info text-center box-hightlight" role="alert">
+            {wallet.balance > 0 ? (
+              <div>
+                Saldo Kredit: Rp{" "}
+                {wallet.balance
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+              </div>
+            ) : (
+              <div>Saldo Kredit: Rp {wallet.balance}</div>
+            )}
+          </div>
           <Button
             type="submit"
             value="Submit"

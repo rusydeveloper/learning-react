@@ -36,6 +36,7 @@ export const signup = (
         dispatch(signupSuccess(response));
         dispatch(signupLoginSuccess(response));
         dispatch(loadBusiness(response));
+        dispatch(loadWallet(response));
         if (cartItem > 0) {
           swal({
             title: "Apakah kamu mau melanjutkan proses belanja?",
@@ -102,6 +103,8 @@ export const login = (email, password, cartItem) => {
         dispatch(loginSuccess(response));
         dispatch(loadUser(response));
         dispatch(loadBusiness(response));
+        dispatch(loadWallet(response));
+
         if (cartItem > 0) {
           swal({
             title: "Apakah kamu mau melanjutkan proses belanja?",
@@ -139,8 +142,17 @@ export const loadUser = (data) => {
 };
 
 export const loadBusiness = (data) => {
+  console.log(data);
   return {
     type: "LOAD_BUSINESS",
+    payload: data,
+  };
+};
+
+export const loadWallet = (data) => {
+  console.log(data);
+  return {
+    type: "LOAD_WALLET",
     payload: data,
   };
 };
@@ -167,6 +179,7 @@ export const logout = () => {
         dispatch(push("/"));
         dispatch({ type: "LOGOUT_USER" });
         dispatch({ type: "REMOVE_BUSINESS" });
+        dispatch({ type: "REMOVE_WALLLET" });
         swal("Kamu berhasi keluar dari akun kamu!", {
           icon: "success",
         });

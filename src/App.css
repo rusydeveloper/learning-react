@@ -256,3 +256,13 @@
 .payment-description {
   font-size: 10pt;
 }
+
+.text-center {
+  text-align: center;
+}
+
+.box-hightlight {
+  border: #7a7a7a 2px solid;
+  font-weight: 800;
+  font-size: 11pt;
+}
