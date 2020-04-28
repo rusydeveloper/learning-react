@@ -1,11 +1,10 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { push } from "connected-react-router";
 
 function BottomNav() {
   const dispatch = useDispatch();
 
-  const cart = useSelector((state) => state.cart);
   return (
     <div class="bottom-nav-container">
       <div class="bottom-nav-menu">

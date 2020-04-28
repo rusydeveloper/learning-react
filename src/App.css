@@ -36,6 +36,7 @@
   text-align: center;
   padding: 2px;
   font-size: 10pt;
+  cursor: pointer;
 }
 .text-center {
   text-align: center;
