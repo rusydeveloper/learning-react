@@ -397,7 +397,9 @@ export const checkout = (
   businessId,
   cooperative,
   address,
-  paymentMethod
+  paymentMethod,
+  uniqueNumber,
+  walletBalance
 ) => {
   const checkoutInput = {
     user_id: userId,
@@ -414,6 +416,8 @@ export const checkout = (
     totalItem,
     totalAmount,
     checkoutInput,
+    uniqueNumber,
+    walletBalance,
   };
   const url_api = server;
 
@@ -480,6 +484,52 @@ export const loadInvoices = (user_id) => {
         "Maaf, kamu harus login atau daftar terlebih dahulu untuk melihat riwayat pemesanan!"
       );
       dispatch(push("/login"));
+    }
+  };
+};
+
+export const checkLogin = (user_id) => {
+  return function action(dispatch) {
+    if (user_id) {
+      return "login";
+    } else {
+      swal(
+        "Maaf, kamu harus login atau daftar terlebih dahulu untuk melanjutkan pemesanan!"
+      );
+      dispatch(push("/login"));
+    }
+  };
+};
+
+export const checkLoginBeforeCart = (user_id) => {
+  return function action(dispatch) {
+    if (user_id) {
+      dispatch(push("/order"));
+    } else {
+      swal(
+        "Maaf, kamu harus login atau daftar terlebih dahulu untuk melanjutkan pemesanan!"
+      );
+      dispatch(push("/login"));
+      return null;
+    }
+  };
+};
+
+export const checkBalance = (user_id) => {
+  const url_api = server;
+
+  return function action(dispatch) {
+    if (user_id) {
+      return axios.get(url_api + "/api/wallet/user/" + user_id).then(
+        (response) => {
+          dispatch({ type: "CHECK_WALLET", payload: response });
+        },
+        (err) => dispatch(loadFailed(err))
+      );
+    } else {
+      swal("Maaf, kamu harus login atau daftar terlebih dahulu!");
+      dispatch(push("/login"));
+      return null;
     }
   };
 };
