@@ -7,6 +7,8 @@ import orderReducer from "./order";
 import productReducer from "./product";
 import campaignReducer from "./campaign";
 import businessReducer from "./business";
+import invoiceReducer from "./invoice";
+import walletReducer from "./wallet";
 
 const allReducers = (history) =>
   combineReducers({
@@ -18,5 +20,7 @@ const allReducers = (history) =>
     cart: cartReducer,
     order: orderReducer,
     campaign: campaignReducer,
+    invoice: invoiceReducer,
+    wallet: walletReducer,
   });
 export default allReducers;

@@ -8,6 +8,8 @@ const userReducer = (state = initialUserState, action) => {
       return (state = action.payload.data.user);
     case "LOGOUT_USER":
       return (state = {});
+    case "LOAD_USER_FROM_STORAGE":
+      return (state = JSON.parse(action.payload));
     default:
       return state;
   }

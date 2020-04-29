@@ -13,6 +13,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import Signup from "./pages/Signup";
 import Order from "./pages/Order";
 import Checkout from "./pages/Checkout";
+import Invoice from "./pages/Invoice";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/user" component={User} />
             <Route path="/signup" component={Signup} />
             <Route path="/order" component={Order} />
+            <Route path="/invoice" component={Invoice} />
             <Route path="/checkout" component={Checkout} />
           </Switch>
         </Col>
