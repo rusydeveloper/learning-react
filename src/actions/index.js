@@ -37,6 +37,13 @@ export const signup = (
         dispatch(signupLoginSuccess(response));
         dispatch(loadBusiness(response));
         dispatch(loadWallet(response));
+
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        localStorage.setItem(
+          "business",
+          JSON.stringify(response.data.business)
+        );
+
         if (cartItem > 0) {
           swal({
             title: "Apakah kamu mau melanjutkan proses belanja?",
@@ -104,6 +111,11 @@ export const login = (email, password, cartItem) => {
         dispatch(loadUser(response));
         dispatch(loadBusiness(response));
         dispatch(loadWallet(response));
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        localStorage.setItem(
+          "business",
+          JSON.stringify(response.data.business)
+        );
 
         if (cartItem > 0) {
           swal({
@@ -127,6 +139,19 @@ export const login = (email, password, cartItem) => {
   };
 };
 
+export const loadUserFromStorage = (user) => {
+  return {
+    type: "LOAD_USER_FROM_STORAGE",
+    payload: user,
+  };
+};
+
+export const loadBusinessFromStorage = (business) => {
+  return {
+    type: "LOAD_BUSINESS_FROM_STORAGE",
+    payload: business,
+  };
+};
 export const loginSuccess = (data) => {
   swal("Berhasil!", "Anda berhasil masuk", "success");
   return {
@@ -180,6 +205,7 @@ export const logout = () => {
         dispatch({ type: "LOGOUT_USER" });
         dispatch({ type: "REMOVE_BUSINESS" });
         dispatch({ type: "REMOVE_WALLLET" });
+        localStorage.clear();
         swal("Kamu berhasi keluar dari akun kamu!", {
           icon: "success",
         });
@@ -429,7 +455,7 @@ export const checkout = (
             checkoutSuccess(item, totalItem, totalAmount, checkoutInput)
           );
           dispatch(clearCart());
-          dispatch(push("/"));
+          dispatch(push("/invoice"));
         },
         (err) => dispatch(checkoutFailed(err))
       );
@@ -488,19 +514,6 @@ export const loadInvoices = (user_id) => {
   };
 };
 
-export const checkLogin = (user_id) => {
-  return function action(dispatch) {
-    if (user_id) {
-      return "login";
-    } else {
-      swal(
-        "Maaf, kamu harus login atau daftar terlebih dahulu untuk melanjutkan pemesanan!"
-      );
-      dispatch(push("/login"));
-    }
-  };
-};
-
 export const checkLoginBeforeCart = (user_id) => {
   return function action(dispatch) {
     if (user_id) {
@@ -527,8 +540,6 @@ export const checkBalance = (user_id) => {
         (err) => dispatch(loadFailed(err))
       );
     } else {
-      swal("Maaf, kamu harus login atau daftar terlebih dahulu!");
-      dispatch(push("/login"));
       return null;
     }
   };
