@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
+import { push } from "connected-react-router";
+
 import OrderList from "../components/OrderList";
 import { Button } from "react-bootstrap";
 import { checkout } from "../actions";
@@ -17,6 +19,15 @@ function Order() {
   return (
     <div>
       <OrderList carts={cart.items} />{" "}
+      <Button
+        type="submit"
+        value="Submit"
+        variant="outline-danger"
+        onClick={() => dispatch(push("/"))}
+        block
+      >
+        Tambah Produk
+      </Button>
       <div className="checkout-container">
         <div className="checkout-title">
           <span className="darkgrey-text">TOTAL: </span>
