@@ -2,7 +2,7 @@ const initialOrderState = {
   items: [],
   totalItem: 0,
   totalAmount: 0,
-  buyer: {}
+  buyer: {},
 };
 
 const orderReducer = (state = initialOrderState, action) => {
@@ -13,10 +13,15 @@ const orderReducer = (state = initialOrderState, action) => {
         items: action.payload,
         totalItem: action.totalItem,
         totalAmount: action.totalAmount,
-        buyer: action.buyer
+        buyer: action.buyer,
       };
     case "CHECKOUT_FAILED":
       return "FAILED";
+
+    case "PRODUCT_ORDERED":
+      return null;
+    case "PRODUCT_EMPTY":
+      return null;
     default:
       return state;
   }

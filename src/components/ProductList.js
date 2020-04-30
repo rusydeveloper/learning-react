@@ -7,10 +7,10 @@ function ProductList(props) {
   const cart = useSelector((state) => state.cart);
   return (
     <div>
-      <div class="flex-container">
-        {props.products.map((product) => (
-          <div>
-            <ProductItem product={product} cart={cart} />
+      <div className="flex-container">
+        {props.products.map((product, i) => (
+          <div key={i}>
+            <ProductItem product={product} cart={cart} key={i} />
           </div>
         ))}
       </div>

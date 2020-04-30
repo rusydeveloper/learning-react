@@ -21,7 +21,7 @@ function OrderItem(props) {
                 <div>
                   {" "}
                   <img
-                    class="card-img-top product-icon image-fit "
+                    className="card-img-top product-icon image-fit "
                     src={server_url + props.cart.image}
                     alt=""
                     onError={(e) => {
@@ -31,7 +31,7 @@ function OrderItem(props) {
                 </div>
               ) : (
                 <img
-                  class="card-img-top product-icon"
+                  className="card-img-top product-icon"
                   src={defaultProductImage}
                   alt=""
                 />
@@ -78,7 +78,7 @@ function OrderItem(props) {
                 >
                   -{" "}
                 </Button>
-                <span class="count-product-order">
+                <span className="count-product-order">
                   {props.cart.totalSubitem}
                 </span>
                 <Button

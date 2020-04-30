@@ -7,10 +7,10 @@ function CampaignList(props) {
   const cart = useSelector((state) => state.cart);
   return (
     <div>
-      <div class="flex-container">
-        {props.campaigns.map((campaign) => (
-          <div>
-            <CampaignItem campaign={campaign} cart={cart} />
+      <div className="flex-container">
+        {props.campaigns.map((campaign, i) => (
+          <div key={i}>
+            <CampaignItem campaign={campaign} cart={cart} key={i} />
           </div>
         ))}
       </div>

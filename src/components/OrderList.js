@@ -3,8 +3,6 @@ import { useDispatch } from "react-redux";
 import OrderItem from "../components/OrderItem";
 
 function OrderList(props) {
-  const dispatch = useDispatch();
-
   return (
     <div>
       <h4>Konfirmasi Pesanan</h4>

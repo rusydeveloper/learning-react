@@ -4,7 +4,7 @@ import { addArticle } from "../actions/index";
 
 function mapDispatchToProps(dispatch) {
   return {
-    addArticle: article => dispatch(addArticle(article))
+    addArticle: (article) => dispatch(addArticle(article)),
   };
 }
 
@@ -12,7 +12,7 @@ class ConnectedForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: ""
+      title: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);

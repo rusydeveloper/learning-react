@@ -4,6 +4,41 @@ import { server } from "../constants/server";
 import { push } from "connected-react-router";
 import swal from "sweetalert";
 
+var i = 0;
+
+export const checkOrdered = (item, cart) => {
+  if (cart.length > 0) {
+    for (i = 0; i < cart.length; i++) {
+      if (cart[i].id === item) {
+        return function action(dispatch) {
+          dispatch(productOrdered());
+          return true;
+        };
+      }
+    }
+    return function action(dispatch) {
+      dispatch(productEmpty());
+    };
+  } else {
+    return function action(dispatch) {
+      dispatch(productEmpty());
+      return false;
+    };
+  }
+};
+
+export const productOrdered = () => {
+  return {
+    type: "PRODUCT_ORDERED",
+  };
+};
+
+export const productEmpty = () => {
+  return {
+    type: "PRODUCT_EMPTY",
+  };
+};
+
 export const signup = (
   name,
   registerEmail,

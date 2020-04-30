@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Button } from "react-bootstrap";
 import defaultProductImage from "../assets/open-box.png";
-import { addCartOrder } from "../actions";
-import { useDispatch } from "react-redux";
+import { addCartOrder, checkOrdered } from "../actions";
+import { useSelector, useDispatch } from "react-redux";
 import { server } from "../constants/server";
 
 function CampaignItem(props) {
   const dispatch = useDispatch();
   const server_url = server + "/";
   const [count, setCount] = useState(0);
+  const [isOrdered, setOrdered] = useState(false);
+  const cart = useSelector((state) => state.cart);
+
   function timer() {
     var text = "";
     const now = new Date();
@@ -21,21 +24,7 @@ function CampaignItem(props) {
     var minutes = Math.floor(
       d / 1000 / 60 - weekdays * 7 * 24 * 60 - days * 24 * 60 - hours * 60
     );
-    var seconds = Math.floor(
-      d / 1000 -
-        weekdays * 7 * 24 * 60 * 60 -
-        days * 24 * 60 * 60 -
-        hours * 60 * 60 -
-        minutes * 60
-    );
-    var milliseconds = Math.floor(
-      d -
-        weekdays * 7 * 24 * 60 * 60 * 1000 -
-        days * 24 * 60 * 60 * 1000 -
-        hours * 60 * 60 * 1000 -
-        minutes * 60 * 1000 -
-        seconds * 1000
-    );
+
     if (days > 0) {
       text = "sisa " + days + " hari lagi";
     } else {
@@ -43,13 +32,18 @@ function CampaignItem(props) {
     }
     return text;
   }
+
+  useEffect(() => {
+    setOrdered(dispatch(checkOrdered(props.campaign.product_id, cart.items)));
+  }, [dispatch]);
+
   return (
-    <div class="card card-campaign">
+    <div className="card card-campaign">
       {props.campaign.product.image ? (
         <div>
           {" "}
           <img
-            class="card-img-top campaign-icon image-fit "
+            className="card-img-top campaign-icon image-fit "
             src={server_url + props.campaign.product.image}
             alt="image"
             onError={(e) => {
@@ -60,14 +54,14 @@ function CampaignItem(props) {
         </div>
       ) : (
         <img
-          class="card-img-top campaign-icon"
+          className="card-img-top campaign-icon"
           src={defaultProductImage}
           alt="no link"
         />
       )}
 
-      <div class="card-body">
-        <p class="card-text">
+      <div className="card-body">
+        <div className="card-text">
           <div className="campaign-product-title">
             {props.campaign.product.name}
           </div>
@@ -86,10 +80,10 @@ function CampaignItem(props) {
               .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
           </span>
           <br />
-          <div class="campaign-container">
-            <div class="progress">
+          <div className="campaign-container">
+            <div className="progress">
               <div
-                class="progress-bar progress-bar-success progress-bar-striped active"
+                className="progress-bar progress-bar-success progress-bar-striped active"
                 role="progressbar"
                 aria-valuenow="40"
                 aria-valuemin="0"
@@ -115,6 +109,7 @@ function CampaignItem(props) {
             </div>
             <div className="campaign-duration"> {timer()}</div>
           </div>
+
           {/* {count > 0 ? (
             <div>
               <Button
@@ -127,7 +122,7 @@ function CampaignItem(props) {
               >
                 -{" "}
               </Button>
-              <span class="count-product-order">{count}</span>
+              <span className="count-product-order">{count}</span>
               <Button
                 size="sm"
                 variant="warning"
@@ -155,26 +150,41 @@ function CampaignItem(props) {
             </div>
           )} */}
           <div>
-            <Button
-              size="sm"
-              variant="warning"
-              block
-              onClick={() => {
-                dispatch(
-                  addCartOrder(
-                    props.campaign,
-                    props.campaign.id,
-                    props.campaign.product.image
-                  )
-                );
-                setCount(count + 1);
-              }}
-            >
-              pesan
-            </Button>
+            {isOrdered ? (
+              <Button
+                size="sm"
+                variant="secondary"
+                block
+                disabled
+                onClick={() => {
+                  setOrdered(false);
+                }}
+              >
+                sudah dipilih
+              </Button>
+            ) : (
+              <Button
+                size="sm"
+                variant="warning"
+                block
+                onClick={() => {
+                  dispatch(
+                    addCartOrder(
+                      props.campaign,
+                      props.campaign.id,
+                      props.campaign.product.image
+                    )
+                  );
+                  setCount(count + 1);
+                  setOrdered(true);
+                }}
+              >
+                pesan
+              </Button>
+            )}
           </div>
-        </p>
-        <span class="campaign-notes">*syarat & ketentuan berlaku</span>
+        </div>
+        <span className="campaign-notes">*syarat & ketentuan berlaku</span>
       </div>
     </div>
   );

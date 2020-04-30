@@ -12,12 +12,12 @@ function ProductItem(props) {
   const [count, setCount] = useState(0);
 
   return (
-    <div class="card card-product">
+    <div className="card card-product">
       {props.product.image ? (
         <div>
           {" "}
           <img
-            class="card-img-top product-icon image-fit "
+            className="card-img-top product-icon image-fit "
             src={server_url + props.product.image}
             alt="image"
             onError={(e) => {
@@ -28,14 +28,14 @@ function ProductItem(props) {
         </div>
       ) : (
         <img
-          class="card-img-top product-icon"
+          className="card-img-top product-icon"
           src={defaultProductImage}
           alt="no link"
         />
       )}
 
-      <div class="card-body">
-        <p class="card-text">
+      <div className="card-body">
+        <div className="card-text">
           <div className="product-title">{props.product.name}</div>
           <div className="product-price">
             Rp{" "}
@@ -56,7 +56,7 @@ function ProductItem(props) {
               >
                 -{" "}
               </Button>
-              <span class="count-product-order">{count}</span>
+              <span className="count-product-order">{count}</span>
               <Button
                 size="sm"
                 variant="warning"
@@ -96,7 +96,7 @@ function ProductItem(props) {
               pesan
             </Button>
           </div>
-        </p>
+        </div>
       </div>
     </div>
   );

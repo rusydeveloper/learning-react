@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import ProductList from "../components/ProductList";
 import CampaignList from "../components/CampaignList";
 import { Badge, Pagination, Row, Col, Navbar } from "react-bootstrap";
 import Cart from "../components/Cart";
@@ -55,8 +54,9 @@ function Product() {
         >
           Semua
         </Badge>
-        {categories.map((category) => (
+        {categories.map((category, i) => (
           <Badge
+            key={i}
             variant="warning"
             className="horizontal-menu "
             onClick={() => dispatch(selectCategory(category.id))}
@@ -70,7 +70,7 @@ function Product() {
         total: {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} produk,
         halaman {current_page} dari {last_page}
       </small>
-      <ProductList products={products} />
+      {/* <ProductList products={products} /> */}
       <Row>
         <Col></Col>
         <Col>

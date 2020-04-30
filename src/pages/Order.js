@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import OrderList from "../components/OrderList";
-import { push } from "connected-react-router";
 import { Button } from "react-bootstrap";
 import { checkout } from "../actions";
 
@@ -26,11 +25,11 @@ function Order() {
         </div>
         <small>harga belum termasuk biaya kirim</small>
 
-        <div class="form-group">
+        <div className="form-group">
           <label>Pilih metode bayar:</label>
 
           <select
-            class="form-control"
+            className="form-control"
             onChange={(event) => setPaymentMethod(event.target.value)}
           >
             <option value="Transfer" selected>
