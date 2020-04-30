@@ -71,6 +71,14 @@ export const signup = (
         dispatch(signupSuccess(response));
         dispatch(signupLoginSuccess(response));
         dispatch(loadBusiness(response));
+        dispatch(loadWallet(response));
+
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        localStorage.setItem(
+          "business",
+          JSON.stringify(response.data.business)
+        );
+
         if (cartItem > 0) {
           swal({
             title: "Apakah kamu mau melanjutkan proses belanja?",
@@ -137,6 +145,13 @@ export const login = (email, password, cartItem) => {
         dispatch(loginSuccess(response));
         dispatch(loadUser(response));
         dispatch(loadBusiness(response));
+        dispatch(loadWallet(response));
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        localStorage.setItem(
+          "business",
+          JSON.stringify(response.data.business)
+        );
+
         if (cartItem > 0) {
           swal({
             title: "Apakah kamu mau melanjutkan proses belanja?",
@@ -159,6 +174,19 @@ export const login = (email, password, cartItem) => {
   };
 };
 
+export const loadUserFromStorage = (user) => {
+  return {
+    type: "LOAD_USER_FROM_STORAGE",
+    payload: user,
+  };
+};
+
+export const loadBusinessFromStorage = (business) => {
+  return {
+    type: "LOAD_BUSINESS_FROM_STORAGE",
+    payload: business,
+  };
+};
 export const loginSuccess = (data) => {
   swal("Berhasil!", "Anda berhasil masuk", "success");
   return {
@@ -174,8 +202,17 @@ export const loadUser = (data) => {
 };
 
 export const loadBusiness = (data) => {
+  console.log(data);
   return {
     type: "LOAD_BUSINESS",
+    payload: data,
+  };
+};
+
+export const loadWallet = (data) => {
+  console.log(data);
+  return {
+    type: "LOAD_WALLET",
     payload: data,
   };
 };
@@ -202,6 +239,8 @@ export const logout = () => {
         dispatch(push("/"));
         dispatch({ type: "LOGOUT_USER" });
         dispatch({ type: "REMOVE_BUSINESS" });
+        dispatch({ type: "REMOVE_WALLLET" });
+        localStorage.clear();
         swal("Kamu berhasi keluar dari akun kamu!", {
           icon: "success",
         });
@@ -419,7 +458,9 @@ export const checkout = (
   businessId,
   cooperative,
   address,
-  paymentMethod
+  paymentMethod,
+  uniqueNumber,
+  walletBalance
 ) => {
   const checkoutInput = {
     user_id: userId,
@@ -436,6 +477,8 @@ export const checkout = (
     totalItem,
     totalAmount,
     checkoutInput,
+    uniqueNumber,
+    walletBalance,
   };
   const url_api = server;
 
@@ -447,7 +490,7 @@ export const checkout = (
             checkoutSuccess(item, totalItem, totalAmount, checkoutInput)
           );
           dispatch(clearCart());
-          dispatch(push("/"));
+          dispatch(push("/invoice"));
         },
         (err) => dispatch(checkoutFailed(err))
       );
@@ -483,5 +526,56 @@ export const checkoutFailed = () => {
   swal("Gagal!", "Maaf, Pemesanan Anda Gagal", "error");
   return {
     type: "CHECKOUT_FAILED",
+  };
+};
+
+export const loadInvoices = (user_id) => {
+  const url_api = server;
+
+  return function action(dispatch) {
+    if (user_id) {
+      return axios.get(url_api + "/api/invoice/user/" + user_id).then(
+        (response) => {
+          dispatch({ type: "LOAD_INVOICE", payload: response });
+        },
+        (err) => dispatch(loadFailed(err))
+      );
+    } else {
+      swal(
+        "Maaf, kamu harus login atau daftar terlebih dahulu untuk melihat riwayat pemesanan!"
+      );
+      dispatch(push("/login"));
+    }
+  };
+};
+
+export const checkLoginBeforeCart = (user_id) => {
+  return function action(dispatch) {
+    if (user_id) {
+      dispatch(push("/order"));
+    } else {
+      swal(
+        "Maaf, kamu harus login atau daftar terlebih dahulu untuk melanjutkan pemesanan!"
+      );
+      dispatch(push("/login"));
+      return null;
+    }
+  };
+};
+
+export const checkBalance = (user_id) => {
+  const url_api = server;
+
+  return function action(dispatch) {
+    if (user_id) {
+      return axios.get(url_api + "/api/wallet/user/" + user_id).then(
+        (response) => {
+          dispatch({ type: "CHECK_WALLET", payload: response });
+        },
+        (err) => dispatch(loadFailed(err))
+      );
+    } else {
+      return null;
+    }
   };
 };
