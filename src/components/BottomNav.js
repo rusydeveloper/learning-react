@@ -22,7 +22,7 @@ function BottomNav() {
       </div>
       <div className="bottom-nav-menu">
         <span
-          class="fa fa-archive"
+          className="fa fa-archive"
           onClick={() => dispatch(push("/invoice"))}
         ></span>
         <br />

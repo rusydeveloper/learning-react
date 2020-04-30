@@ -9,16 +9,19 @@ import {
   searchProduct,
   selectCategory,
   loadProductPageUrl,
+  checkBalance,
 } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
 
 function Product() {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(loadProducts());
     dispatch(loadCampaigns());
     dispatch(loadCategories());
+    dispatch(checkBalance(user.id));
   }, [dispatch]);
 
   const products = useSelector((state) => state.product.items);

@@ -15,17 +15,14 @@ function Order() {
   const user = useSelector((state) => state.user);
   const business = useSelector((state) => state.business);
   const wallet = useSelector((state) => state.wallet);
-
-  useEffect(() => {
-    dispatch(checkBalance(user.id));
-  }, [dispatch]);
-
   const [paymentMethod, setPaymentMethod] = useState("Transfer");
-
   const unique_number = Math.floor(100 + Math.random() * 900);
 
   var creditPayment = 0;
-
+  useEffect(() => {
+    dispatch(checkBalance(user.id));
+    dispatch(checkLoginBeforeCart(user.id));
+  }, [dispatch]);
   if (wallet.balance > cart.totalAmount + unique_number) {
     creditPayment = cart.totalAmount + unique_number;
   } else {
@@ -33,9 +30,7 @@ function Order() {
   }
   if (!user.id) {
     creditPayment = 0;
-    dispatch(checkLoginBeforeCart(user.id));
   }
-
   const final_invoice = cart.totalAmount + unique_number - creditPayment;
 
   return (
@@ -50,123 +45,106 @@ function Order() {
       >
         Tambah Produk
       </Button>
-      <div className="checkout-container">
-        <div className="checkout-title">
-          <span className="darkgrey-text">TOTAL: </span>
-          <br />
-          Rp {cart.totalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-        </div>
-        <small>harga belum termasuk biaya kirim</small>
-
-        <div className="form-group">
-          <label>Pilih metode bayar:</label>
-
-          <select
-            className="form-control"
-            onChange={(event) => setPaymentMethod(event.target.value)}
-          >
-            <option value="Transfer" selected>
-              Transfer
-            </option>
-          </select>
-        </div>
-        <div className="checkout-container checkout-text">
-          <Row>
-            <Col>Subtotal</Col>
-            <Col>
-              <div class="text-right">
-                {cart.totalAmount
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col>Kode Unik</Col>
-            <Col>
-              <div class="text-right">
-                {unique_number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-              </div>
-            </Col>
-          </Row>
-
-          <Row>
-            <Col>
-              Saldo Kredit{" "}
-              <b>
-                (Rp{" "}
-                {wallet.balance
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-                )
-              </b>
-            </Col>
-
-            <Col>
-              <div class="text-right">
-                <span class="red-text">
-                  -{" "}
-                  {creditPayment
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-                </span>
-              </div>
-            </Col>
-          </Row>
-          <hr />
-          <Row>
-            <Col>Total Akhir</Col>
-            <Col>
-              <div class="text-right">
+      <div className="checkout-container checkout-text">
+        <Row>
+          <Col>Subtotal</Col>
+          <Col>
+            <div className="text-right">
+              {cart.totalAmount
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>Kode Unik</Col>
+          <Col>
+            <div className="text-right">
+              {unique_number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+            </div>
+          </Col>
+        </Row>
+        {wallet.balance ? (
+          <div>
+            <Row>
+              <Col>
+                Saldo Kredit{" "}
                 <b>
-                  Rp{" "}
-                  {final_invoice
+                  (Rp{" "}
+                  {wallet.balance
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                  )
                 </b>
-              </div>
-            </Col>
-          </Row>
-        </div>
-        <small>harga belum termasuk biaya kirim</small>
-        <div class="form-group">
-          <label>Pilih metode bayar:</label>
+              </Col>
 
-          <select
-            class="form-control"
-            onChange={(event) => setPaymentMethod(event.target.value)}
-          >
-            <option value="Transfer" selected>
-              Transfer
-            </option>
-          </select>
-        </div>
-        <Button
-          size="sm"
-          variant="warning"
-          block
-          onClick={() =>
-            dispatch(
-              checkout(
-                cart.items,
-                cart.totalItem,
-                cart.totalAmount,
-                user.id,
-                user.name,
-                user.phone,
-                business.id,
-                business.name,
-                business.address,
-                paymentMethod,
-                unique_number,
-                creditPayment
-              )
-            )
-          }
-        >
-          Selesai
-        </Button>
+              <Col>
+                <div className="text-right">
+                  <span className="red-text">
+                    -{" "}
+                    {creditPayment
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                  </span>
+                </div>
+              </Col>
+            </Row>
+          </div>
+        ) : (
+          <div></div>
+        )}
+
+        <hr />
+        <Row>
+          <Col>Total Akhir</Col>
+          <Col>
+            <div className="text-right">
+              <b>
+                Rp{" "}
+                {final_invoice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+              </b>
+            </div>
+          </Col>
+        </Row>
       </div>
+      <small>harga belum termasuk biaya kirim</small>
+      <div className="form-group">
+        <label>Pilih metode bayar:</label>
+
+        <select
+          className="form-control"
+          onChange={(event) => setPaymentMethod(event.target.value)}
+        >
+          <option value="Transfer" selected>
+            Transfer
+          </option>
+        </select>
+      </div>
+      <Button
+        size="sm"
+        variant="warning"
+        block
+        onClick={() =>
+          dispatch(
+            checkout(
+              cart.items,
+              cart.totalItem,
+              cart.totalAmount,
+              user.id,
+              user.name,
+              user.phone,
+              business.id,
+              business.name,
+              business.address,
+              paymentMethod,
+              unique_number,
+              creditPayment
+            )
+          )
+        }
+      >
+        Selesai
+      </Button>
     </div>
   );
 }
