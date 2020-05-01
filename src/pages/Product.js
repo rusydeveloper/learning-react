@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import CampaignList from "../components/CampaignList";
+import ProductList from "../components/ProductList";
 import { Badge, Pagination, Row, Col, Navbar } from "react-bootstrap";
 import Cart from "../components/Cart";
 import {
@@ -73,7 +74,7 @@ function Product() {
         total: {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} produk,
         halaman {current_page} dari {last_page}
       </small>
-      {/* <ProductList products={products} /> */}
+      <ProductList products={products} />
       <Row>
         <Col></Col>
         <Col>
