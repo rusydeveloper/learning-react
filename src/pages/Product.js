@@ -81,21 +81,36 @@ function Product() {
         <Col></Col>
         <Col>
           <Pagination>
-            <Pagination.First
-              onClick={() => dispatch(loadProductPageUrl(first_page_url))}
-            />
-            <Pagination.Prev
-              onClick={() => dispatch(loadProductPageUrl(prev_page_url))}
-            />
+            {current_page != 1 ? (
+              <div className="flex-container-nowrap">
+                <div>
+                  <Pagination.First
+                    onClick={() => dispatch(loadProductPageUrl(first_page_url))}
+                  />
+                </div>
+                <div>
+                  <Pagination.Prev
+                    onClick={() => dispatch(loadProductPageUrl(prev_page_url))}
+                  />
+                </div>
+              </div>
+            ) : null}
 
             <Pagination.Item active>{current_page}</Pagination.Item>
-
-            <Pagination.Next
-              onClick={() => dispatch(loadProductPageUrl(next_page_url))}
-            />
-            <Pagination.Last
-              onClick={() => dispatch(loadProductPageUrl(last_page_url))}
-            />
+            {current_page != last_page ? (
+              <div className="flex-container-nowrap">
+                <div>
+                  <Pagination.Next
+                    onClick={() => dispatch(loadProductPageUrl(next_page_url))}
+                  />
+                </div>
+                <div>
+                  <Pagination.Last
+                    onClick={() => dispatch(loadProductPageUrl(last_page_url))}
+                  />
+                </div>
+              </div>
+            ) : null}
           </Pagination>
         </Col>
         <Col></Col>

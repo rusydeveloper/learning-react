@@ -287,3 +287,8 @@
 .section-label {
   padding-top: 25px;
 }
+
+.flex-container-nowrap {
+  display: flex;
+  flex-wrap: nowrap;
+}
