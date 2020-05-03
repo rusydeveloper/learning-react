@@ -10,9 +10,7 @@ function Header() {
         <div>
           <img src={logoDinasBandung} className="dinas-logo" alt="logo" />
         </div>
-        <div>
-          <img src={logoSejuk} className="sejuk-logo" alt="logo" />
-        </div>
+
         <div>
           <img
             src={logoPoweredNectico}
