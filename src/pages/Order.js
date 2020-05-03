@@ -7,6 +7,7 @@ import OrderList from "../components/OrderList";
 
 import { Button, Col, Row } from "react-bootstrap";
 import { checkout, checkLoginBeforeCart, checkBalance } from "../actions";
+import Help from "../components/Help";
 
 function Order() {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ function Order() {
 
   return (
     <div>
+      <Help></Help>
       <OrderList carts={cart.items} />{" "}
       <Button
         type="submit"
