@@ -120,31 +120,37 @@ function Order() {
           </option>
         </select>
       </div>
-      <Button
-        size="sm"
-        variant="warning"
-        block
-        onClick={() =>
-          dispatch(
-            checkout(
-              cart.items,
-              cart.totalItem,
-              cart.totalAmount,
-              user.id,
-              user.name,
-              user.phone,
-              business.id,
-              business.name,
-              business.address,
-              paymentMethod,
-              unique_number,
-              creditPayment
+      {cart.totalAmount > 500000 ? (
+        <Button
+          size="sm"
+          variant="warning"
+          block
+          onClick={() =>
+            dispatch(
+              checkout(
+                cart.items,
+                cart.totalItem,
+                cart.totalAmount,
+                user.id,
+                user.name,
+                user.phone,
+                business.id,
+                business.name,
+                business.address,
+                paymentMethod,
+                unique_number,
+                creditPayment
+              )
             )
-          )
-        }
-      >
-        Selesai
-      </Button>
+          }
+        >
+          Selesai
+        </Button>
+      ) : (
+        <Button size="sm" variant="outline-danger" block disabled>
+          Silahkan tambah pesanan kamu, minimal pemesanan Rp 500.000
+        </Button>
+      )}
     </div>
   );
 }
