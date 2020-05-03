@@ -8,18 +8,24 @@ function Help() {
   const handleShow = () => setShow(true);
   return (
     <div>
-      <div className="help-container">
-        <Button
-          type="submit"
-          value="Submit"
-          variant="success"
-          size="sm"
-          onClick={handleShow}
-          block
-        >
-          <span className="fa fa-question-circle"></span>
-        </Button>
-      </div>
+      <a
+        href="https://wa.me/628112222778?text=Saya%20mau%20bertanya%20tentang%20belanja%20bareng"
+        target="_blank"
+      >
+        <div className="help-container">
+          <Button
+            type="submit"
+            value="Submit"
+            variant="success"
+            size="sm"
+            onClick={handleShow}
+            block
+          >
+            <span className="fa fa-question-circle"></span>
+          </Button>
+        </div>
+      </a>
+
       <Modal show={show} onHide={handleClose}>
         <Modal.Body>
           <div class="payment-description">
