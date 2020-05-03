@@ -162,7 +162,7 @@ function User() {
                 />
 
                 <hr />
-                <label>Alamat Lengkap:</label>
+                <label>Alamat Koperasi</label>
                 <br />
                 <textarea
                   onChange={(event) => setAddress(event.target.value)}
@@ -171,6 +171,34 @@ function User() {
                 ></textarea>
                 <hr />
               </Card.Text>
+              <div className="flex-container-nowrap">
+                <div>
+                  <input
+                    type="checkbox"
+                    id="tnc"
+                    className="checkbox-tnc"
+                    name="tnc"
+                    value="true"
+                    required
+                    checked
+                  />
+                </div>
+                <div>
+                  <label for="tnc">
+                    <small className="tnc-text">
+                      Dengan mengklik tombol daftar saya menyetujui{" "}
+                      <a
+                        href="https://www.nectico.com/syarat-dan-ketentuan/"
+                        target="_blank"
+                      >
+                        syarat dan ketentuan
+                      </a>{" "}
+                      yang berlaku
+                    </small>
+                  </label>
+                </div>
+              </div>
+
               <Button
                 type="submit"
                 value="Submit"

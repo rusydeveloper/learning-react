@@ -301,3 +301,14 @@
   right: 5px;
   z-index: 1000;
 }
+
+.tnc-text {
+  font-size: 8pt;
+  padding: 5px;
+  line-height: 1px;
+}
+
+.checkbox-tnc {
+  width: 20px;
+  font-size: 12pt;
+}
