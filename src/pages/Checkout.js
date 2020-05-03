@@ -3,6 +3,7 @@ import { Button, Card } from "react-bootstrap";
 
 import { useDispatch, useSelector } from "react-redux";
 import { checkout } from "../actions";
+import Help from "../components/Help";
 
 function Checkout() {
   const cart = useSelector((state) => state.cart);
@@ -17,6 +18,7 @@ function Checkout() {
 
   return (
     <div>
+      <Help></Help>
       <Card>
         <Card.Body>
           <Card.Title>Keterangan Pembeli</Card.Title>
