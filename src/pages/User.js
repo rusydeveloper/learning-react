@@ -88,9 +88,9 @@ function User() {
                   placeholder="email"
                   required
                 />
-                <br />
+                <hr />
                 <label>Password:</label>
-                <br />
+                <hr />
                 <input
                   type="password"
                   onChange={(event) => setPassword(event.target.value)}
