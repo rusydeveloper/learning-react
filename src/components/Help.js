@@ -12,7 +12,7 @@ function Help() {
         <Button
           type="submit"
           value="Submit"
-          variant="danger"
+          variant="success"
           size="sm"
           onClick={handleShow}
           block
