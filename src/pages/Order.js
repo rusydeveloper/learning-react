@@ -45,7 +45,10 @@ function Order() {
       >
         Tambah Produk
       </Button>
-      <div className="checkout-container checkout-text">
+      <div className="section-label">
+        <label>Total Belanja</label>
+      </div>
+      <div className="checkout-container checkout-text checkout-calculation">
         <Row>
           <Col>Subtotal</Col>
           <Col>
@@ -96,7 +99,9 @@ function Order() {
 
         <hr />
         <Row>
-          <Col>Total Akhir</Col>
+          <Col>
+            <b>Total Akhir</b>
+          </Col>
           <Col>
             <div className="text-right">
               <b>
@@ -106,11 +111,28 @@ function Order() {
             </div>
           </Col>
         </Row>
+        <hr />
+        <Row>
+          <Col>
+            <ul>
+              <li>
+                <small>
+                  Minimal pemesanan <span className="red-text">Rp 500.000</span>
+                </small>
+              </li>
+              <li>
+                <small>
+                  Biaya kirim <span className="red-text">GRATIS</span>
+                </small>
+              </li>
+            </ul>
+          </Col>
+        </Row>
       </div>
-      <small>harga belum termasuk biaya kirim</small>
       <div className="form-group">
-        <label>Pilih metode bayar:</label>
-
+        <div className="section-label">
+          <label>Pilih metode bayar</label>
+        </div>
         <select
           className="form-control"
           onChange={(event) => setPaymentMethod(event.target.value)}
@@ -120,7 +142,7 @@ function Order() {
           </option>
         </select>
       </div>
-      {cart.totalAmount > 500000 ? (
+      {cart.totalAmount >= 500000 ? (
         <Button
           size="sm"
           variant="warning"
@@ -147,8 +169,8 @@ function Order() {
           Selesai
         </Button>
       ) : (
-        <Button size="sm" variant="outline-danger" block disabled>
-          Silahkan tambah pesanan kamu, minimal pemesanan Rp 500.000
+        <Button size="sm" variant="danger" block disabled>
+          Pemesanan tidak mencapai Rp 500.000
         </Button>
       )}
     </div>

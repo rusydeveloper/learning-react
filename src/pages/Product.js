@@ -48,7 +48,7 @@ function Product() {
         </div>
       </Navbar>
       <hr />
-      <h5>Belanja Bersama</h5>
+      <label>Belanja Bersama</label>
       <CampaignList campaigns={campaigns} /> <hr />
       <div className="horizontal-scroll">
         <Badge
@@ -70,6 +70,8 @@ function Product() {
         ))}{" "}
       </div>
       <hr />
+      <label>Belanja Satuan</label>
+      <br />
       <small className="small-header">
         total: {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} produk,
         halaman {current_page} dari {last_page}

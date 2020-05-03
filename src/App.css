@@ -277,3 +277,13 @@
 .checkout-text {
   font-size: 11pt;
 }
+
+.checkout-calculation {
+  padding: 10px;
+  margin: 5px;
+  background-color: white;
+}
+
+.section-label {
+  padding-top: 25px;
+}
