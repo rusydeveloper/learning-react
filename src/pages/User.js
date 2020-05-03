@@ -3,6 +3,7 @@ import { Button, Card, Row, Col } from "react-bootstrap";
 
 import { useDispatch, useSelector } from "react-redux";
 import { login, signup, logout, checkBalance } from "../actions";
+import Help from "../components/Help";
 
 function User() {
   const [email, setEmail] = useState("");
@@ -12,6 +13,7 @@ function User() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerRepassword, setRegisterRepassword] = useState("");
+  const [tnc, setTnc] = useState(true);
 
   const [cooperative, setCooperative] = useState("");
   const [address, setAddress] = useState("");
@@ -28,6 +30,7 @@ function User() {
 
   return (
     <div>
+      <Help></Help>
       {user.name ? (
         <div>
           <hr></hr>
@@ -178,7 +181,8 @@ function User() {
                     id="tnc"
                     className="checkbox-tnc"
                     name="tnc"
-                    value="true"
+                    value={tnc}
+                    onChange={(event) => setTnc(event.target.value)}
                     required
                     checked
                   />
@@ -198,7 +202,6 @@ function User() {
                   </label>
                 </div>
               </div>
-
               <Button
                 type="submit"
                 value="Submit"
