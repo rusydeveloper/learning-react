@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import CampaignList from "../components/CampaignList";
 import ProductList from "../components/ProductList";
+import Help from "../components/Help";
 import { Badge, Pagination, Row, Col, Navbar } from "react-bootstrap";
 import Cart from "../components/Cart";
 import {
@@ -48,6 +49,7 @@ function Product() {
         </div>
       </Navbar>
       <hr />
+      <Help></Help>
       <label>Belanja Bersama</label>
       <CampaignList campaigns={campaigns} /> <hr />
       <div className="horizontal-scroll">

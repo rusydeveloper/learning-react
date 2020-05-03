@@ -16,7 +16,7 @@ function Cart() {
       {cart.totalItem > 0 ? (
         <Card className="cart-container">
           {" "}
-          {cart.totalItem} Barang Terpilih
+          {cart.items.length} Barang Terpilih
           <Button
             size="sm"
             block

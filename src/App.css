@@ -156,7 +156,7 @@
 
 .card-campaign {
   margin: 5px;
-  width: 250px;
+  width: 310px;
 }
 
 .campaign-target {
@@ -169,9 +169,10 @@
 }
 
 .product-initial-price {
-  font-size: 10pt;
+  font-size: 14pt;
   height: 10px;
-  text-decoration: line-through;
+  font-weight: 900;
+  text-align: center;
 }
 
 .campaign-notes {
@@ -187,7 +188,7 @@
 }
 
 .product-tiering-price {
-  font-size: 14pt;
+  font-size: 11pt;
   height: 10px;
   color: red;
   font-weight: 900;
@@ -291,4 +292,12 @@
 .flex-container-nowrap {
   display: flex;
   flex-wrap: nowrap;
+}
+
+.help-container {
+  font-size: 20pt;
+  position: fixed;
+  top: 200px;
+  right: 5px;
+  z-index: 1000;
 }
