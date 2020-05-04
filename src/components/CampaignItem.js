@@ -116,7 +116,7 @@ function CampaignItem(props) {
                     <span className="product-tiering-price">
                       {props.campaign.product_tiering_quota_1 -
                         props.campaign.quantity_ordered}{" "}
-                      pcs
+                      {props.campaign.unit}
                     </span>
                   </b>{" "}
                   lagi menuju harga <br />
