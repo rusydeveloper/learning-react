@@ -124,7 +124,8 @@ function Order() {
               </li>
               <li>
                 <small>
-                  Biaya kirim <span className="red-text">GRATIS</span>
+                  Biaya kirim <span className="red-text">GRATIS</span> untuk
+                  Kota Bandung
                 </small>
               </li>
             </ul>
