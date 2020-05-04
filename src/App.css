@@ -312,3 +312,8 @@
   width: 20px;
   font-size: 12pt;
 }
+
+.campaign-unit {
+  font-size: 10pt !important;
+  font-weight: 300 !important;
+}

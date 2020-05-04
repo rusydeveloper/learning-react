@@ -71,8 +71,10 @@ function CampaignItem(props) {
             Rp{" "}
             {props.campaign.product_initial_price
               .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
+            <span className="campaign-unit">per {props.campaign.unit}</span>
           </div>
+
           <br />
           <div className="campaign-container">
             <div className="progress">
@@ -123,7 +125,8 @@ function CampaignItem(props) {
                     {props.campaign.product_tiering_price_1
                       .toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-                  </span>
+                  </span>{" "}
+                  per {props.campaign.unit}
                 </div>
               )}
             </div>
