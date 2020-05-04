@@ -43,7 +43,7 @@ function CampaignItem(props) {
         <div>
           {" "}
           <img
-            className="card-img-top campaign-icon image-fit "
+            className="card-img-top campaign-icon image-fit"
             src={server_url + props.campaign.product.image}
             alt="image"
             onError={(e) => {
@@ -54,7 +54,7 @@ function CampaignItem(props) {
         </div>
       ) : (
         <img
-          className="card-img-top campaign-icon"
+          className="card-img-top campaign-icon image-fit"
           src={defaultProductImage}
           alt="no link"
         />

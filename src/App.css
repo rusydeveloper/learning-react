@@ -222,7 +222,7 @@
   width: 150px;
   height: 150px;
   object-fit: contain;
-  background-position: center;
+  background-position: center !important;
 }
 .invoice-unique-id {
   font-size: 10pt;
