@@ -192,7 +192,7 @@ function User() {
                     <small className="tnc-text">
                       Dengan mengklik tombol daftar saya menyetujui{" "}
                       <a
-                        href="https://www.nectico.com/syarat-dan-ketentuan/"
+                        href="https://www.nectico.com/syarat-dan-ketentuan-belanja-bersama/"
                         target="_blank"
                       >
                         syarat dan ketentuan
