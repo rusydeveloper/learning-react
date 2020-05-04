@@ -3,6 +3,7 @@ import { Button, Card, Row, Col } from "react-bootstrap";
 
 import { useDispatch, useSelector } from "react-redux";
 import { login, signup, logout, checkBalance } from "../actions";
+import Help from "../components/Help";
 
 function User() {
   const [email, setEmail] = useState("");
@@ -12,6 +13,7 @@ function User() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerRepassword, setRegisterRepassword] = useState("");
+  const [tnc, setTnc] = useState(true);
 
   const [cooperative, setCooperative] = useState("");
   const [address, setAddress] = useState("");
@@ -28,6 +30,7 @@ function User() {
 
   return (
     <div>
+      <Help></Help>
       {user.name ? (
         <div>
           <hr></hr>
@@ -85,9 +88,9 @@ function User() {
                   placeholder="email"
                   required
                 />
-                <br />
+                <hr />
                 <label>Password:</label>
-                <br />
+                <hr />
                 <input
                   type="password"
                   onChange={(event) => setPassword(event.target.value)}
@@ -162,7 +165,7 @@ function User() {
                 />
 
                 <hr />
-                <label>Alamat Lengkap:</label>
+                <label>Alamat Koperasi</label>
                 <br />
                 <textarea
                   onChange={(event) => setAddress(event.target.value)}
@@ -171,6 +174,34 @@ function User() {
                 ></textarea>
                 <hr />
               </Card.Text>
+              <div className="flex-container-nowrap">
+                <div>
+                  <input
+                    type="checkbox"
+                    id="tnc"
+                    className="checkbox-tnc"
+                    name="tnc"
+                    value={tnc}
+                    onChange={(event) => setTnc(event.target.value)}
+                    required
+                    checked
+                  />
+                </div>
+                <div>
+                  <label for="tnc">
+                    <small className="tnc-text">
+                      Dengan mengklik tombol daftar saya menyetujui{" "}
+                      <a
+                        href="https://www.nectico.com/syarat-dan-ketentuan-belanja-bersama/"
+                        target="_blank"
+                      >
+                        syarat dan ketentuan
+                      </a>{" "}
+                      yang berlaku
+                    </small>
+                  </label>
+                </div>
+              </div>
               <Button
                 type="submit"
                 value="Submit"

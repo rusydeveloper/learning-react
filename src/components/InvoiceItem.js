@@ -1,15 +1,8 @@
 import React, { useState } from "react";
 
 import { Card, Row, Col, Button, Modal } from "react-bootstrap";
-import defaultProductImage from "../assets/open-box.png";
-import { removeCart, plusCart, minusCart } from "../actions";
-import { useDispatch } from "react-redux";
-import { FaTrashAlt } from "react-icons/fa";
-import { server } from "../constants/server";
 
 function InvoiceItem(props) {
-  const dispatch = useDispatch();
-  const server_url = server + "/";
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);

@@ -7,6 +7,7 @@ import OrderList from "../components/OrderList";
 
 import { Button, Col, Row } from "react-bootstrap";
 import { checkout, checkLoginBeforeCart, checkBalance } from "../actions";
+import Help from "../components/Help";
 
 function Order() {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ function Order() {
 
   return (
     <div>
+      <Help></Help>
       <OrderList carts={cart.items} />{" "}
       <Button
         type="submit"
@@ -45,7 +47,10 @@ function Order() {
       >
         Tambah Produk
       </Button>
-      <div className="checkout-container checkout-text">
+      <div className="section-label">
+        <label>Total Belanja</label>
+      </div>
+      <div className="checkout-container checkout-text checkout-calculation">
         <Row>
           <Col>Subtotal</Col>
           <Col>
@@ -96,7 +101,9 @@ function Order() {
 
         <hr />
         <Row>
-          <Col>Total Akhir</Col>
+          <Col>
+            <b>Total Akhir</b>
+          </Col>
           <Col>
             <div className="text-right">
               <b>
@@ -106,11 +113,29 @@ function Order() {
             </div>
           </Col>
         </Row>
+        <hr />
+        <Row>
+          <Col>
+            <ul>
+              <li>
+                <small>
+                  Minimal pemesanan <span className="red-text">Rp 500.000</span>
+                </small>
+              </li>
+              <li>
+                <small>
+                  Biaya kirim <span className="red-text">GRATIS</span> untuk
+                  Kota Bandung
+                </small>
+              </li>
+            </ul>
+          </Col>
+        </Row>
       </div>
-      <small>harga belum termasuk biaya kirim</small>
       <div className="form-group">
-        <label>Pilih metode bayar:</label>
-
+        <div className="section-label">
+          <label>Pilih metode bayar</label>
+        </div>
         <select
           className="form-control"
           onChange={(event) => setPaymentMethod(event.target.value)}
@@ -120,31 +145,37 @@ function Order() {
           </option>
         </select>
       </div>
-      <Button
-        size="sm"
-        variant="warning"
-        block
-        onClick={() =>
-          dispatch(
-            checkout(
-              cart.items,
-              cart.totalItem,
-              cart.totalAmount,
-              user.id,
-              user.name,
-              user.phone,
-              business.id,
-              business.name,
-              business.address,
-              paymentMethod,
-              unique_number,
-              creditPayment
+      {cart.totalAmount >= 500000 ? (
+        <Button
+          size="sm"
+          variant="warning"
+          block
+          onClick={() =>
+            dispatch(
+              checkout(
+                cart.items,
+                cart.totalItem,
+                cart.totalAmount,
+                user.id,
+                user.name,
+                user.phone,
+                business.id,
+                business.name,
+                business.address,
+                paymentMethod,
+                unique_number,
+                creditPayment
+              )
             )
-          )
-        }
-      >
-        Selesai
-      </Button>
+          }
+        >
+          Selesai
+        </Button>
+      ) : (
+        <Button size="sm" variant="danger" block disabled>
+          Pemesanan tidak mencapai Rp 500.000
+        </Button>
+      )}
     </div>
   );
 }

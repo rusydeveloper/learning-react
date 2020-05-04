@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import CampaignList from "../components/CampaignList";
 import ProductList from "../components/ProductList";
+import Help from "../components/Help";
 import { Badge, Pagination, Row, Col, Navbar } from "react-bootstrap";
 import Cart from "../components/Cart";
 import {
@@ -48,7 +49,8 @@ function Product() {
         </div>
       </Navbar>
       <hr />
-      <h5>Belanja Bersama</h5>
+      <Help></Help>
+      <label>Belanja Bersama</label>
       <CampaignList campaigns={campaigns} /> <hr />
       <div className="horizontal-scroll">
         <Badge
@@ -70,6 +72,8 @@ function Product() {
         ))}{" "}
       </div>
       <hr />
+      <label>Belanja Satuan</label>
+      <br />
       <small className="small-header">
         total: {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} produk,
         halaman {current_page} dari {last_page}
@@ -79,21 +83,36 @@ function Product() {
         <Col></Col>
         <Col>
           <Pagination>
-            <Pagination.First
-              onClick={() => dispatch(loadProductPageUrl(first_page_url))}
-            />
-            <Pagination.Prev
-              onClick={() => dispatch(loadProductPageUrl(prev_page_url))}
-            />
+            {current_page != 1 ? (
+              <div className="flex-container-nowrap">
+                <div>
+                  <Pagination.First
+                    onClick={() => dispatch(loadProductPageUrl(first_page_url))}
+                  />
+                </div>
+                <div>
+                  <Pagination.Prev
+                    onClick={() => dispatch(loadProductPageUrl(prev_page_url))}
+                  />
+                </div>
+              </div>
+            ) : null}
 
             <Pagination.Item active>{current_page}</Pagination.Item>
-
-            <Pagination.Next
-              onClick={() => dispatch(loadProductPageUrl(next_page_url))}
-            />
-            <Pagination.Last
-              onClick={() => dispatch(loadProductPageUrl(last_page_url))}
-            />
+            {current_page != last_page ? (
+              <div className="flex-container-nowrap">
+                <div>
+                  <Pagination.Next
+                    onClick={() => dispatch(loadProductPageUrl(next_page_url))}
+                  />
+                </div>
+                <div>
+                  <Pagination.Last
+                    onClick={() => dispatch(loadProductPageUrl(last_page_url))}
+                  />
+                </div>
+              </div>
+            ) : null}
           </Pagination>
         </Col>
         <Col></Col>

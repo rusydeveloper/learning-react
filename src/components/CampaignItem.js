@@ -66,24 +66,18 @@ function CampaignItem(props) {
             {props.campaign.product.name}
           </div>
           <br />
-          <span className="product-tiering-price">
-            * Rp{" "}
-            {props.campaign.product_tiering_price_1
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-          </span>
-          {"  "}
-          <span className="product-initial-price">
+          <small>harga saat ini</small>
+          <div className="product-initial-price">
             Rp{" "}
             {props.campaign.product_initial_price
               .toString()
               .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-          </span>
+          </div>
           <br />
           <div className="campaign-container">
             <div className="progress">
               <div
-                className="progress-bar progress-bar-success progress-bar-striped active"
+                className="progress-bar progress-bar-success progress-bar-striped progress-bar-animated active"
                 role="progressbar"
                 aria-valuenow="40"
                 aria-valuemin="0"
@@ -104,8 +98,34 @@ function CampaignItem(props) {
             </div>
 
             <div className="campaign-target">
-              <b>{props.campaign.quantity_ordered} pcs</b> pesanan terkumpul
-              dari target <b>{props.campaign.product_tiering_quota_1} pcs</b>
+              {props.campaign.product_tiering_quota_1 -
+                props.campaign.quantity_ordered <=
+              0 ? (
+                <div>
+                  Harga saat ini Rp{" "}
+                  {props.campaign.product_tiering_price_1
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                </div>
+              ) : (
+                <div>
+                  Tersisa{" "}
+                  <b>
+                    <span className="product-tiering-price">
+                      {props.campaign.product_tiering_quota_1 -
+                        props.campaign.quantity_ordered}{" "}
+                      pcs
+                    </span>
+                  </b>{" "}
+                  lagi menuju harga <br />
+                  <span className="product-tiering-price">
+                    *Rp{" "}
+                    {props.campaign.product_tiering_price_1
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                  </span>
+                </div>
+              )}
             </div>
             <div className="campaign-duration"> {timer()}</div>
           </div>

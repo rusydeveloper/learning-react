@@ -7,24 +7,21 @@ function BottomNav() {
 
   return (
     <div className="bottom-nav-container">
-      <div className="bottom-nav-menu">
-        <span className="fa fa-home" onClick={() => dispatch(push("/"))}></span>
+      <div className="bottom-nav-menu" onClick={() => dispatch(push("/"))}>
+        <span className="fa fa-home"></span>
         <br />
         Beranda
       </div>
-      <div className="bottom-nav-menu">
-        <span
-          className="fa fa-shopping-cart"
-          onClick={() => dispatch(push("/"))}
-        ></span>
+      <div className="bottom-nav-menu" onClick={() => dispatch(push("/"))}>
+        <span className="fa fa-shopping-cart"></span>
         <br />
         Belanja
       </div>
-      <div className="bottom-nav-menu">
-        <span
-          className="fa fa-archive"
-          onClick={() => dispatch(push("/invoice"))}
-        ></span>
+      <div
+        className="bottom-nav-menu"
+        onClick={() => dispatch(push("/invoice"))}
+      >
+        <span className="fa fa-archive"></span>
         <br />
         Pesanan
       </div>

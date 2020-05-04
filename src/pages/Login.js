@@ -145,7 +145,7 @@ function Login() {
                 />
 
                 <hr />
-                <label>Alamat Lengkap:</label>
+                <label>Alamat Koperasi</label>
                 <br />
                 <textarea
                   onChange={(event) => setAddress(event.target.value)}
@@ -153,7 +153,22 @@ function Login() {
                   required
                 ></textarea>
                 <hr />
+                <input
+                  type="checkbox"
+                  id="vehicle1"
+                  name="vehicle1"
+                  value="true"
+                  required
+                />
+                <label for="vehicle1">
+                  {" "}
+                  <small>
+                    Dengan mengklik tombol daftar saya menyetujui syarat dan
+                    ketentuan yang berlaku
+                  </small>
+                </label>
               </Card.Text>
+
               <Button
                 type="submit"
                 value="Submit"
