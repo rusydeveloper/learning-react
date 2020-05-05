@@ -56,7 +56,10 @@ function Product() {
         <Badge
           variant="warning"
           className="horizontal-menu "
-          onClick={() => dispatch(loadProducts())}
+          onClick={() => {
+            dispatch(loadProducts());
+            dispatch(loadCampaigns());
+          }}
         >
           Semua
         </Badge>

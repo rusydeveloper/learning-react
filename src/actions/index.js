@@ -265,19 +265,26 @@ export const loadProducts = () => {
 };
 
 export const searchProduct = (event) => {
-  const url_api = server;
-
   return function action(dispatch) {
     if (event) {
-      return axios.get(url_api + "/api/product/search/" + event).then(
-        (response) => {
-          dispatch({ type: "LOAD_PRODUCT", payload: response });
-        },
-        (err) => dispatch(loadFailed(err))
-      );
+      dispatch(foundProduct(event));
+      dispatch(foundCampaign(event));
     } else {
       dispatch(loadProducts());
+      dispatch(loadCampaigns());
     }
+  };
+};
+
+export const foundProduct = (event) => {
+  const url_api = server;
+  return function action(dispatch) {
+    return axios.get(url_api + "/api/product/search/" + event).then(
+      (response) => {
+        dispatch({ type: "LOAD_PRODUCT", payload: response });
+      },
+      (err) => dispatch(loadFailed(err))
+    );
   };
 };
 
@@ -294,20 +301,15 @@ export const loadCampaigns = () => {
   };
 };
 
-export const searchCampaign = (event) => {
+export const foundCampaign = (event) => {
   const url_api = server;
-
   return function action(dispatch) {
-    if (event) {
-      return axios.get(url_api + "/api/campaign/search/" + event).then(
-        (response) => {
-          dispatch({ type: "LOAD_CAMPAIGN", payload: response });
-        },
-        (err) => dispatch(loadFailed(err))
-      );
-    } else {
-      dispatch(loadCampaigns());
-    }
+    return axios.get(url_api + "/api/campaign/search/" + event).then(
+      (response) => {
+        dispatch({ type: "LOAD_CAMPAIGN", payload: response });
+      },
+      (err) => dispatch(loadFailed(err))
+    );
   };
 };
 
@@ -336,12 +338,30 @@ export const loadCategories = () => {
 };
 
 export const selectCategory = (id) => {
-  const url_api = server;
+  return function action(dispatch) {
+    dispatch(foundProductCategory(id));
+    dispatch(foundCampaignCategory(id));
+  };
+};
 
+export const foundProductCategory = (id) => {
+  const url_api = server;
   return function action(dispatch) {
     return axios.get(url_api + "/api/product/category/" + id).then(
       (response) => {
         dispatch({ type: "LOAD_PRODUCT", payload: response });
+      },
+      (err) => dispatch(loadFailed(err))
+    );
+  };
+};
+
+export const foundCampaignCategory = (id) => {
+  const url_api = server;
+  return function action(dispatch) {
+    return axios.get(url_api + "/api/campaign/category/" + id).then(
+      (response) => {
+        dispatch({ type: "LOAD_CAMPAIGN", payload: response });
       },
       (err) => dispatch(loadFailed(err))
     );
