@@ -14,8 +14,11 @@ import Signup from "./pages/Signup";
 import Order from "./pages/Order";
 import Checkout from "./pages/Checkout";
 import Invoice from "./pages/Invoice";
+import ReactGA from "react-ga";
 
 function App() {
+  ReactGA.initialize("UA-142772318-4");
+
   return (
     <Container>
       <Header></Header>

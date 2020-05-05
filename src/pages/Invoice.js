@@ -5,6 +5,7 @@ import InvoiceList from "../components/InvoiceList";
 import Help from "../components/Help";
 
 import { loadInvoices } from "../actions";
+import ReactGA from "react-ga";
 
 function Invoice() {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ function Invoice() {
 
   useEffect(() => {
     dispatch(loadInvoices(user.id));
+    ReactGA.pageview("/invoice");
   }, [dispatch]);
 
   const invoices = useSelector((state) => state.invoice.items);

@@ -4,6 +4,7 @@ import { Button, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { checkout } from "../actions";
 import Help from "../components/Help";
+import ReactGA from "react-ga";
 
 function Checkout() {
   const cart = useSelector((state) => state.cart);
@@ -13,6 +14,7 @@ function Checkout() {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("Transfer");
+  ReactGA.pageview("/checkout");
 
   const dispatch = useDispatch();
 
