@@ -4,6 +4,7 @@ import { server } from "../constants/server";
 import { push } from "connected-react-router";
 import swal from "sweetalert";
 import ReactGA from "react-ga";
+import { Mixpanel } from "../components/Mixpanel";
 
 var i = 0;
 
@@ -273,6 +274,8 @@ export const loadProducts = () => {
     category: "User",
     action: "User See Product",
   });
+
+  Mixpanel.track("Successful load product");
 
   return function action(dispatch) {
     return axios.get(url_api + "/api/product").then(
