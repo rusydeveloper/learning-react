@@ -47,7 +47,8 @@ export const signup = (
   cooperative,
   registerPassword,
   registerRepassword,
-  cartItem
+  cartItem,
+  tnc
 ) => {
   const signupInput = {
     name: name,
@@ -57,7 +58,10 @@ export const signup = (
     cooperative: cooperative,
     password: registerPassword,
     password_confirmation: registerRepassword,
+    tnc: tnc,
   };
+
+  console.log(signupInput);
 
   return function action(dispatch) {
     dispatch({ type: "SIGNUP" });

@@ -13,7 +13,7 @@ function User() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerRepassword, setRegisterRepassword] = useState("");
-  const [tnc, setTnc] = useState(true);
+  const [tnc, setTnc] = useState(1);
 
   const [cooperative, setCooperative] = useState("");
   const [address, setAddress] = useState("");
@@ -23,6 +23,7 @@ function User() {
   const user = useSelector((state) => state.user);
   const business = useSelector((state) => state.business);
   const wallet = useSelector((state) => state.wallet);
+  const cart = useSelector((state) => state.cart);
 
   useEffect(() => {
     dispatch(checkBalance(user.id));
@@ -30,7 +31,11 @@ function User() {
 
   return (
     <div>
-      <Help></Help>
+      <Help
+        phone="082-126-644-466"
+        wa="6282126644466"
+        message="Saya mau bertanya tentang program belanja bersama"
+      ></Help>
       {user.name ? (
         <div>
           <hr></hr>
@@ -47,7 +52,10 @@ function User() {
           <p>{business.name}</p>
           <p>{business.address}</p>
           <hr />
-          <div class="alert alert-info text-center box-hightlight" role="alert">
+          <div
+            className="alert alert-info text-center box-hightlight"
+            role="alert"
+          >
             {wallet.balance > 0 ? (
               <div>
                 Saldo Kredit: Rp{" "}
@@ -74,7 +82,7 @@ function User() {
           <hr />
           <b>
             Silahkan masuk{" "}
-            <span class="textHighlight">jika sudah memiliki akun</span>
+            <span className="textHighlight">jika sudah memiliki akun</span>
           </b>
           <Card>
             <Card.Body>
@@ -113,7 +121,7 @@ function User() {
           <hr />
           <b>
             Silahkan mendaftarkan diri{" "}
-            <span class="textHighlight">jika belum memiliki akun</span>
+            <span className="textHighlight">jika belum memiliki akun</span>
           </b>
           <Card>
             <Card.Body>
@@ -178,10 +186,7 @@ function User() {
                 <div>
                   <input
                     type="checkbox"
-                    id="tnc"
                     className="checkbox-tnc"
-                    name="tnc"
-                    value={tnc}
                     onChange={(event) => setTnc(event.target.value)}
                     required
                     checked
@@ -215,7 +220,9 @@ function User() {
                       address,
                       cooperative,
                       registerPassword,
-                      registerRepassword
+                      registerRepassword,
+                      cart.totalItem,
+                      tnc
                     )
                   )
                 }

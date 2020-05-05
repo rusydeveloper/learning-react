@@ -49,7 +49,11 @@ function Product() {
         </div>
       </Navbar>
       <hr />
-      <Help></Help>
+      <Help
+        phone="082-126-644-466"
+        wa="6282126644466"
+        message="Saya mau bertanya tentang program belanja bersama"
+      ></Help>
       <label>Belanja Bersama</label>
       <CampaignList campaigns={campaigns} /> <hr />
       <div className="horizontal-scroll">
