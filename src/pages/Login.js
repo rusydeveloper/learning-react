@@ -16,7 +16,7 @@ function Login() {
   const [cooperative, setCooperative] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
-  const [tnc, setTnc] = useState(true);
+  const [tnc, setTnc] = useState(1);
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
@@ -197,7 +197,8 @@ function Login() {
                       cooperative,
                       registerPassword,
                       registerRepassword,
-                      cart.totalItem
+                      cart.totalItem,
+                      tnc
                     )
                   )
                 }
