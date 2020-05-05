@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 
-function Help() {
+function Help(props) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const link = "https://wa.me/" + props.wa + "?text=" + props.message;
   return (
     <div>
-      <a
-        href="https://wa.me/628112222778?text=Saya%20mau%20bertanya%20tentang%20belanja%20bareng"
-        target="_blank"
-      >
+      <a href={link} target="_blank">
         <div className="help-container">
           <Button
             type="submit"
@@ -29,7 +28,7 @@ function Help() {
       <Modal show={show} onHide={handleClose}>
         <Modal.Body>
           <div class="payment-description">
-            Hubungi Whatsapp 081555555555 untuk bantuan
+            Hubungi Whatsapp {props.phone} untuk bantuan
           </div>
         </Modal.Body>
         <Modal.Footer>

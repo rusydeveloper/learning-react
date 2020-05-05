@@ -95,7 +95,7 @@ function InvoiceItem(props) {
                           No. Rek : 800160407700 <br />
                         </b>
                         <br />
-                        <p>Butuh bantuan? Hubungi 08112222778</p>
+                        <p>Butuh bantuan? Hubungi 081-325-368-885 (Whatsapp)</p>
                       </div>
                     </Modal.Body>
                     <Modal.Footer>
