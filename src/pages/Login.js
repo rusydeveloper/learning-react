@@ -16,6 +16,7 @@ function Login() {
   const [cooperative, setCooperative] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
+  const [tnc, setTnc] = useState(true);
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
@@ -153,22 +154,35 @@ function Login() {
                   required
                 ></textarea>
                 <hr />
-                <input
-                  type="checkbox"
-                  id="vehicle1"
-                  name="vehicle1"
-                  value="true"
-                  required
-                />
-                <label for="vehicle1">
-                  {" "}
-                  <small>
-                    Dengan mengklik tombol daftar saya menyetujui syarat dan
-                    ketentuan yang berlaku
-                  </small>
-                </label>
               </Card.Text>
-
+              <div className="flex-container-nowrap">
+                <div>
+                  <input
+                    type="checkbox"
+                    id="tnc"
+                    className="checkbox-tnc"
+                    name="tnc"
+                    value={tnc}
+                    onChange={(event) => setTnc(event.target.value)}
+                    required
+                    checked
+                  />
+                </div>
+                <div>
+                  <label for="tnc">
+                    <small className="tnc-text">
+                      Dengan mengklik tombol daftar saya menyetujui{" "}
+                      <a
+                        href="https://www.nectico.com/syarat-dan-ketentuan-belanja-bersama/"
+                        target="_blank"
+                      >
+                        syarat dan ketentuan
+                      </a>{" "}
+                      yang berlaku
+                    </small>
+                  </label>
+                </div>
+              </div>
               <Button
                 type="submit"
                 value="Submit"
