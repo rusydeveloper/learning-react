@@ -8,6 +8,7 @@ import OrderList from "../components/OrderList";
 import { Button, Col, Row } from "react-bootstrap";
 import { checkout, checkLoginBeforeCart, checkBalance } from "../actions";
 import Help from "../components/Help";
+import ReactGA from "react-ga";
 
 function Order() {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ function Order() {
   useEffect(() => {
     dispatch(checkBalance(user.id));
     dispatch(checkLoginBeforeCart(user.id));
+    ReactGA.pageview("/order");
   }, [dispatch]);
   if (wallet.balance > cart.totalAmount + unique_number) {
     creditPayment = cart.totalAmount + unique_number;

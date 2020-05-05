@@ -14,6 +14,7 @@ import {
   checkBalance,
 } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
+import ReactGA from "react-ga";
 
 function Product() {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ function Product() {
     dispatch(loadCampaigns());
     dispatch(loadCategories());
     dispatch(checkBalance(user.id));
+    ReactGA.pageview("/product");
   }, [dispatch]);
 
   const products = useSelector((state) => state.product.items);

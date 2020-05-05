@@ -3,6 +3,7 @@ import { Button, Card } from "react-bootstrap";
 
 import { useDispatch, useSelector } from "react-redux";
 import { login, signup, logout } from "../actions";
+import ReactGA from "react-ga";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -18,6 +19,7 @@ function Login() {
   const [phone, setPhone] = useState("");
   const [tnc, setTnc] = useState(1);
   const dispatch = useDispatch();
+  ReactGA.pageview("/login");
 
   const user = useSelector((state) => state.user);
   const business = useSelector((state) => state.business);

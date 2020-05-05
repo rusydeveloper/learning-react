@@ -4,6 +4,7 @@ import { Button, Card, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { login, signup, logout, checkBalance } from "../actions";
 import Help from "../components/Help";
+import ReactGA from "react-ga";
 
 function User() {
   const [email, setEmail] = useState("");
@@ -27,6 +28,11 @@ function User() {
 
   useEffect(() => {
     dispatch(checkBalance(user.id));
+    ReactGA.pageview("/user");
+    ReactGA.event({
+      category: "User",
+      action: "User Check Profile",
+    });
   }, [dispatch]);
 
   return (

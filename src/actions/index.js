@@ -3,6 +3,8 @@ import axios from "axios";
 import { server } from "../constants/server";
 import { push } from "connected-react-router";
 import swal from "sweetalert";
+import ReactGA from "react-ga";
+import { Mixpanel } from "../components/Mixpanel";
 
 var i = 0;
 
@@ -61,7 +63,10 @@ export const signup = (
     tnc: tnc,
   };
 
-  console.log(signupInput);
+  ReactGA.event({
+    category: "User",
+    action: "User signup",
+  });
 
   return function action(dispatch) {
     dispatch({ type: "SIGNUP" });
@@ -140,6 +145,10 @@ export const login = (email, password, cartItem) => {
     email: email,
     password: password,
   };
+  ReactGA.event({
+    category: "User",
+    action: "User Login",
+  });
   return function action(dispatch) {
     dispatch({ type: "LOGIN" });
     const url_api = server;
@@ -230,6 +239,10 @@ export const loginFailed = (data) => {
 };
 
 export const logout = () => {
+  ReactGA.event({
+    category: "User",
+    action: "User Logout",
+  });
   return function action(dispatch) {
     swal({
       title: "Apakah kamu yakin untuk keluar dari akun kamu?",
@@ -257,6 +270,12 @@ export const logout = () => {
 
 export const loadProducts = () => {
   const url_api = server;
+  ReactGA.event({
+    category: "User",
+    action: "User See Product",
+  });
+
+  Mixpanel.track("Successful load product");
 
   return function action(dispatch) {
     return axios.get(url_api + "/api/product").then(
@@ -269,6 +288,10 @@ export const loadProducts = () => {
 };
 
 export const searchProduct = (event) => {
+  ReactGA.event({
+    category: "User",
+    action: "User Search Product",
+  });
   return function action(dispatch) {
     if (event) {
       dispatch(foundProduct(event));
@@ -330,6 +353,11 @@ export const loadProductPageUrl = (productPageUrl) => {
 
 export const loadCategories = () => {
   const url_api = server;
+
+  ReactGA.event({
+    category: "User",
+    action: "User Filter Product based Category",
+  });
 
   return function action(dispatch) {
     return axios.get(url_api + "/api/category").then(
@@ -413,6 +441,10 @@ export const addCart = (item, campaign_id) => {
     image: item.image,
     campaign_id: campaign_id,
   };
+  ReactGA.event({
+    category: "User",
+    action: "User Add Product to Cart",
+  });
   return function action(dispatch) {
     dispatch({ type: "ADD", payload: addCardInput });
   };
@@ -433,6 +465,10 @@ export const plusCart = (item) => {
     unique_id: item.unique_id,
     image: item.image,
   };
+  ReactGA.event({
+    category: "User",
+    action: "User Add Quantity Product in Cart",
+  });
 
   return function action(dispatch) {
     dispatch({ type: "PLUS", payload: plusCardInput });
@@ -455,12 +491,21 @@ export const minusCart = (item) => {
     image: item.image,
   };
 
+  ReactGA.event({
+    category: "User",
+    action: "User Remove Quantity Product in Cart",
+  });
+
   return function action(dispatch) {
     dispatch({ type: "MINUS", payload: minusCardInput });
   };
 };
 
 export const removeCart = (item, index) => {
+  ReactGA.event({
+    category: "User",
+    action: "User Remove Product from Cart",
+  });
   return function action(dispatch) {
     dispatch({ type: "REMOVE", payload: item, position: index });
   };
@@ -505,6 +550,11 @@ export const checkout = (
     walletBalance,
   };
   const url_api = server;
+
+  ReactGA.event({
+    category: "User",
+    action: "User Checkout",
+  });
 
   return function action(dispatch) {
     if (checkoutInput.user_id) {
@@ -556,6 +606,10 @@ export const checkoutFailed = () => {
 export const loadInvoices = (user_id) => {
   const url_api = server;
 
+  ReactGA.event({
+    category: "User",
+    action: "User See Invoice",
+  });
   return function action(dispatch) {
     if (user_id) {
       return axios.get(url_api + "/api/invoice/user/" + user_id).then(
