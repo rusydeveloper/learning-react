@@ -5,6 +5,8 @@ import { push } from "connected-react-router";
 import swal from "sweetalert";
 import ReactGA from "react-ga";
 import { Mixpanel } from "../components/Mixpanel";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 var i = 0;
 
@@ -555,6 +557,12 @@ export const checkout = (
     category: "User",
     action: "User Checkout",
   });
+  Swal.fire({
+    title: "Mohon tunggu pesanan sedang diproses",
+    onBeforeOpen: () => {
+      Swal.enableLoading();
+    },
+  });
 
   return function action(dispatch) {
     if (checkoutInput.user_id) {
@@ -579,12 +587,16 @@ export const checkout = (
 
 export const loadFailed = () => {
   swal("Gagal!", "Maaf, Terjadi Kesalahan pada aplikasi", "error");
+
   return {
     type: "LOAD_PRODUCT_FAILED",
   };
 };
 
 export const checkoutSuccess = (item, totalItem, totalAmount, buyer) => {
+  Swal.disableLoading();
+  Swal.close();
+
   swal("Berhasil Memesan!", "Tunggu tim kami menghubungi Anda", "success");
 
   return {
