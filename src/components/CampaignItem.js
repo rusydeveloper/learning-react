@@ -46,7 +46,7 @@ function CampaignItem(props) {
           <img
             className="card-img-top campaign-icon image-fit"
             src={server_url + props.campaign.product.image}
-            alt="image"
+            alt="tidak ada gambar"
             onError={(e) => {
               e.target.src = defaultProductImage;
               e.target.alt = "broken";
@@ -134,45 +134,6 @@ function CampaignItem(props) {
             <div className="campaign-duration"> {timer()}</div>
           </div>
 
-          {/* {count > 0 ? (
-            <div>
-              <Button
-                size="sm"
-                variant="light"
-                onClick={() => {
-                  dispatch(minusCart(props.product));
-                  setCount(count - 1);
-                }}
-              >
-                -{" "}
-              </Button>
-              <span className="count-product-order">{count}</span>
-              <Button
-                size="sm"
-                variant="warning"
-                onClick={() => {
-                  dispatch(plusCart(props.product));
-                  setCount(count + 1);
-                }}
-              >
-                +{" "}
-              </Button>
-            </div>
-          ) : (
-            <div>
-              <Button
-                size="sm"
-                variant="warning"
-                block
-                onClick={() => {
-                  dispatch(addCart(props.product));
-                  setCount(count + 1);
-                }}
-              >
-                pesan
-              </Button>
-            </div>
-          )} */}
           <div>
             {isOrdered ? (
               <Button

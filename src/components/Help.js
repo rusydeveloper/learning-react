@@ -11,7 +11,7 @@ function Help(props) {
   const link = "https://wa.me/" + props.wa + "?text=" + props.message;
   return (
     <div>
-      <a href={link} target="_blank">
+      <a href={link} target="_blank" rel="noopener noreferrer">
         <div className="help-container">
           <Button
             type="submit"

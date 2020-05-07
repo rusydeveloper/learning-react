@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Card, Row, Col } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 
 import { useDispatch, useSelector } from "react-redux";
 import { login, signup, logout, checkBalance } from "../actions";
@@ -118,7 +118,7 @@ function User() {
   }
 
   function checkMatchPassword(password, repassword) {
-    if (password == repassword) {
+    if (password === repassword) {
       setMatchPassword("");
       setValidMatchPassword(true);
     } else {
@@ -482,6 +482,7 @@ function User() {
                       Dengan mengklik tombol daftar saya menyetujui{" "}
                       <a
                         href="https://www.nectico.com/syarat-dan-ketentuan-belanja-bersama/"
+                        rel="noopener noreferrer"
                         target="_blank"
                       >
                         syarat dan ketentuan
@@ -491,29 +492,41 @@ function User() {
                   </label>
                 </div>
               </div>
-              <Button
-                type="submit"
-                value="Submit"
-                variant="warning"
-                onClick={() =>
-                  dispatch(
-                    signup(
-                      name,
-                      registerEmail,
-                      phone,
-                      address,
-                      cooperative,
-                      registerPassword,
-                      registerRepassword,
-                      cart.totalItem,
-                      tnc
+              {validForm ? (
+                <Button
+                  type="submit"
+                  value="Submit"
+                  variant="warning"
+                  onClick={() =>
+                    dispatch(
+                      signup(
+                        name,
+                        registerEmail,
+                        phone,
+                        address,
+                        cooperative,
+                        registerPassword,
+                        registerRepassword,
+                        cart.totalItem,
+                        tnc
+                      )
                     )
-                  )
-                }
-                block
-              >
-                Daftar
-              </Button>
+                  }
+                  block
+                >
+                  Daftar
+                </Button>
+              ) : (
+                <Button
+                  type="submit"
+                  value="Submit"
+                  variant="danger"
+                  block
+                  disabled
+                >
+                  Isi Formulir dengan Benar
+                </Button>
+              )}
             </Card.Body>
           </Card>
         </div>

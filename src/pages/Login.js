@@ -117,7 +117,7 @@ function Login() {
   }
 
   function checkMatchPassword(password, repassword) {
-    if (password == repassword) {
+    if (password === repassword) {
       setMatchPassword("");
       setValidMatchPassword(true);
     } else {
@@ -454,6 +454,7 @@ function Login() {
                       <a
                         href="https://www.nectico.com/syarat-dan-ketentuan-belanja-bersama/"
                         target="_blank"
+                        rel="noopener noreferrer"
                       >
                         syarat dan ketentuan
                       </a>{" "}

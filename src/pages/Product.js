@@ -94,7 +94,7 @@ function Product() {
         <Col></Col>
         <Col>
           <Pagination>
-            {current_page != 1 ? (
+            {current_page !== 1 ? (
               <div className="flex-container-nowrap">
                 <div>
                   <Pagination.First
@@ -110,7 +110,7 @@ function Product() {
             ) : null}
 
             <Pagination.Item active>{current_page}</Pagination.Item>
-            {current_page != last_page ? (
+            {current_page !== last_page ? (
               <div className="flex-container-nowrap">
                 <div>
                   <Pagination.Next

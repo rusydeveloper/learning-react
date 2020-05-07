@@ -5,9 +5,14 @@ import { Mixpanel } from "../components/Mixpanel";
 
 function InvoiceItem(props) {
   const [show, setShow] = useState(false);
+  const [showPaymentConfirmation, setShowPaymentConfirmation] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleClosePaymentConfirmation = () =>
+    setShowPaymentConfirmation(false);
+  const handleShowPaymentConfirmation = () => setShowPaymentConfirmation(true);
 
   const invoice_status = (status) => {
     switch (status) {
@@ -65,7 +70,7 @@ function InvoiceItem(props) {
               <small class="invoice-description">
                 Jumlah Barang: {props.invoice.quantity}
               </small>
-              {props.invoice.status == "unpaid" ? (
+              {props.invoice.status === "unpaid" ? (
                 <div>
                   <Button
                     type="submit"
@@ -82,6 +87,7 @@ function InvoiceItem(props) {
                   </Button>
                   <Modal show={show} onHide={handleClose}>
                     <Modal.Body>
+                      <b>LANGKAH 1</b>
                       <div class="payment-description">
                         Lakukan transfer sebesar{" "}
                         <b>
@@ -101,26 +107,56 @@ function InvoiceItem(props) {
                         <br />
                         <p>Butuh bantuan? Hubungi 081-325-368-885 (Whatsapp)</p>
                       </div>
+                      <b>LANGKAH 2</b>
+                      <div class="payment-description">
+                        Lakukan konfirmasi pembayaran
+                      </div>
+                      <Button
+                        size="sm"
+                        variant="danger"
+                        onClick={() => {
+                          Mixpanel.track("click payment confirmation button");
+                          handleShowPaymentConfirmation();
+                          handleClose();
+                        }}
+                      >
+                        Konfirmasi Pembayaran
+                      </Button>
                     </Modal.Body>
                     <Modal.Footer>
-                      <a
-                        href="https://forms.gle/rUSsmCqKDtAboU4HA"
-                        target="_blank"
-                      >
-                        <Button
-                          size="sm"
-                          variant="danger"
-                          onClick={() => {
-                            Mixpanel.track("click payment confirmation button");
-                          }}
-                        >
-                          Konfirmasi Pembayaran
-                        </Button>
-                      </a>
                       <Button
                         size="sm"
                         variant="secondary"
                         onClick={handleClose}
+                      >
+                        Tutup
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
+                  <Modal
+                    show={showPaymentConfirmation}
+                    onHide={handleClosePaymentConfirmation}
+                  >
+                    <Modal.Body>
+                      <div class="payment-description">
+                        Lakukan konfirmasi pembayaran
+                      </div>
+                      <iframe
+                        src="https://docs.google.com/forms/d/e/1FAIpQLSdLTLWyqJqsBSOT0X7FjyPuqDkZfM47CGNoHztsOJj3oWl7Aw/viewform?embedded=true"
+                        width="350"
+                        height="800"
+                        frameborder="0"
+                        marginheight="0"
+                        marginwidth="0"
+                      >
+                        Harap tunggu
+                      </iframe>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        onClick={handleClosePaymentConfirmation}
                       >
                         Tutup
                       </Button>

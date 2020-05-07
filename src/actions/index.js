@@ -6,7 +6,6 @@ import swal from "sweetalert";
 import ReactGA from "react-ga";
 import { Mixpanel } from "../components/Mixpanel";
 import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 
 var i = 0;
 
@@ -80,7 +79,7 @@ export const signup = (
   return function action(dispatch) {
     dispatch({ type: "SIGNUP" });
     const url_api = server;
-    if (registerPassword != registerRepassword) {
+    if (registerPassword !== registerRepassword) {
       dispatch(passwordNotMatch());
     }
 
