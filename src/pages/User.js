@@ -198,7 +198,7 @@ function User() {
       category: "User",
       action: "User Check Profile",
     });
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   return (
     <div>

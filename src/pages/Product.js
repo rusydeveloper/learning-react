@@ -28,7 +28,7 @@ function Product() {
     dispatch(loadCategories());
     dispatch(checkBalance(user.id));
     ReactGA.pageview("/product");
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   const products = useSelector((state) => state.product.items);
   const campaigns = useSelector((state) => state.campaign.items);

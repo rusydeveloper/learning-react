@@ -27,7 +27,7 @@ function Order() {
     dispatch(checkBalance(user.id));
     dispatch(checkLoginBeforeCart(user.id));
     ReactGA.pageview("/order");
-  }, [dispatch]);
+  }, [dispatch, user]);
   if (wallet.balance > cart.totalAmount + unique_number) {
     creditPayment = cart.totalAmount + unique_number;
   } else {

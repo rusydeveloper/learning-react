@@ -16,7 +16,7 @@ function Invoice() {
   useEffect(() => {
     dispatch(loadInvoices(user.id));
     ReactGA.pageview("/invoice");
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   const invoices = useSelector((state) => state.invoice.items);
 
