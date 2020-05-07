@@ -36,7 +36,7 @@ function CampaignItem(props) {
 
   useEffect(() => {
     setOrdered(dispatch(checkOrdered(props.campaign.product_id, cart.items)));
-  }, [dispatch]);
+  }, [dispatch, props, cart]);
 
   return (
     <div className="card card-campaign">
