@@ -9,9 +9,11 @@ import { Button, Col, Row } from "react-bootstrap";
 import { checkout, checkLoginBeforeCart, checkBalance } from "../actions";
 import Help from "../components/Help";
 import ReactGA from "react-ga";
+import { Mixpanel } from "../components/Mixpanel";
 
 function Order() {
   const dispatch = useDispatch();
+  Mixpanel.track("view order page");
 
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.user);

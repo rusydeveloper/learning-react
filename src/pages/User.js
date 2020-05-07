@@ -5,8 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, signup, logout, checkBalance } from "../actions";
 import Help from "../components/Help";
 import ReactGA from "react-ga";
+import { Mixpanel } from "../components/Mixpanel";
 
 function User() {
+  Mixpanel.track("view user page");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

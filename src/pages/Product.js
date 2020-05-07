@@ -4,6 +4,7 @@ import ProductList from "../components/ProductList";
 import Help from "../components/Help";
 import { Badge, Pagination, Row, Col, Navbar } from "react-bootstrap";
 import Cart from "../components/Cart";
+import { Mixpanel } from "../components/Mixpanel";
 import {
   loadProducts,
   loadCategories,
@@ -19,6 +20,7 @@ import ReactGA from "react-ga";
 function Product() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  Mixpanel.track("view product page");
 
   useEffect(() => {
     dispatch(loadProducts());

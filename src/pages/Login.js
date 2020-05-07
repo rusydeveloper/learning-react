@@ -4,8 +4,10 @@ import { Button, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { login, signup, logout } from "../actions";
 import ReactGA from "react-ga";
+import { Mixpanel } from "../components/Mixpanel";
 
 function Login() {
+  Mixpanel.track("view login page");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

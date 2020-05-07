@@ -6,8 +6,10 @@ import Help from "../components/Help";
 
 import { loadInvoices } from "../actions";
 import ReactGA from "react-ga";
+import { Mixpanel } from "../components/Mixpanel";
 
 function Invoice() {
+  Mixpanel.track("view invoice page");
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
