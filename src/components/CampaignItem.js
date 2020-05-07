@@ -5,6 +5,7 @@ import defaultProductImage from "../assets/open-box.png";
 import { addCartOrder, checkOrdered } from "../actions";
 import { useSelector, useDispatch } from "react-redux";
 import { server } from "../constants/server";
+import { Mixpanel } from "../components/Mixpanel";
 
 function CampaignItem(props) {
   const dispatch = useDispatch();
@@ -200,6 +201,7 @@ function CampaignItem(props) {
                   );
                   setCount(count + 1);
                   setOrdered(true);
+                  Mixpanel.track("click add campaign product to cart button");
                 }}
               >
                 pesan

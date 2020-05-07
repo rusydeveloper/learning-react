@@ -5,6 +5,7 @@ import defaultProductImage from "../assets/open-box.png";
 import { addCart } from "../actions";
 import { useDispatch } from "react-redux";
 import { server } from "../constants/server";
+import { Mixpanel } from "../components/Mixpanel";
 
 function ProductItem(props) {
   const dispatch = useDispatch();
@@ -91,6 +92,7 @@ function ProductItem(props) {
               onClick={() => {
                 dispatch(addCart(props.product, ""));
                 setCount(count + 1);
+                Mixpanel.track("click add product to cart button");
               }}
             >
               pesan

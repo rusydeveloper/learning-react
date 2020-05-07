@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { Card, Row, Col, Button, Modal } from "react-bootstrap";
+import { Mixpanel } from "../components/Mixpanel";
 
 function InvoiceItem(props) {
   const [show, setShow] = useState(false);
@@ -71,7 +72,10 @@ function InvoiceItem(props) {
                     value="Submit"
                     variant="danger"
                     size="sm"
-                    onClick={handleShow}
+                    onClick={() => {
+                      handleShow();
+                      Mixpanel.track("click pay now button");
+                    }}
                     block
                   >
                     Bayar Sekarang
@@ -103,7 +107,13 @@ function InvoiceItem(props) {
                         href="https://forms.gle/rUSsmCqKDtAboU4HA"
                         target="_blank"
                       >
-                        <Button size="sm" variant="danger">
+                        <Button
+                          size="sm"
+                          variant="danger"
+                          onClick={() => {
+                            Mixpanel.track("click payment confirmation button");
+                          }}
+                        >
                           Konfirmasi Pembayaran
                         </Button>
                       </a>

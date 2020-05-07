@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
+import { Mixpanel } from "../components/Mixpanel";
 
 function Help(props) {
   const [show, setShow] = useState(false);
@@ -17,7 +18,10 @@ function Help(props) {
             value="Submit"
             variant="success"
             size="sm"
-            onClick={handleShow}
+            onClick={() => {
+              handleShow();
+              Mixpanel.track("click help button");
+            }}
             block
           >
             <span className="fa fa-question-circle"></span>
