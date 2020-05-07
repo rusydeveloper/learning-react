@@ -9,9 +9,11 @@ import { Button, Col, Row } from "react-bootstrap";
 import { checkout, checkLoginBeforeCart, checkBalance } from "../actions";
 import Help from "../components/Help";
 import ReactGA from "react-ga";
+import { Mixpanel } from "../components/Mixpanel";
 
 function Order() {
   const dispatch = useDispatch();
+  Mixpanel.track("view order page");
 
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.user);
@@ -25,7 +27,7 @@ function Order() {
     dispatch(checkBalance(user.id));
     dispatch(checkLoginBeforeCart(user.id));
     ReactGA.pageview("/order");
-  }, [dispatch]);
+  }, [dispatch, user]);
   if (wallet.balance > cart.totalAmount + unique_number) {
     creditPayment = cart.totalAmount + unique_number;
   } else {

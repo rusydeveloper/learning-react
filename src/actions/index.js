@@ -6,7 +6,6 @@ import swal from "sweetalert";
 import ReactGA from "react-ga";
 import { Mixpanel } from "../components/Mixpanel";
 import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 
 var i = 0;
 
@@ -70,10 +69,17 @@ export const signup = (
     action: "User signup",
   });
 
+  Swal.fire({
+    title: "Mohon tunggu pendaftaran sedang diproses",
+    onBeforeOpen: () => {
+      Swal.enableLoading();
+    },
+  });
+
   return function action(dispatch) {
     dispatch({ type: "SIGNUP" });
     const url_api = server;
-    if (registerPassword != registerRepassword) {
+    if (registerPassword !== registerRepassword) {
       dispatch(passwordNotMatch());
     }
 
@@ -107,12 +113,16 @@ export const signup = (
           dispatch(push("/user"));
         }
       },
-      (err) => dispatch(signupFailed(err))
+      (err) => {
+        dispatch(signupFailed(err));
+      }
     );
   };
 };
 
 export const signupSuccess = (data) => {
+  Swal.disableLoading();
+  Swal.close();
   swal("Berhasil!", "Anda berhasil terdaftar dan masuk", "success");
   return {
     type: "SIGNUP_SUCCESS",
@@ -128,7 +138,11 @@ export const signupLoginSuccess = (data) => {
 };
 
 export const signupFailed = (data) => {
-  swal("Gagal!", "Data yang anda masukan salah " + data, "error");
+  swal(
+    "Gagal!",
+    "Check kembali formulir atau email kamu sudah terdaftar",
+    "error"
+  );
   return {
     type: "SIGNUP_FAILED",
     payload: data,
@@ -217,7 +231,6 @@ export const loadUser = (data) => {
 };
 
 export const loadBusiness = (data) => {
-  console.log(data);
   return {
     type: "LOAD_BUSINESS",
     payload: data,
@@ -225,7 +238,6 @@ export const loadBusiness = (data) => {
 };
 
 export const loadWallet = (data) => {
-  console.log(data);
   return {
     type: "LOAD_WALLET",
     payload: data,

@@ -4,6 +4,7 @@ import ProductList from "../components/ProductList";
 import Help from "../components/Help";
 import { Badge, Pagination, Row, Col, Navbar } from "react-bootstrap";
 import Cart from "../components/Cart";
+import { Mixpanel } from "../components/Mixpanel";
 import {
   loadProducts,
   loadCategories,
@@ -19,6 +20,7 @@ import ReactGA from "react-ga";
 function Product() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  Mixpanel.track("view product page");
 
   useEffect(() => {
     dispatch(loadProducts());
@@ -26,7 +28,7 @@ function Product() {
     dispatch(loadCategories());
     dispatch(checkBalance(user.id));
     ReactGA.pageview("/product");
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   const products = useSelector((state) => state.product.items);
   const campaigns = useSelector((state) => state.campaign.items);
@@ -92,7 +94,7 @@ function Product() {
         <Col></Col>
         <Col>
           <Pagination>
-            {current_page != 1 ? (
+            {current_page !== 1 ? (
               <div className="flex-container-nowrap">
                 <div>
                   <Pagination.First
@@ -108,7 +110,7 @@ function Product() {
             ) : null}
 
             <Pagination.Item active>{current_page}</Pagination.Item>
-            {current_page != last_page ? (
+            {current_page !== last_page ? (
               <div className="flex-container-nowrap">
                 <div>
                   <Pagination.Next

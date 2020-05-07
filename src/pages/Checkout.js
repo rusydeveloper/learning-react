@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { checkout } from "../actions";
 import Help from "../components/Help";
 import ReactGA from "react-ga";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 
 function Checkout() {
   const cart = useSelector((state) => state.cart);

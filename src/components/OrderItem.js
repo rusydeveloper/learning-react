@@ -6,6 +6,7 @@ import { removeCart, plusCart, minusCart } from "../actions";
 import { useDispatch } from "react-redux";
 import { FaTrashAlt } from "react-icons/fa";
 import { server } from "../constants/server";
+import { Mixpanel } from "../components/Mixpanel";
 
 function OrderItem(props) {
   const dispatch = useDispatch();
@@ -62,7 +63,10 @@ function OrderItem(props) {
               <Button
                 size="sm"
                 variant="outline-dark"
-                onClick={() => dispatch(removeCart(props.cart, props.index))}
+                onClick={() => {
+                  dispatch(removeCart(props.cart, props.index));
+                  Mixpanel.track("click remove product button in cart");
+                }}
               >
                 <FaTrashAlt />
               </Button>
@@ -74,6 +78,7 @@ function OrderItem(props) {
                   variant="light"
                   onClick={() => {
                     dispatch(minusCart(props.cart));
+                    Mixpanel.track("click decrease product button in cart");
                   }}
                 >
                   -{" "}
@@ -86,6 +91,7 @@ function OrderItem(props) {
                   variant="warning"
                   onClick={() => {
                     dispatch(plusCart(props.cart));
+                    Mixpanel.track("click increase product button in cart");
                   }}
                 >
                   +{" "}

@@ -3,7 +3,7 @@ import { Card, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { checkLoginBeforeCart } from "../actions";
 
-import { push } from "connected-react-router";
+import { Mixpanel } from "../components/Mixpanel";
 
 function Cart() {
   const dispatch = useDispatch();
@@ -21,7 +21,10 @@ function Cart() {
             size="sm"
             block
             variant="warning"
-            onClick={() => dispatch(checkLoginBeforeCart(user.id))}
+            onClick={() => {
+              dispatch(checkLoginBeforeCart(user.id));
+              Mixpanel.track("click cart finish button");
+            }}
           >
             selesai
           </Button>

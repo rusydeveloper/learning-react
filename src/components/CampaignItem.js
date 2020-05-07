@@ -5,6 +5,7 @@ import defaultProductImage from "../assets/open-box.png";
 import { addCartOrder, checkOrdered } from "../actions";
 import { useSelector, useDispatch } from "react-redux";
 import { server } from "../constants/server";
+import { Mixpanel } from "../components/Mixpanel";
 
 function CampaignItem(props) {
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ function CampaignItem(props) {
 
   useEffect(() => {
     setOrdered(dispatch(checkOrdered(props.campaign.product_id, cart.items)));
-  }, [dispatch]);
+  }, [dispatch, props, cart]);
 
   return (
     <div className="card card-campaign">
@@ -45,7 +46,7 @@ function CampaignItem(props) {
           <img
             className="card-img-top campaign-icon image-fit"
             src={server_url + props.campaign.product.image}
-            alt="image"
+            alt="tidak ada gambar"
             onError={(e) => {
               e.target.src = defaultProductImage;
               e.target.alt = "broken";
@@ -133,45 +134,6 @@ function CampaignItem(props) {
             <div className="campaign-duration"> {timer()}</div>
           </div>
 
-          {/* {count > 0 ? (
-            <div>
-              <Button
-                size="sm"
-                variant="light"
-                onClick={() => {
-                  dispatch(minusCart(props.product));
-                  setCount(count - 1);
-                }}
-              >
-                -{" "}
-              </Button>
-              <span className="count-product-order">{count}</span>
-              <Button
-                size="sm"
-                variant="warning"
-                onClick={() => {
-                  dispatch(plusCart(props.product));
-                  setCount(count + 1);
-                }}
-              >
-                +{" "}
-              </Button>
-            </div>
-          ) : (
-            <div>
-              <Button
-                size="sm"
-                variant="warning"
-                block
-                onClick={() => {
-                  dispatch(addCart(props.product));
-                  setCount(count + 1);
-                }}
-              >
-                pesan
-              </Button>
-            </div>
-          )} */}
           <div>
             {isOrdered ? (
               <Button
@@ -200,6 +162,7 @@ function CampaignItem(props) {
                   );
                   setCount(count + 1);
                   setOrdered(true);
+                  Mixpanel.track("click add campaign product to cart button");
                 }}
               >
                 pesan
