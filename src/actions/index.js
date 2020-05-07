@@ -70,6 +70,13 @@ export const signup = (
     action: "User signup",
   });
 
+  Swal.fire({
+    title: "Mohon tunggu pendaftaran sedang diproses",
+    onBeforeOpen: () => {
+      Swal.enableLoading();
+    },
+  });
+
   return function action(dispatch) {
     dispatch({ type: "SIGNUP" });
     const url_api = server;
@@ -109,13 +116,14 @@ export const signup = (
       },
       (err) => {
         dispatch(signupFailed(err));
-        // console.log(err.response.data.errors.email[0]);
       }
     );
   };
 };
 
 export const signupSuccess = (data) => {
+  Swal.disableLoading();
+  Swal.close();
   swal("Berhasil!", "Anda berhasil terdaftar dan masuk", "success");
   return {
     type: "SIGNUP_SUCCESS",
@@ -224,7 +232,6 @@ export const loadUser = (data) => {
 };
 
 export const loadBusiness = (data) => {
-  console.log(data);
   return {
     type: "LOAD_BUSINESS",
     payload: data,
@@ -232,7 +239,6 @@ export const loadBusiness = (data) => {
 };
 
 export const loadWallet = (data) => {
-  console.log(data);
   return {
     type: "LOAD_WALLET",
     payload: data,
