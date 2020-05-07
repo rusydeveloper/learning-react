@@ -318,3 +318,13 @@
   font-size: 10pt !important;
   font-weight: 300 !important;
 }
+.error-text {
+  font-size: 8pt !important;
+  font-weight: 300 !important;
+  color: red;
+}
+
+.input-box {
+  height: 50px;
+  width: 100%;
+}

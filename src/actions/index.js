@@ -107,7 +107,10 @@ export const signup = (
           dispatch(push("/user"));
         }
       },
-      (err) => dispatch(signupFailed(err))
+      (err) => {
+        dispatch(signupFailed(err));
+        // console.log(err.response.data.errors.email[0]);
+      }
     );
   };
 };
@@ -128,7 +131,11 @@ export const signupLoginSuccess = (data) => {
 };
 
 export const signupFailed = (data) => {
-  swal("Gagal!", "Data yang anda masukan salah " + data, "error");
+  swal(
+    "Gagal!",
+    "Check kembali formulir atau email kamu sudah terdaftar",
+    "error"
+  );
   return {
     type: "SIGNUP_FAILED",
     payload: data,
