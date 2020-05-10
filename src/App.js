@@ -10,7 +10,6 @@ import { Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row, Col } from "react-bootstrap";
 import Order from "./pages/Order";
-import Checkout from "./pages/Checkout";
 import Invoice from "./pages/Invoice";
 import ReactGA from "react-ga";
 
@@ -28,7 +27,6 @@ function App() {
             <Route path="/user" component={User} />
             <Route path="/order" component={Order} />
             <Route path="/invoice" component={Invoice} />
-            <Route path="/checkout" component={Checkout} />
           </Switch>
         </Col>
       </Row>

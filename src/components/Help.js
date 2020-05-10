@@ -12,20 +12,18 @@ function Help(props) {
   return (
     <div>
       <a href={link} target="_blank" rel="noopener noreferrer">
-        <div className="help-container">
-          <Button
-            type="submit"
-            value="Submit"
-            variant="success"
-            size="sm"
-            onClick={() => {
-              handleShow();
-              Mixpanel.track("click help button");
-            }}
-            block
-          >
-            <span className="fa fa-question-circle"></span>
-          </Button>
+        <div
+          className="help-container"
+          onClick={() => {
+            handleShow();
+            Mixpanel.track("click help button");
+          }}
+        >
+          <span className="help-icon">
+            <span className="fab fa-whatsapp"></span>
+          </span>
+          <br />
+          <span className="help-text">bantuan?</span>
         </div>
       </a>
 
