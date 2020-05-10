@@ -203,8 +203,8 @@ function User() {
   return (
     <div>
       <Help
-        phone="082-126-644-466"
-        wa="6282126644466"
+        phone="082-119-7572-68"
+        wa="6282119757268"
         message="Saya mau bertanya tentang program belanja bersama"
       ></Help>
       {user.name ? (

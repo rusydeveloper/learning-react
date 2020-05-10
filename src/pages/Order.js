@@ -40,7 +40,11 @@ function Order() {
 
   return (
     <div>
-      <Help></Help>
+      <Help
+        phone="082-119-7572-68"
+        wa="6282119757268"
+        message="Saya mau bertanya tentang program belanja bersama"
+      ></Help>
       <OrderList carts={cart.items} />{" "}
       <Button
         type="submit"

@@ -3,6 +3,7 @@ import { Button, Card } from "react-bootstrap";
 
 import { useDispatch, useSelector } from "react-redux";
 import { login, signup, logout } from "../actions";
+import Help from "../components/Help";
 import ReactGA from "react-ga";
 import { Mixpanel } from "../components/Mixpanel";
 
@@ -192,6 +193,11 @@ function Login() {
 
   return (
     <div>
+      <Help
+        phone="082-119-7572-68"
+        wa="6282119757268"
+        message="Saya mau bertanya tentang program belanja bersama"
+      ></Help>
       {user.name ? (
         <div>
           <hr></hr>

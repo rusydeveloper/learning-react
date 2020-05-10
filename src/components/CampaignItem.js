@@ -39,7 +39,7 @@ function CampaignItem(props) {
   }, [dispatch, props, cart]);
 
   return (
-    <div className="card card-campaign">
+    <div className="card-campaign">
       {props.campaign.product.image ? (
         <div>
           {" "}
@@ -61,13 +61,13 @@ function CampaignItem(props) {
         />
       )}
 
-      <div className="card-body">
+      <div className="card-body-campaign">
         <div className="card-text">
           <div className="campaign-product-title">
             {props.campaign.product.name}
           </div>
           <br />
-          <small>harga saat ini</small>
+          <small class="campaign-text">harga saat ini</small>
           <div className="product-initial-price">
             Rp{" "}
             {props.campaign.product_initial_price
@@ -111,8 +111,8 @@ function CampaignItem(props) {
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                 </div>
               ) : (
-                <div>
-                  Tersisa{" "}
+                <div class="campaign-text">
+                  Sisa{" "}
                   <b>
                     <span className="product-tiering-price">
                       {props.campaign.product_tiering_quota_1 -
@@ -120,7 +120,7 @@ function CampaignItem(props) {
                       {props.campaign.unit}
                     </span>
                   </b>{" "}
-                  lagi menuju harga <br />
+                  ke harga <br />
                   <span className="product-tiering-price">
                     *Rp{" "}
                     {props.campaign.product_tiering_price_1
@@ -151,6 +151,7 @@ function CampaignItem(props) {
               <Button
                 size="sm"
                 variant="warning"
+                className="full-width"
                 block
                 onClick={() => {
                   dispatch(
