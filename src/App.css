@@ -145,8 +145,23 @@
 .campaign-product-title {
   font-size: 10pt;
   width: 100%;
-  height: 20px;
+  height: 30px;
   font-weight: 700;
+}
+
+.bg-custom {
+  background-color: #696868 !important;
+}
+.bg-custom-2 {
+  background-color: #afaeae !important;
+}
+.bar-text {
+  color: black;
+  font-weight: 800;
+}
+
+.progress-custom {
+  height: 200px;
 }
 
 .product-title {
@@ -181,11 +196,18 @@
   padding: 0px 20px;
 }
 
+.campaign-term {
+  font-size: 7pt !important;
+  font-weight: 600 !important;
+  line-height: 10pt;
+}
+
 .product-initial-price {
   font-size: 11pt;
-  height: 10px;
+  height: 25px;
   font-weight: 900;
-  text-align: center;
+  text-align: left;
+  color: #f3b700;
 }
 
 .campaign-notes {
@@ -193,22 +215,48 @@
   color: red;
 }
 .campaign-duration {
-  font-size: 10pt;
-  color: #067bff;
+  font-size: 8pt;
+  color: rgb(214, 1, 1);
   font-weight: 900;
   text-align: right;
   margin: 10px 0px;
 }
 
 .product-tiering-price {
-  font-size: 10pt;
-  height: 10px;
-  color: red;
+  font-size: 9pt;
+  color: darkgrey;
   font-weight: 900;
+  margin-left: 5px;
+  margin-top: 9px;
+}
+
+.text-campaign {
+  font-weight: 800;
+  font-size: 15pt;
+}
+
+.flex-container-campaign {
+  display: flex;
+  flex-wrap: nowrap;
+  background-color: white;
+}
+
+.flex-container-campaign > div {
+  background-color: #f1f1f1;
+  width: 100px;
+  margin: 3px;
+  text-align: center;
+  font-size: 8pt;
+  padding: 3px;
 }
 
 .campaign-text {
   font-size: 9pt;
+}
+
+.campaign-tiering-price {
+  border-bottom: rgb(158, 157, 157) 1px solid;
+  padding-bottom: 2px;
 }
 
 .powered-nectico-logo {
@@ -347,10 +395,6 @@
   font-size: 12pt;
 }
 
-.campaign-unit {
-  font-size: 10pt !important;
-  font-weight: 300 !important;
-}
 .error-text {
   font-size: 8pt !important;
   font-weight: 300 !important;

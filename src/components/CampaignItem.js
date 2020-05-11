@@ -11,6 +11,9 @@ function CampaignItem(props) {
   const dispatch = useDispatch();
   const server_url = server + "/";
   const [count, setCount] = useState(0);
+  const [currentPrice, setCurrentPrice] = useState(
+    props.campaign.product_tiering_price_1
+  );
   const [isOrdered, setOrdered] = useState(false);
   const cart = useSelector((state) => state.cart);
 
@@ -33,6 +36,218 @@ function CampaignItem(props) {
     }
     return text;
   }
+
+  let quota_left = 0;
+  let tier_quota = 0;
+  let tier_price = 0;
+
+  const tieringCase = (
+    order,
+    tiering1,
+    tiering2,
+    tiering3,
+    price1,
+    price2,
+    price3
+  ) => {
+    var progress_tiering_1 = 0;
+    var progress_tiering_2 = 0;
+    if (tiering2 > tiering1) {
+      if (tiering3 > tiering2) {
+        console.log("tier Lv 3");
+
+        if (order < tiering1) {
+          //if tiering price for lv 3, order still progress for tier 1
+          // setCurrentPrice(price1);
+          progress_tiering_1 = 33 - (order / tiering3) * 100;
+          progress_tiering_2 = 33;
+          quota_left = tiering1 - order;
+          tier_quota = tiering1;
+          tier_price = price1;
+          return (
+            <div className="progress" style={{ height: "30px" }}>
+              <div
+                className="progress-bar bg-warning progress-bar-striped progress-bar-animated  active"
+                role="progressbar"
+                aria-valuenow="40"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style={{
+                  width: (order / tiering3) * 100 + "%",
+                }}
+              >
+                <span className="bar-text"></span>
+              </div>
+              <div
+                class="progress-bar bg-custom"
+                role="progressbar"
+                style={{
+                  width: progress_tiering_1 + "%",
+                  borderRight: "3px solid black",
+                }}
+                aria-valuenow="30"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+              <div
+                class="progress-bar bg-custom-2"
+                role="progressbar"
+                style={{
+                  width: progress_tiering_2 + "%",
+                  borderRight: "3px solid black",
+                }}
+                aria-valuenow="30"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+          );
+        } else if (order < tiering2) {
+          //if tiering price for lv 3, order still progress for tier 2
+          // setCurrentPrice(price1);
+          progress_tiering_2 = 66 - (order / tiering3) * 100;
+          quota_left = tiering2 - order;
+          tier_quota = tiering2;
+          tier_price = price2;
+          return (
+            <div className="progress" style={{ height: "30px" }}>
+              <div
+                className="progress-bar bg-warning progress-bar-striped progress-bar-animated  active"
+                role="progressbar"
+                aria-valuenow="40"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style={{
+                  width: (order / tiering3) * 100 + "%",
+                }}
+              >
+                <span className="bar-text"></span>
+              </div>
+
+              <div
+                class="progress-bar bg-custom-2"
+                role="progressbar"
+                style={{
+                  width: progress_tiering_2 + "%",
+                  borderRight: "3px solid black",
+                }}
+                aria-valuenow="30"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+          );
+        } else {
+          //if tiering price for lv 3, order progress for tier 3
+          setCurrentPrice(price1);
+          quota_left = tiering3 - order;
+          tier_quota = tiering3;
+          tier_price = price3;
+
+          return (
+            <div className="progress" style={{ height: "30px" }}>
+              <div
+                className="progress-bar bg-warning progress-bar-striped progress-bar-animated  active"
+                role="progressbar"
+                aria-valuenow="40"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style={{
+                  width: (order / tiering3) * 100 + "%",
+                }}
+              >
+                <span className="bar-text"></span>
+              </div>
+            </div>
+          );
+        }
+      } else {
+        console.log("tier Lv 2");
+        if (order < tiering1) {
+          //if tiering price for lv 2, order still progress for tier 1
+          // setCurrentPrice(price1);
+          progress_tiering_1 = 50 - (order / tiering2) * 100;
+          quota_left = tiering1 - order;
+          tier_quota = tiering1;
+          tier_price = price1;
+          console.log(progress_tiering_1);
+          return (
+            <div className="progress" style={{ height: "30px" }}>
+              <div
+                className="progress-bar bg-warning progress-bar-striped progress-bar-animated  active"
+                role="progressbar"
+                aria-valuenow="40"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style={{
+                  width: (order / tiering2) * 100 + "%",
+                }}
+              >
+                <span className="bar-text"></span>
+              </div>
+              <div
+                class="progress-bar bg-custom"
+                role="progressbar"
+                style={{
+                  width: progress_tiering_1 + "%",
+                  borderRight: "3px solid black",
+                }}
+                aria-valuenow="30"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+          );
+        } else {
+          //if tiering price for lv 2, order progress for tier 2
+          // setCurrentPrice(price1);
+          progress_tiering_1 = 0;
+          quota_left = tiering2 - order;
+          tier_quota = tiering2;
+          tier_price = price2;
+          return (
+            <div className="progress" style={{ height: "30px" }}>
+              <div
+                className="progress-bar bg-warning progress-bar-striped progress-bar-animated  active"
+                role="progressbar"
+                aria-valuenow="40"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style={{
+                  width: (order / tiering2) * 100 + "%",
+                }}
+              >
+                <span className="bar-text"></span>
+              </div>
+            </div>
+          );
+        }
+      }
+    } else {
+      console.log("tier Lv 1");
+      //if tiering price for lv 1, order progress for tier 1
+      // setCurrentPrice(price1);
+      quota_left = tiering1 - order;
+      tier_quota = tiering1;
+      tier_price = price1;
+      return (
+        <div className="progress" style={{ height: "30px" }}>
+          <div
+            className="progress-bar bg-warning progress-bar-striped progress-bar-animated  active"
+            role="progressbar"
+            aria-valuenow="40"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            style={{
+              width: (order / tiering1) * 100 + "%",
+            }}
+          >
+            <span className="bar-text"></span>
+          </div>
+        </div>
+      );
+    }
+  };
 
   useEffect(() => {
     setOrdered(dispatch(checkOrdered(props.campaign.product_id, cart.items)));
@@ -64,73 +279,47 @@ function CampaignItem(props) {
       <div className="card-body-campaign">
         <div className="card-text">
           <div className="campaign-product-title">
-            {props.campaign.product.name}
+            {props.campaign.product.name} [<span>{props.campaign.unit}</span>]
           </div>
           <br />
-          <small class="campaign-text">harga saat ini</small>
           <div className="product-initial-price">
-            Rp{" "}
-            {props.campaign.product_initial_price
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
-            <span className="campaign-unit">per {props.campaign.unit}</span>
+            Rp {currentPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
           </div>
 
-          <br />
           <div className="campaign-container">
-            <div className="progress">
-              <div
-                className="progress-bar progress-bar-success progress-bar-striped progress-bar-animated active"
-                role="progressbar"
-                aria-valuenow="40"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                style={{
-                  width:
-                    (props.campaign.quantity_ordered /
-                      props.campaign.product_tiering_quota_1) *
-                      100 +
-                    "%",
-                }}
-              >
-                {(props.campaign.quantity_ordered /
-                  props.campaign.product_tiering_quota_1) *
-                  100}{" "}
-                %
+            {tieringCase(
+              props.campaign.quantity_ordered,
+              props.campaign.product_tiering_quota_1,
+              props.campaign.product_tiering_quota_2,
+              props.campaign.product_tiering_quota_3,
+              props.campaign.product_tiering_price_1,
+              props.campaign.product_tiering_price_2,
+              props.campaign.product_tiering_price_3
+            )}
+
+            <div className="product-tiering-price">
+              <span className="campaign-tiering-price">
+                Rp {tier_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+              </span>
+              <br />
+              <span className="campaign-term">
+                Jika {tier_quota} pesanan tercapai
+              </span>
+            </div>
+            <div class="flex-container-campaign">
+              <div>
+                <span className="text-campaign">
+                  {props.campaign.quantity_ordered}
+                </span>{" "}
+                Pesanan
+              </div>
+              <div>
+                <span className="text-campaign">{quota_left} </span>
+                <br />
+                Sisa kuota
               </div>
             </div>
 
-            <div className="campaign-target">
-              {props.campaign.product_tiering_quota_1 -
-                props.campaign.quantity_ordered <=
-              0 ? (
-                <div>
-                  Harga saat ini Rp{" "}
-                  {props.campaign.product_tiering_price_1
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-                </div>
-              ) : (
-                <div class="campaign-text">
-                  Sisa{" "}
-                  <b>
-                    <span className="product-tiering-price">
-                      {props.campaign.product_tiering_quota_1 -
-                        props.campaign.quantity_ordered}{" "}
-                      {props.campaign.unit}
-                    </span>
-                  </b>{" "}
-                  ke harga <br />
-                  <span className="product-tiering-price">
-                    *Rp{" "}
-                    {props.campaign.product_tiering_price_1
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-                  </span>{" "}
-                  per {props.campaign.unit}
-                </div>
-              )}
-            </div>
             <div className="campaign-duration"> {timer()}</div>
           </div>
 
@@ -171,7 +360,6 @@ function CampaignItem(props) {
             )}
           </div>
         </div>
-        <span className="campaign-notes">*syarat & ketentuan berlaku</span>
       </div>
     </div>
   );
