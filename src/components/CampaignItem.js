@@ -6,6 +6,7 @@ import { addCartOrder, checkOrdered } from "../actions";
 import { useSelector, useDispatch } from "react-redux";
 import { server } from "../constants/server";
 import { Mixpanel } from "../components/Mixpanel";
+import Timer from "./Timer";
 
 function CampaignItem(props) {
   const dispatch = useDispatch();
@@ -14,26 +15,6 @@ function CampaignItem(props) {
   const [currentPrice] = useState(props.campaign.product_initial_price);
   const [isOrdered, setOrdered] = useState(false);
   const cart = useSelector((state) => state.cart);
-
-  function timer() {
-    var text = "";
-    const now = new Date();
-    const end_campaign = new Date(props.campaign.end_at);
-    var d = end_campaign - now;
-    var weekdays = Math.floor(d / 1000 / 60 / 60 / 24 / 7);
-    var days = Math.floor(d / 1000 / 60 / 60 / 24 - weekdays * 7);
-    var hours = Math.floor(d / 1000 / 60 / 60 - weekdays * 7 * 24 - days * 24);
-    var minutes = Math.floor(
-      d / 1000 / 60 - weekdays * 7 * 24 * 60 - days * 24 * 60 - hours * 60
-    );
-
-    if (days > 0) {
-      text = "sisa " + days + " hari lagi";
-    } else {
-      text = hours + " jam " + minutes + " menit lagi";
-    }
-    return text;
-  }
 
   let quota_left = 0;
   let tier_quota = 0;
@@ -319,7 +300,15 @@ function CampaignItem(props) {
               </div>
             </div>
 
-            <div className="campaign-duration"> {timer()}</div>
+            <div className="campaign-duration">
+              {" "}
+              Batas pesan
+              <table className="timer-table">
+                <tr>
+                  <Timer deadline={props.campaign.end_at} />
+                </tr>
+              </table>
+            </div>
           </div>
 
           <div>
