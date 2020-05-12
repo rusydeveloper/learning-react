@@ -11,9 +11,7 @@ function CampaignItem(props) {
   const dispatch = useDispatch();
   const server_url = server + "/";
   const [count, setCount] = useState(0);
-  const [currentPrice, setCurrentPrice] = useState(
-    props.campaign.product_initial_price
-  );
+  const [currentPrice] = useState(props.campaign.product_initial_price);
   const [isOrdered, setOrdered] = useState(false);
   const cart = useSelector((state) => state.cart);
 
