@@ -12,7 +12,7 @@ function CampaignItem(props) {
   const server_url = server + "/";
   const [count, setCount] = useState(0);
   const [currentPrice, setCurrentPrice] = useState(
-    props.campaign.product_tiering_price_1
+    props.campaign.product_initial_price
   );
   const [isOrdered, setOrdered] = useState(false);
   const cart = useSelector((state) => state.cart);
@@ -43,6 +43,7 @@ function CampaignItem(props) {
 
   const tieringCase = (
     order,
+    initial_price,
     tiering1,
     tiering2,
     tiering3,
@@ -289,6 +290,7 @@ function CampaignItem(props) {
           <div className="campaign-container">
             {tieringCase(
               props.campaign.quantity_ordered,
+              props.campaign.product_initial_price,
               props.campaign.product_tiering_quota_1,
               props.campaign.product_tiering_quota_2,
               props.campaign.product_tiering_quota_3,
