@@ -21,7 +21,6 @@ function Product() {
   Mixpanel.track("view product page");
 
   useEffect(() => {
-    dispatch(loadProducts());
     dispatch(loadCampaigns());
     dispatch(loadCategories());
     dispatch(checkBalance(user.id));
