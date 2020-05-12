@@ -140,7 +140,6 @@ function CampaignItem(props) {
           );
         } else {
           //if tiering price for lv 3, order progress for tier 3
-          setCurrentPrice(price1);
           quota_left = tiering3 - order;
           tier_quota = tiering3;
           tier_price = price3;
