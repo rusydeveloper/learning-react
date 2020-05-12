@@ -85,51 +85,7 @@ function Product() {
       <hr />
       <CampaignList campaigns={campaigns} />
       <hr />
-      <label>Belanja Satuan</label>
-      <br />
-      <small className="small-header">
-        total: {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} produk,
-        halaman {current_page} dari {last_page}
-      </small>
-      <ProductList products={products} />
-      <Row>
-        <Col></Col>
-        <Col>
-          <Pagination>
-            {current_page !== 1 ? (
-              <div className="flex-container-nowrap">
-                <div>
-                  <Pagination.First
-                    onClick={() => dispatch(loadProductPageUrl(first_page_url))}
-                  />
-                </div>
-                <div>
-                  <Pagination.Prev
-                    onClick={() => dispatch(loadProductPageUrl(prev_page_url))}
-                  />
-                </div>
-              </div>
-            ) : null}
 
-            <Pagination.Item active>{current_page}</Pagination.Item>
-            {current_page !== last_page ? (
-              <div className="flex-container-nowrap">
-                <div>
-                  <Pagination.Next
-                    onClick={() => dispatch(loadProductPageUrl(next_page_url))}
-                  />
-                </div>
-                <div>
-                  <Pagination.Last
-                    onClick={() => dispatch(loadProductPageUrl(last_page_url))}
-                  />
-                </div>
-              </div>
-            ) : null}
-          </Pagination>
-        </Col>
-        <Col></Col>
-      </Row>
       <Cart></Cart>
     </div>
   );
