@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import CampaignList from "../components/CampaignList";
-import ProductList from "../components/ProductList";
 import Help from "../components/Help";
-import { Badge, Pagination, Row, Col, Navbar } from "react-bootstrap";
+import { Badge, Navbar } from "react-bootstrap";
 import Cart from "../components/Cart";
 import { Mixpanel } from "../components/Mixpanel";
 import {
@@ -11,7 +10,6 @@ import {
   loadCampaigns,
   searchProduct,
   selectCategory,
-  loadProductPageUrl,
   checkBalance,
 } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,16 +28,8 @@ function Product() {
     ReactGA.pageview("/product");
   }, [dispatch, user]);
 
-  const products = useSelector((state) => state.product.items);
   const campaigns = useSelector((state) => state.campaign.items);
   const categories = useSelector((state) => state.product.categories);
-  const next_page_url = useSelector((state) => state.product.next_page_url);
-  const prev_page_url = useSelector((state) => state.product.prev_page_url);
-  const first_page_url = useSelector((state) => state.product.first_page_url);
-  const last_page_url = useSelector((state) => state.product.last_page_url);
-  const current_page = useSelector((state) => state.product.current_page);
-  const last_page = useSelector((state) => state.product.last_page);
-  const total = useSelector((state) => state.product.total);
 
   return (
     <div>
