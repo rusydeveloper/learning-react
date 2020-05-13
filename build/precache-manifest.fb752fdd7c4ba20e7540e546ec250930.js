@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "de9576e3938c6143d2208565f90efeb8",
+    "revision": "458e71660a9de19351e9b422092d1f34",
     "url": "/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/css/2.47e06e2e.chunk.css"
   },
   {
-    "revision": "44a6e245bdee5559b2ff",
+    "revision": "20784499f4b685aa6268",
     "url": "/static/css/main.7b71c105.chunk.css"
   },
   {
@@ -20,27 +20,19 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/2.3cde6b9a.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "44a6e245bdee5559b2ff",
-    "url": "/static/js/main.1fdea7b9.chunk.js"
+    "revision": "20784499f4b685aa6268",
+    "url": "/static/js/main.81ad36ad.chunk.js"
   },
   {
     "revision": "c4a7f7998775d9b7351d",
     "url": "/static/js/runtime-main.a4bd9d66.js"
   },
   {
-    "revision": "0b38332924a319c348b3349c453ae870",
-    "url": "/static/media/logo-bandung-dinas.0b383329.png"
-  },
-  {
     "revision": "dd16432629be0d50e0d741f38562c0d2",
     "url": "/static/media/logo-powered-nectico.dd164326.png"
   },
   {
-    "revision": "90efd7e52aaa121788e124e3d1c55acc",
-    "url": "/static/media/logo-sejuk.90efd7e5.png"
-  },
-  {
-    "revision": "3981d62d241f44e283cc5cb7beba3a6a",
-    "url": "/static/media/open-box.3981d62d.png"
+    "revision": "a3e203d38b1c99137ecf270b24e9d3a1",
+    "url": "/static/media/open-box.a3e203d3.png"
   }
 ]);
