@@ -4,7 +4,6 @@ import Product from "./pages/Product";
 import Login from "./pages/Login";
 import User from "./pages/User";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
 import BottomNav from "./components/BottomNav";
 import { Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
