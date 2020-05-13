@@ -466,3 +466,8 @@
   padding: 10px;
   border-radius: 5px;
 }
+
+.campaign-title-text {
+  font-size: 7pt;
+  color: grey;
+}

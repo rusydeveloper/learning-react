@@ -258,7 +258,8 @@ function CampaignItem(props) {
       <div className="card-body-campaign">
         <div className="card-text">
           <div className="campaign-product-title">
-            {props.campaign.product.name} [<span>{props.campaign.unit}</span>]
+            {props.campaign.product.name} [<span>{props.campaign.unit}</span>]{" "}
+            <span className="campaign-title-text">{props.campaign.title}</span>
           </div>
           <br />
           <div className="product-initial-price">
