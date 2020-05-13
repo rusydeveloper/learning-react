@@ -1,5 +1,5 @@
 import React from "react";
-import logoFKBK from "../assets/logo-FKBK.png";
+import logoFKBK from "../assets/logo-fkbk.png";
 import logoBulog from "../assets/logo-BULOG.png";
 import logoDT from "../assets/logo-DT.png";
 import logoITB from "../assets/logo-ITB.png";
