@@ -5,9 +5,9 @@ import InvoiceItem from "./InvoiceItem";
 function InvoiceList(props) {
   return (
     <div>
-      <div class="flex-container">
-        {props.invoices.map((invoice) => (
-          <div>
+      <div className="flex-container">
+        {props.invoices.map((invoice, i) => (
+          <div key={i}>
             <InvoiceItem invoice={invoice} />
           </div>
         ))}

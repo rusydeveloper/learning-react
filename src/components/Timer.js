@@ -27,13 +27,13 @@ function Timer(props) {
 
   const timerComponents = [];
 
-  Object.keys(timeLeft).forEach((interval) => {
+  Object.keys(timeLeft).forEach((interval, i) => {
     if (!timeLeft[interval]) {
       return;
     }
 
     timerComponents.push(
-      <td className="timer-col">
+      <td className="timer-col" key={i}>
         {timeLeft[interval]}
         <br /> {interval}
       </td>
@@ -41,7 +41,17 @@ function Timer(props) {
   });
 
   return (
-    <div>{timerComponents.length ? timerComponents : <span>Habis!</span>}</div>
+    <tbody>
+      <tr>
+        {timerComponents.length ? (
+          timerComponents
+        ) : (
+          <td>
+            <span>Habis!</span>
+          </td>
+        )}
+      </tr>
+    </tbody>
   );
 }
 export default Timer;

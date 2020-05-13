@@ -286,7 +286,7 @@ function CampaignItem(props) {
                 Jika {tier_quota} pesanan tercapai
               </span>
             </div>
-            <div class="flex-container-campaign">
+            <div className="flex-container-campaign">
               <div>
                 <span className="text-campaign">
                   {props.campaign.quantity_ordered}
@@ -304,9 +304,7 @@ function CampaignItem(props) {
               {" "}
               Batas pesan
               <table className="timer-table">
-                <tr>
-                  <Timer deadline={props.campaign.end_at} />
-                </tr>
+                <Timer deadline={props.campaign.end_at} />
               </table>
             </div>
           </div>
