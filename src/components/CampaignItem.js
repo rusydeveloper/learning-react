@@ -42,6 +42,9 @@ function CampaignItem(props) {
           progress_tiering_1 = 33 - (order / tiering3) * 100;
           progress_tiering_2 = 33;
           quota_left = tiering1 - order;
+          if (quota_left < 0) {
+            quota_left = 0;
+          }
           tier_quota = tiering1;
           tier_price = price1;
           return (
@@ -87,6 +90,9 @@ function CampaignItem(props) {
           // setCurrentPrice(price1);
           progress_tiering_2 = 66 - (order / tiering3) * 100;
           quota_left = tiering2 - order;
+          if (quota_left < 0) {
+            quota_left = 0;
+          }
           tier_quota = tiering2;
           tier_price = price2;
           return (
@@ -120,6 +126,9 @@ function CampaignItem(props) {
         } else {
           //if tiering price for lv 3, order progress for tier 3
           quota_left = tiering3 - order;
+          if (quota_left < 0) {
+            quota_left = 0;
+          }
           tier_quota = tiering3;
           tier_price = price3;
 
@@ -147,6 +156,9 @@ function CampaignItem(props) {
           // setCurrentPrice(price1);
           progress_tiering_1 = 50 - (order / tiering2) * 100;
           quota_left = tiering1 - order;
+          if (quota_left < 0) {
+            quota_left = 0;
+          }
           tier_quota = tiering1;
           tier_price = price1;
           console.log(progress_tiering_1);
@@ -182,6 +194,9 @@ function CampaignItem(props) {
           // setCurrentPrice(price1);
           progress_tiering_1 = 0;
           quota_left = tiering2 - order;
+          if (quota_left < 0) {
+            quota_left = 0;
+          }
           tier_quota = tiering2;
           tier_price = price2;
           return (
@@ -207,6 +222,9 @@ function CampaignItem(props) {
       //if tiering price for lv 1, order progress for tier 1
       // setCurrentPrice(price1);
       quota_left = tiering1 - order;
+      if (quota_left < 0) {
+        quota_left = 0;
+      }
       tier_quota = tiering1;
       tier_price = price1;
       return (
@@ -294,11 +312,19 @@ function CampaignItem(props) {
                 </span>{" "}
                 Pesanan
               </div>
-              <div>
-                <span className="text-campaign">{quota_left} </span>
-                <br />
-                Sisa kuota
-              </div>
+              {quota_left > 0 ? (
+                <div>
+                  <span className="text-campaign">{quota_left} </span>
+                  <br />
+                  Sisa kuota
+                </div>
+              ) : (
+                <div className="campaign-achived">
+                  Kuota
+                  <br />
+                  Tercapai
+                </div>
+              )}
             </div>
 
             <div className="campaign-duration">

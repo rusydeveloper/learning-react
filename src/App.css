@@ -249,6 +249,7 @@
   text-align: center;
   font-size: 8pt;
   padding: 3px;
+  border-radius: 5px;
 }
 
 .campaign-text {
@@ -470,4 +471,21 @@
 .campaign-title-text {
   font-size: 7pt;
   color: grey;
+}
+.page-container {
+  margin-bottom: 100px;
+}
+.campaign-achived {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f3b701 !important;
+  font-weight: 800;
+}
+
+.product-not-found-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }

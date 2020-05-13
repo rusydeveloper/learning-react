@@ -201,7 +201,7 @@ function User() {
   }, [dispatch, user]);
 
   return (
-    <div>
+    <div className="page-container">
       <Help
         phone="08211-777-0072"
         wa="6282117770072"
