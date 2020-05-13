@@ -223,10 +223,7 @@ function User() {
           <p>{business.name}</p>
           <p>{business.address}</p>
           <hr />
-          <div
-            className="alert alert-info text-center box-hightlight"
-            role="alert"
-          >
+          <div className="wallet-container text-center" role="alert">
             {wallet.balance > 0 ? (
               <div>
                 Saldo Kredit: Rp{" "}
@@ -238,6 +235,7 @@ function User() {
               <div>Saldo Kredit: Rp {wallet.balance}</div>
             )}
           </div>
+          <hr />
           <Button
             type="submit"
             value="Submit"
