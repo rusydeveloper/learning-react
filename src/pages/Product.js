@@ -14,6 +14,7 @@ import {
 } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
 import ReactGA from "react-ga";
+import Footer from "../components/Footer";
 
 function Product() {
   const dispatch = useDispatch();
@@ -74,6 +75,7 @@ function Product() {
       <hr />
       <CampaignList campaigns={campaigns} />
       <hr />
+      <Footer />
 
       <Cart></Cart>
     </div>

@@ -31,7 +31,6 @@ function App() {
         </Col>
       </Row>
       <BottomNav></BottomNav>
-      <Footer></Footer>
     </Container>
   );
 }
