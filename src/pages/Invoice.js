@@ -21,7 +21,7 @@ function Invoice() {
   const invoices = useSelector((state) => state.invoice.items);
 
   return (
-    <div>
+    <div className="page-container">
       <Help
         phone="081-325-368-885"
         wa="6281325368885"

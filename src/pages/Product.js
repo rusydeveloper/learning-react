@@ -32,7 +32,7 @@ function Product() {
   const categories = useSelector((state) => state.product.categories);
 
   return (
-    <div>
+    <div className="page-container">
       <Navbar sticky="top">
         <div className="search-container">
           <input
