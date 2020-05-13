@@ -28,7 +28,6 @@ function Timer(props) {
   const timerComponents = [];
 
   Object.keys(timeLeft).forEach((interval) => {
-    // console.log(timeLeft[interval]);
     if (!timeLeft[interval]) {
       return;
     }
