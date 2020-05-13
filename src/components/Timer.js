@@ -47,7 +47,7 @@ function Timer(props) {
           timerComponents
         ) : (
           <td>
-            <span>Habis!</span>
+            <span>{props.deadline}</span>
           </td>
         )}
       </tr>
