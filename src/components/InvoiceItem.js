@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import { Card, Row, Col, Button, Modal } from "react-bootstrap";
 import { Mixpanel } from "../components/Mixpanel";
+import Timer from "./Timer";
 
 function InvoiceItem(props) {
   const [show, setShow] = useState(false);
@@ -17,9 +18,9 @@ function InvoiceItem(props) {
   const invoice_status = (status) => {
     switch (status) {
       case "paid":
-        return <span class="badge badge-success">sudah dibayar</span>;
+        return <span className="badge badge-success">sudah dibayar</span>;
       case "unpaid":
-        return <span class="badge badge-danger">menunggu pembayaran</span>;
+        return <span className="badge badge-danger">menunggu pembayaran</span>;
       default:
         return null;
     }
@@ -33,12 +34,12 @@ function InvoiceItem(props) {
             <Col>
               <Row>
                 <Col>
-                  <div class="invoice-unique-id">
+                  <div className="invoice-unique-id">
                     #{props.invoice.unique_id}
                   </div>
                 </Col>
                 <Col>
-                  <div class="invoice-amount">
+                  <div className="invoice-amount">
                     Rp{" "}
                     {props.invoice.amount
                       .toString()
@@ -49,7 +50,7 @@ function InvoiceItem(props) {
 
               <Row>
                 <Col>
-                  <div class="invoice-status">
+                  <div className="invoice-status">
                     {invoice_status(props.invoice.status)}
                   </div>
                 </Col>
@@ -57,19 +58,26 @@ function InvoiceItem(props) {
               </Row>
               <Row>
                 <Col>
-                  <div class="invoice-date-create">
+                  <div className="invoice-date-create">
                     {props.invoice.created_at}
                   </div>
                 </Col>
                 <Col>
-                  <div class="invoice-booking-id">
+                  <div className="invoice-booking-id">
                     {props.invoice.booking_id}{" "}
                   </div>
                 </Col>
               </Row>
-              <small class="invoice-description">
+              <small className="invoice-description">
                 Jumlah Barang: {props.invoice.quantity}
               </small>
+              <div className="campaign-duration">
+                {" "}
+                Batas bayar
+                <table className="timer-table">
+                  <Timer deadline={props.invoice.max_payment} />
+                </table>
+              </div>
               {props.invoice.status === "unpaid" ? (
                 <div>
                   <Button
@@ -88,7 +96,7 @@ function InvoiceItem(props) {
                   <Modal show={show} onHide={handleClose}>
                     <Modal.Body>
                       <b>LANGKAH 1</b>
-                      <div class="payment-description">
+                      <div className="payment-description">
                         Lakukan transfer sebesar{" "}
                         <b>
                           Rp{" "}

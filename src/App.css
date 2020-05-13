@@ -199,7 +199,7 @@
 .campaign-term {
   font-size: 7pt !important;
   font-weight: 600 !important;
-  line-height: 10pt;
+  line-height: 8pt;
 }
 
 .product-initial-price {
@@ -218,7 +218,7 @@
   font-size: 8pt;
   color: rgb(214, 1, 1);
   font-weight: 900;
-  text-align: right;
+  text-align: left;
   margin: 10px 0px;
 }
 
@@ -228,6 +228,7 @@
   font-weight: 900;
   margin-left: 5px;
   margin-top: 9px;
+  height: 60px;
 }
 
 .text-campaign {
@@ -257,6 +258,15 @@
 .campaign-tiering-price {
   border-bottom: rgb(158, 157, 157) 1px solid;
   padding-bottom: 2px;
+}
+.timer-table {
+  text-align: center;
+}
+
+.timer-col {
+  padding: 0px 2px;
+  border: 2px solid white;
+  background-color: #f1f1f1;
 }
 
 .powered-nectico-logo {
