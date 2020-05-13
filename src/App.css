@@ -418,3 +418,40 @@
 .full-width {
   width: 100% !important;
 }
+
+.footer-container {
+  margin-bottom: 150px;
+}
+.logo-footer {
+  width: 50px;
+  margin: 0px 5px;
+}
+
+.logo-footer-fkbk {
+  width: 70px;
+  margin: 0px 5px;
+}
+
+.logo-footer-bulog {
+  width: 60px;
+  margin: 0px 5px;
+}
+.logo-footer-nectico {
+  width: 60px;
+  margin: 0px 5px;
+}
+
+.logo-footer-itb {
+  width: 40px;
+  margin: 0px 5px;
+}
+
+.logo-footer-dt {
+  width: 40px;
+  margin: 0px 5px;
+}
+
+.supported-by-text {
+  font-size: 8pt;
+  font-weight: 800;
+}
