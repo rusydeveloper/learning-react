@@ -308,10 +308,10 @@ export const searchProduct = (event) => {
   });
   return function action(dispatch) {
     if (event) {
-      dispatch(foundProduct(event));
+      // dispatch(foundProduct(event));
       dispatch(foundCampaign(event));
     } else {
-      dispatch(loadProducts());
+      // dispatch(loadProducts());
       dispatch(loadCampaigns());
     }
   };
