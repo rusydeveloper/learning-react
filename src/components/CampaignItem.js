@@ -12,7 +12,6 @@ function CampaignItem(props) {
   const dispatch = useDispatch();
   const server_url = server + "/";
   const [count, setCount] = useState(0);
-  const [currentPrice] = useState(props.campaign.product_initial_price);
   const [isOrdered, setOrdered] = useState(false);
   const cart = useSelector((state) => state.cart);
 
@@ -281,7 +280,10 @@ function CampaignItem(props) {
           </div>
           <br />
           <div className="product-initial-price">
-            Rp {currentPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
+            Rp{" "}
+            {props.campaign.product_initial_price
+              .toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
           </div>
 
           <div className="campaign-container">
