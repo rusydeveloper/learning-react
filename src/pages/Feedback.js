@@ -6,7 +6,7 @@ import Help from "../components/Help";
 import { Mixpanel } from "../components/Mixpanel";
 import { checkFeedbackLogin } from "../actions";
 
-function Invoice() {
+function Feedback() {
   Mixpanel.track("view feedback page");
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -36,4 +36,4 @@ function Invoice() {
     </div>
   );
 }
-export default Invoice;
+export default Feedback;
