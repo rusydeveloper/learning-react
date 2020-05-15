@@ -16,12 +16,13 @@
 
 .bottom-nav-container {
   padding: 5px;
+
   position: fixed !important;
   bottom: 0px;
   left: 0px;
   width: 100% !important;
   margin: auto;
-  height: 55px;
+  height: 65px;
   background-color: white !important;
   color: #727272;
   z-index: 99 !important;
