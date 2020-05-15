@@ -7,6 +7,7 @@ import Help from "../components/Help";
 import { loadInvoices } from "../actions";
 import ReactGA from "react-ga";
 import { Mixpanel } from "../components/Mixpanel";
+import HeaderNav from "../components/HeaderNav";
 
 function Invoice() {
   Mixpanel.track("view invoice page");
@@ -22,6 +23,7 @@ function Invoice() {
 
   return (
     <div className="page-container">
+      <HeaderNav title="Pesanan"></HeaderNav>
       <Help
         phone="081-325-368-885"
         wa="6281325368885"

@@ -6,6 +6,7 @@ import { login, signup, logout } from "../actions";
 import Help from "../components/Help";
 import ReactGA from "react-ga";
 import { Mixpanel } from "../components/Mixpanel";
+import HeaderNav from "../components/HeaderNav";
 
 function Login() {
   Mixpanel.track("view login page");
@@ -193,6 +194,7 @@ function Login() {
 
   return (
     <div className="page-container">
+      <HeaderNav title="Keranjang"></HeaderNav>
       <Help
         phone="08211-777-0072"
         wa="6282117770072"

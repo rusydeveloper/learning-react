@@ -5,6 +5,7 @@ import Help from "../components/Help";
 
 import { Mixpanel } from "../components/Mixpanel";
 import { checkFeedbackLogin } from "../actions";
+import HeaderNav from "../components/HeaderNav";
 
 function Feedback() {
   Mixpanel.track("view feedback page");
@@ -17,6 +18,7 @@ function Feedback() {
 
   return (
     <div className="page-container">
+      <HeaderNav title="Masukan"></HeaderNav>
       <Help
         phone="08211-777-0072"
         wa="6282117770072"
