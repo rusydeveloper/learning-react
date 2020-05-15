@@ -29,6 +29,7 @@
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
+  box-shadow: 0px -1px 5px rgb(185, 185, 185);
 }
 .bottom-nav-menu {
   width: 80px;
@@ -37,6 +38,10 @@
   padding: 2px;
   font-size: 10pt;
   cursor: pointer;
+}
+
+.bottom-nav-menu-active {
+  color: #f3b700;
 }
 
 .header-nav-container {
