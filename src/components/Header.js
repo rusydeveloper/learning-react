@@ -5,7 +5,7 @@ import logoPoweredNectico from "../assets/logo-powered-nectico.png";
 
 function Header() {
   return (
-    <div>
+    <div className="header-container">
       <div className="flex-container-brand">
         <div>
           <img src={logoDinasBandung} className="dinas-logo" alt="logo" />

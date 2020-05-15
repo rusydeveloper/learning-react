@@ -681,3 +681,22 @@ export const checkBalance = (user_id) => {
     }
   };
 };
+
+export const checkFeedbackLogin = (user_id) => {
+  ReactGA.event({
+    category: "User",
+    action: "User See Invoice",
+  });
+  return function action(dispatch) {
+    if (user_id) {
+      return {
+        type: "FEEDBACK_ALLOWED",
+      };
+    } else {
+      swal(
+        "Maaf, kamu harus login atau daftar terlebih dahulu untuk memberikan masukan!"
+      );
+      dispatch(push("/login"));
+    }
+  };
+};
