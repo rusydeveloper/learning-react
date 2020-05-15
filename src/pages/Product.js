@@ -15,6 +15,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import ReactGA from "react-ga";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 function Product() {
   const dispatch = useDispatch();
@@ -33,6 +34,8 @@ function Product() {
 
   return (
     <div className="page-container">
+      <Header></Header>
+
       <Navbar sticky="top">
         <div className="search-container">
           <input
