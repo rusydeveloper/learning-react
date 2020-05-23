@@ -11,6 +11,9 @@ import Order from "./pages/Order";
 import Invoice from "./pages/Invoice";
 import ReactGA from "react-ga";
 import Feedback from "./pages/Feedback";
+import Inventory from "./pages/Inventory";
+import Record from "./pages/Inventory/Record";
+import Report from "./pages/Inventory/Report";
 
 function App() {
   ReactGA.initialize("UA-142772318-4");
@@ -26,6 +29,9 @@ function App() {
             <Route path="/order" component={Order} />
             <Route path="/invoice" component={Invoice} />
             <Route path="/feedback" component={Feedback} />
+            <Route path="/inventory" component={Inventory} />
+            <Route path="/record" component={Record} />
+            <Route path="/report" component={Report} />
           </Switch>
         </Col>
       </Row>
