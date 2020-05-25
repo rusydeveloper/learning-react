@@ -700,3 +700,83 @@ export const checkFeedbackLogin = (user_id) => {
     }
   };
 };
+
+export const checkInventoryLogin = (user_id) => {
+  return function action(dispatch) {
+    if (user_id) {
+      return {
+        type: "PURCHASE_RECORDING_ALLOWED",
+      };
+    } else {
+      swal(
+        "Maaf, kamu harus login atau daftar terlebih dahulu untuk melakukan pencatatan pembelian!"
+      );
+      dispatch(push("/login"));
+    }
+  };
+};
+
+export const recordPurchasing = (
+  userId,
+  recordType,
+  name,
+  brand,
+  quantity,
+  unit,
+  price,
+  recordedDate
+) => {
+  const recordPurchasingInput = {
+    user_id: userId,
+    inventory_id: recordType,
+    name: name,
+    brand: brand,
+    quantity: quantity,
+    unit: unit,
+    price: price,
+    recorded_date: recordedDate,
+  };
+
+  console.log(recordPurchasingInput);
+
+  Swal.fire({
+    title: "Mohon tunggu pencatatan sedang diproses",
+    onBeforeOpen: () => {
+      Swal.enableLoading();
+    },
+  });
+
+  return function action(dispatch) {
+    dispatch({ type: "PURCHASE_RECORD" });
+    const url_api = server;
+
+    return axios
+      .post(url_api + "/api/inventory/store", recordPurchasingInput)
+      .then(
+        (response) => {
+          dispatch(recordPurchasingSuccess(response));
+        },
+        (err) => {
+          dispatch(recordPurchasingFailed(err));
+        }
+      );
+  };
+};
+
+export const recordPurchasingSuccess = (data) => {
+  Swal.disableLoading();
+  Swal.close();
+  swal("Berhasil!", "Anda berhasil terdaftar dan masuk", "success");
+  return {
+    type: "PURCHASE_RECORD_SUCCESS",
+    payload: data,
+  };
+};
+
+export const recordPurchasingFailed = (data) => {
+  swal("Gagal!", "Check kembali formulir", "error");
+  return {
+    type: "PURCHASE_RECORD_FAILED",
+    payload: data,
+  };
+};
