@@ -538,9 +538,43 @@
   margin-bottom: 100px;
 }
 
+.card-inventory-history {
+  background-color: white;
+  border-radius: 3px;
+  margin: auto;
+  margin-top: 10px;
+}
+
 .inventory-menu-container {
   justify-content: center;
   align-items: center;
   width: 100%;
   padding-top: 200px;
+}
+
+.card-inventory-history {
+  width: 325px;
+  padding: 10px;
+}
+
+.text-grey {
+  color: #727272;
+}
+
+.small-text {
+  font-size: 10pt;
+}
+.history-status {
+  width: 135px;
+}
+.table-separator {
+  border-bottom: 1px solid lightgrey;
+}
+.table-height {
+  line-height: 40px !important;
+}
+.inventory-history-price {
+  font-weight: 700;
+  line-height: 30px !important;
+  font-size: 11pt;
 }

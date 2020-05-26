@@ -1,22 +1,32 @@
 import React, { useEffect, useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { recordPurchasing, checkInventoryLogin } from "../../actions";
+import {
+  recordPurchasing,
+  checkInventoryLogin,
+  loadInventoryList,
+  loadInventoryItem,
+  clearInventoryItem,
+  editFormInventoryName,
+  editFormInventoryBrand,
+  editFormInventoryUnit,
+} from "../../actions";
 import { Button, Card } from "react-bootstrap";
 
 import { Mixpanel } from "../../components/Mixpanel";
 
 import HeaderNav from "../../components/HeaderNav";
+import InventoryHistoryList from "../../components/InventoryHistoryList";
 
 function Record() {
   Mixpanel.track("view feedback page");
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const [name, setName] = useState("");
+  const inventory = useSelector((state) => state.recordInventory.items);
+  const inventorySelect = useSelector((state) => state.selectedInventory);
   const [errorName, setErrorName] = useState("wajib diisi");
   const [validName, setValidName] = useState(false);
 
-  const [brand, setBrand] = useState("");
   const [errorBrand, setErrorBrand] = useState("wajib diisi");
   const [validBrand, setValidBrand] = useState(false);
 
@@ -24,7 +34,6 @@ function Record() {
   const [errorQuantity, setErrorQuantity] = useState("wajib diisi");
   const [validQuantity, setValidQuantity] = useState(false);
 
-  const [unit, setUnit] = useState("");
   const [errorUnit, setErrorUnit] = useState("wajib diisi");
   const [validUnit, setValidUnit] = useState(false);
 
@@ -98,6 +107,7 @@ function Record() {
     if (recordedDate) {
       setErrorRecordedDate("");
       setValidRecordedDate(true);
+      setValidForm(true);
     } else {
       setErrorRecordedDate("wajib diisi");
       setValidRecordedDate(false);
@@ -105,8 +115,22 @@ function Record() {
     }
   }
 
-  function checkForm(validName) {
-    if (validName) {
+  function checkForm(
+    validName,
+    validBrand,
+    validQuantity,
+    validUnit,
+    validPrice,
+    validRecordedDate
+  ) {
+    if (
+      validName &&
+      validBrand &&
+      validQuantity &&
+      validUnit &&
+      validPrice &&
+      validRecordedDate
+    ) {
       setValidForm(true);
     } else {
       setValidForm(false);
@@ -115,7 +139,29 @@ function Record() {
 
   useEffect(() => {
     dispatch(checkInventoryLogin(user.id));
+    dispatch(loadInventoryList(user.id));
   }, [dispatch, user]);
+
+  function selectedInventory(product) {
+    if (product === "new" || product === "") {
+      dispatch(clearInventoryItem());
+      setErrorName("wajib diisi");
+      setValidName(false);
+      setErrorBrand("wajib diisi");
+      setValidBrand(false);
+      setErrorUnit("wajib diisi");
+      setValidUnit(false);
+      setValidForm(false);
+    } else {
+      dispatch(loadInventoryItem(product));
+      setErrorName("");
+      setValidName(true);
+      setErrorBrand("");
+      setValidBrand(true);
+      setErrorUnit("");
+      setValidUnit(true);
+    }
+  }
 
   return (
     <div className="page-container">
@@ -125,177 +171,217 @@ function Record() {
           <label>Pilih produk</label>
           <select
             className="form-control"
-            onChange={(event) => setRecordType(event.target.value)}
+            onChange={(event) => {
+              setRecordType(event.target.value);
+              selectedInventory(event.target.value);
+            }}
           >
-            <option value="" selected>
-              Belum Memilih
-            </option>
+            <option value="">Belum Memilih</option>
             <option value="new">Buat Produk Baru</option>
+            {inventory
+              ? inventory.map((inventoryItem, i) => (
+                  <option key={i} value={inventoryItem.id}>
+                    {inventoryItem.name}
+                  </option>
+                ))
+              : null}
           </select>
         </Card.Body>
       </Card>
       <hr />
-      <Card>
-        <Card.Body>
-          <Card.Text>
-            <input
-              type="text"
-              className="input-box"
-              onChange={(event) => {
-                setName(event.target.value);
-                checkName(event.target.value);
-                checkForm(validName);
-              }}
-              placeholder="Nama Produk"
-              required
-            />
-            <br />
-            <span className="error-text">{errorName}</span>
-            <hr />
-            <input
-              type="text"
-              className="input-box"
-              onChange={(event) => {
-                setBrand(event.target.value);
-                checkBrand(event.target.value);
-                checkForm(
-                  validName,
-                  validBrand,
-                  validQuantity,
-                  validUnit,
-                  validPrice,
-                  validRecordedDate
-                );
-              }}
-              placeholder="Brand/ Merk Produk"
-              required
-            />
-            <br />
-            <span className="error-text">{errorBrand}</span>
-            <hr />
-            <input
-              type="number"
-              className="input-box"
-              onChange={(event) => {
-                setQuantity(event.target.value);
-                checkQuantity(event.target.value);
-                checkForm(
-                  validName,
-                  validBrand,
-                  validQuantity,
-                  validUnit,
-                  validPrice,
-                  validRecordedDate
-                );
-              }}
-              placeholder="Jumlah"
-              required
-            />
-            <br />
-            <span className="error-text">{errorQuantity}</span>
-            <hr />
-            <input
-              type="text"
-              className="input-box"
-              onChange={(event) => {
-                setUnit(event.target.value);
-                checkUnit(event.target.value);
-                checkForm(
-                  validName,
-                  validBrand,
-                  validQuantity,
-                  validUnit,
-                  validPrice,
-                  validRecordedDate
-                );
-              }}
-              placeholder="Satuan"
-              required
-            />
-            <br />
-            <span className="error-text">{errorUnit}</span>
-            <hr />
-            <input
-              type="number"
-              className="input-box"
-              onChange={(event) => {
-                setPrice(event.target.value);
-                checkPrice(event.target.value);
-                checkForm(
-                  validName,
-                  validBrand,
-                  validQuantity,
-                  validUnit,
-                  validPrice,
-                  validRecordedDate
-                );
-              }}
-              placeholder="Harga Satuan"
-              required
-            />
-            <br />
-            <span className="error-text">{errorPrice}</span>
-            <hr />
-            <label>Tanggal Pencatatan</label>
-            <input
-              type="date"
-              className="input-box"
-              onChange={(event) => {
-                setRecordedDate(event.target.value);
-                checkRecordedDate(event.target.value);
-                checkForm(
-                  validName,
-                  validBrand,
-                  validQuantity,
-                  validUnit,
-                  validPrice,
-                  validRecordedDate
-                );
-              }}
-              placeholder="Tanggal Pencatatan"
-              required
-            />
-            <br />
-            <span className="error-text">{errorRecordedDate}</span>
-            <hr />
-          </Card.Text>
+      {recordType !== "" ? (
+        <Card>
+          <Card.Body>
+            <Card.Text>
+              <label>Tanggal Pencatatan</label>
+              <input
+                type="date"
+                className="input-box"
+                onChange={(event) => {
+                  setRecordedDate(event.target.value);
+                  checkRecordedDate(event.target.value);
+                  checkForm(
+                    validName,
+                    validBrand,
+                    validQuantity,
+                    validUnit,
+                    validPrice,
+                    validRecordedDate
+                  );
+                }}
+                placeholder="Tanggal Pencatatan"
+                required
+              />
+              <br />
+              <span className="error-text">{errorRecordedDate}</span>
+              <hr />
+              <input
+                type="text"
+                className="input-box"
+                onChange={(event) => {
+                  dispatch(editFormInventoryName(event.target.value));
+                  checkName(event.target.value);
+                  checkForm(
+                    validName,
+                    validBrand,
+                    validQuantity,
+                    validUnit,
+                    validPrice,
+                    validRecordedDate
+                  );
+                }}
+                placeholder="Nama Produk"
+                defaultValue={inventorySelect.form_edit_name}
+                required
+              />
+              <br />
+              <span className="error-text">{errorName}</span>
+              <hr />
+              <input
+                type="text"
+                className="input-box"
+                onChange={(event) => {
+                  checkBrand(event.target.value);
+                  dispatch(editFormInventoryBrand(event.target.value));
+                  checkForm(
+                    validName,
+                    validBrand,
+                    validQuantity,
+                    validUnit,
+                    validPrice,
+                    validRecordedDate
+                  );
+                }}
+                placeholder="Brand/ Merk Produk"
+                defaultValue={inventorySelect.form_edit_brand}
+                required
+              />
+              <br />
+              <span className="error-text">{errorBrand}</span>
+              <hr />
+              <table>
+                <tr>
+                  <td>
+                    <input
+                      type="number"
+                      className="input-box"
+                      onChange={(event) => {
+                        setQuantity(event.target.value);
+                        checkQuantity(event.target.value);
+                        checkForm(
+                          validName,
+                          validBrand,
+                          validQuantity,
+                          validUnit,
+                          validPrice,
+                          validRecordedDate
+                        );
+                      }}
+                      placeholder="Jumlah"
+                      required
+                    />
+                    <br />
+                    <span className="error-text">{errorQuantity}</span>
+                  </td>
+                  <td className="text-right">
+                    <input
+                      type="text"
+                      className="input-box text-right"
+                      onChange={(event) => {
+                        checkUnit(event.target.value);
+                        checkForm(
+                          validName,
+                          validBrand,
+                          validQuantity,
+                          validUnit,
+                          validPrice,
+                          validRecordedDate
+                        );
+                        dispatch(editFormInventoryUnit(event.target.value));
+                      }}
+                      placeholder="Satuan"
+                      defaultValue={inventorySelect.form_edit_unit}
+                      required
+                    />
+                    <br />
+                    <span className="error-text">{errorUnit}</span>
+                  </td>
+                </tr>
+              </table>
 
-          {validForm ? (
-            <Button
-              type="submit"
-              value="Submit"
-              variant="warning"
-              onClick={() =>
-                dispatch(
-                  recordPurchasing(
-                    user.id,
-                    recordType,
-                    name,
-                    brand,
-                    quantity,
-                    unit,
-                    price,
-                    recordedDate
-                  )
-                )
-              }
-              block
-            >
-              Catat
-            </Button>
-          ) : (
-            <Button
-              type="submit"
-              value="Submit"
-              variant="danger"
-              block
-              disabled
-            >
-              Isi Formulir dengan Benar
-            </Button>
-          )}
-        </Card.Body>
-      </Card>
+              <hr />
+
+              <input
+                type="number"
+                className="input-box"
+                onChange={(event) => {
+                  setPrice(event.target.value);
+                  checkPrice(event.target.value);
+                  checkForm(
+                    validName,
+                    validBrand,
+                    validQuantity,
+                    validUnit,
+                    validPrice,
+                    validRecordedDate
+                  );
+                }}
+                placeholder="Harga Satuan"
+                required
+              />
+              <br />
+              <span className="error-text">{errorPrice}</span>
+              <hr />
+            </Card.Text>
+
+            {validForm ? (
+              <Button
+                type="submit"
+                value="Submit"
+                variant="warning"
+                onClick={() => {
+                  dispatch(
+                    recordPurchasing(
+                      user.id,
+                      recordType,
+                      inventorySelect.form_edit_name,
+                      inventorySelect.form_edit_brand,
+                      quantity,
+                      inventorySelect.form_edit_unit,
+                      price,
+                      recordedDate
+                    )
+                  );
+                }}
+                block
+              >
+                Catat
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                value="Submit"
+                variant="danger"
+                block
+                disabled
+              >
+                Isi Formulir dengan Benar
+              </Button>
+            )}
+          </Card.Body>
+        </Card>
+      ) : null}
+      <hr />
+
+      {inventorySelect.history.length > 0 ? (
+        <div>
+          <small>Riwayat Pencatatan</small>
+          <InventoryHistoryList
+            inventoryHistories={inventorySelect.history}
+            unit={inventorySelect.unit}
+          ></InventoryHistoryList>
+        </div>
+      ) : null}
     </div>
   );
 }

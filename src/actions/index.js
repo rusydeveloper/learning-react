@@ -8,7 +8,6 @@ import { Mixpanel } from "../components/Mixpanel";
 import Swal from "sweetalert2";
 
 var i = 0;
-
 export const checkOrdered = (item, cart) => {
   if (cart.length > 0) {
     for (i = 0; i < cart.length; i++) {
@@ -569,6 +568,7 @@ export const checkout = (
     category: "User",
     action: "User Checkout",
   });
+
   Swal.fire({
     title: "Mohon tunggu pesanan sedang diproses",
     onBeforeOpen: () => {
@@ -737,8 +737,6 @@ export const recordPurchasing = (
     recorded_date: recordedDate,
   };
 
-  console.log(recordPurchasingInput);
-
   Swal.fire({
     title: "Mohon tunggu pencatatan sedang diproses",
     onBeforeOpen: () => {
@@ -747,7 +745,6 @@ export const recordPurchasing = (
   });
 
   return function action(dispatch) {
-    dispatch({ type: "PURCHASE_RECORD" });
     const url_api = server;
 
     return axios
@@ -755,6 +752,7 @@ export const recordPurchasing = (
       .then(
         (response) => {
           dispatch(recordPurchasingSuccess(response));
+          dispatch(push("/inventory"));
         },
         (err) => {
           dispatch(recordPurchasingFailed(err));
@@ -765,10 +763,12 @@ export const recordPurchasing = (
 
 export const recordPurchasingSuccess = (data) => {
   Swal.disableLoading();
+
   Swal.close();
-  swal("Berhasil!", "Anda berhasil terdaftar dan masuk", "success");
+  swal("Berhasil!", "Anda berhasil mencatatkan pembelian", "success");
+
   return {
-    type: "PURCHASE_RECORD_SUCCESS",
+    type: "CLEAR_INVENTORY_ITEM",
     payload: data,
   };
 };
@@ -776,7 +776,60 @@ export const recordPurchasingSuccess = (data) => {
 export const recordPurchasingFailed = (data) => {
   swal("Gagal!", "Check kembali formulir", "error");
   return {
-    type: "PURCHASE_RECORD_FAILED",
+    type: "CURRENT_INVENTORY_ITEM",
     payload: data,
+  };
+};
+
+export const loadInventoryList = (user) => {
+  const url_api = server;
+
+  return function action(dispatch) {
+    return axios.get(url_api + "/api/inventory/user/" + user).then(
+      (response) => {
+        dispatch({ type: "LOAD_INVENTORY_LIST", payload: response });
+      },
+      (err) => dispatch(loadFailed(err))
+    );
+  };
+};
+
+export const loadInventoryItem = (product) => {
+  const url_api = server;
+
+  return function action(dispatch) {
+    return axios.get(url_api + "/api/inventory/product/" + product).then(
+      (response) => {
+        dispatch({ type: "LOAD_INVENTORY_ITEM", payload: response });
+        dispatch(editFormInventoryName(response.data.name));
+        dispatch(editFormInventoryBrand(response.data.brand));
+        dispatch(editFormInventoryUnit(response.data.unit));
+      },
+      (err) => dispatch(loadFailed(err))
+    );
+  };
+};
+
+export const clearInventoryItem = () => {
+  return function action(dispatch) {
+    dispatch({ type: "CLEAR_INVENTORY_ITEM" });
+  };
+};
+
+export const editFormInventoryName = (name) => {
+  return function action(dispatch) {
+    dispatch({ type: "FORM_INVENTORY_NAME", payload: name });
+  };
+};
+
+export const editFormInventoryBrand = (brand) => {
+  return function action(dispatch) {
+    dispatch({ type: "FORM_INVENTORY_BRAND", payload: brand });
+  };
+};
+
+export const editFormInventoryUnit = (unit) => {
+  return function action(dispatch) {
+    dispatch({ type: "FORM_INVENTORY_UNIT", payload: unit });
   };
 };
