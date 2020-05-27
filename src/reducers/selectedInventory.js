@@ -5,6 +5,7 @@ const initialSelectedInventoryState = {
   form_edit_name: "",
   form_edit_unit: "",
   form_edit_brand: "",
+  form_valid: false,
   history: [],
 };
 
@@ -31,6 +32,11 @@ const productReducer = (state = initialSelectedInventoryState, action) => {
 
     case "FORM_INVENTORY_BRAND":
       return { ...state, form_edit_brand: action.payload };
+
+    case "FORM_VALID_TRUE":
+      return { ...state, form_valid: true };
+    case "FORM_VALID_FALSE":
+      return { ...state, form_valid: false };
 
     case "CLEAR_INVENTORY_ITEM":
       return {

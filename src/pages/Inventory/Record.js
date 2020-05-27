@@ -10,6 +10,8 @@ import {
   editFormInventoryName,
   editFormInventoryBrand,
   editFormInventoryUnit,
+  formValidTrue,
+  formValidFalse,
 } from "../../actions";
 import { Button, Card } from "react-bootstrap";
 
@@ -45,7 +47,6 @@ function Record() {
   const [errorRecordedDate, setErrorRecordedDate] = useState("wajib diisi");
   const [validRecordedDate, setValidRecordedDate] = useState(false);
 
-  const [validForm, setValidForm] = useState(false);
   const [recordType, setRecordType] = useState("");
 
   function checkName(name) {
@@ -55,7 +56,7 @@ function Record() {
     } else {
       setErrorName("wajib diisi");
       setValidName(false);
-      setValidForm(false);
+      dispatch(formValidFalse());
     }
   }
 
@@ -66,7 +67,7 @@ function Record() {
     } else {
       setErrorBrand("wajib diisi");
       setValidBrand(false);
-      setValidForm(false);
+      dispatch(formValidFalse());
     }
   }
 
@@ -77,7 +78,7 @@ function Record() {
     } else {
       setErrorQuantity("wajib diisi");
       setValidQuantity(false);
-      setValidForm(false);
+      dispatch(formValidFalse());
     }
   }
 
@@ -88,7 +89,7 @@ function Record() {
     } else {
       setErrorPrice("wajib diisi");
       setValidPrice(false);
-      setValidForm(false);
+      dispatch(formValidFalse());
     }
   }
 
@@ -99,7 +100,7 @@ function Record() {
     } else {
       setErrorUnit("wajib diisi");
       setValidUnit(false);
-      setValidForm(false);
+      dispatch(formValidFalse());
     }
   }
 
@@ -107,11 +108,10 @@ function Record() {
     if (recordedDate) {
       setErrorRecordedDate("");
       setValidRecordedDate(true);
-      setValidForm(true);
     } else {
       setErrorRecordedDate("wajib diisi");
       setValidRecordedDate(false);
-      setValidForm(false);
+      dispatch(formValidFalse());
     }
   }
 
@@ -131,9 +131,9 @@ function Record() {
       validPrice &&
       validRecordedDate
     ) {
-      setValidForm(true);
+      dispatch(formValidTrue());
     } else {
-      setValidForm(false);
+      dispatch(formValidFalse());
     }
   }
 
@@ -145,15 +145,19 @@ function Record() {
   function selectedInventory(product) {
     if (product === "new" || product === "") {
       dispatch(clearInventoryItem());
+      dispatch(editFormInventoryName(""));
       setErrorName("wajib diisi");
       setValidName(false);
+      dispatch(editFormInventoryBrand(""));
       setErrorBrand("wajib diisi");
       setValidBrand(false);
+      dispatch(editFormInventoryUnit(""));
       setErrorUnit("wajib diisi");
       setValidUnit(false);
-      setValidForm(false);
+      dispatch(formValidFalse());
     } else {
       dispatch(loadInventoryItem(product));
+
       setErrorName("");
       setValidName(true);
       setErrorBrand("");
@@ -232,6 +236,7 @@ function Record() {
                 }}
                 placeholder="Nama Produk"
                 defaultValue={inventorySelect.form_edit_name}
+                value={inventorySelect.form_edit_name}
                 required
               />
               <br />
@@ -254,6 +259,7 @@ function Record() {
                 }}
                 placeholder="Brand/ Merk Produk"
                 defaultValue={inventorySelect.form_edit_brand}
+                value={inventorySelect.form_edit_brand}
                 required
               />
               <br />
@@ -301,6 +307,7 @@ function Record() {
                       }}
                       placeholder="Satuan"
                       defaultValue={inventorySelect.form_edit_unit}
+                      value={inventorySelect.form_edit_unit}
                       required
                     />
                     <br />
@@ -334,7 +341,7 @@ function Record() {
               <hr />
             </Card.Text>
 
-            {validForm ? (
+            {inventorySelect.form_valid ? (
               <Button
                 type="submit"
                 value="Submit"

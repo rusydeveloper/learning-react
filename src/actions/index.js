@@ -833,3 +833,15 @@ export const editFormInventoryUnit = (unit) => {
     dispatch({ type: "FORM_INVENTORY_UNIT", payload: unit });
   };
 };
+
+export const formValidTrue = () => {
+  return function action(dispatch) {
+    dispatch({ type: "FORM_VALID_TRUE" });
+  };
+};
+
+export const formValidFalse = () => {
+  return function action(dispatch) {
+    dispatch({ type: "FORM_VALID_FALSE" });
+  };
+};
