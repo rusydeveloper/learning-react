@@ -35,22 +35,7 @@ function BottomNav() {
           Pesanan
         </span>
       </div>
-      {/* <div
-        className="bottom-nav-menu"
-        onClick={() => dispatch(push("/feedback"))}
-      >
-        <span
-          className={
-            router.location.pathname === "/feedback"
-              ? "bottom-nav-menu-active"
-              : ""
-          }
-        >
-          <span className="fa fa-paper-plane"></span>
-          <br />
-          Masukan
-        </span>
-      </div> */}
+
       <div
         className="bottom-nav-menu"
         onClick={() => dispatch(push("/inventory"))}
@@ -67,6 +52,22 @@ function BottomNav() {
           <span className="fa fa-sticky-note"></span>
           <br />
           Pencatatan
+        </span>
+      </div>
+      <div
+        className="bottom-nav-menu"
+        onClick={() => dispatch(push("/feedback"))}
+      >
+        <span
+          className={
+            router.location.pathname === "/feedback"
+              ? "bottom-nav-menu-active"
+              : ""
+          }
+        >
+          <span className="fa fa-paper-plane"></span>
+          <br />
+          Masukan
         </span>
       </div>
       <div className="bottom-nav-menu" onClick={() => dispatch(push("/user"))}>

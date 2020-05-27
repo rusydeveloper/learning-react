@@ -584,3 +584,39 @@
   font-size: 8pt;
   width: 100px;
 }
+
+.feedback-container {
+  position: fixed;
+  top: 200px;
+  left: 0px;
+  z-index: 1000;
+  line-height: 5pt;
+  text-align: center;
+  background-color: #f3b700;
+  color: black;
+  height: 55px;
+  padding: 3px;
+  border-radius: 6px;
+}
+
+.feedback-text {
+  font-size: 9pt;
+  font-weight: 800;
+  -ms-transform: rotate(-90deg) !important; /* IE 9 */
+  transform: rotate(-90deg) !important;
+}
+
+div.feedback {
+  font-size: 10pt;
+  z-index: 1000;
+  position: fixed;
+  top: 200px;
+  left: -25px;
+  background-color: #f3b700;
+  -ms-transform: rotate(90deg); /* IE 9 */
+  transform: rotate(90deg);
+  border-radius: 6px 6px 0px 0px;
+  padding: 5px;
+  word-wrap: break-word;
+  writing-mode: vertical-lr;
+}
