@@ -9,7 +9,10 @@ const initialSelectedInventoryState = {
   history: [],
 };
 
-const productReducer = (state = initialSelectedInventoryState, action) => {
+const selectedInventoryReducer = (
+  state = initialSelectedInventoryState,
+  action
+) => {
   switch (action.type) {
     case "LOAD_INVENTORY_ITEM":
       return {
@@ -53,4 +56,4 @@ const productReducer = (state = initialSelectedInventoryState, action) => {
       return state;
   }
 };
-export default productReducer;
+export default selectedInventoryReducer;

@@ -578,3 +578,9 @@
   line-height: 30px !important;
   font-size: 11pt;
 }
+
+.chart-tooltip {
+  padding: 10px;
+  font-size: 8pt;
+  width: 100px;
+}

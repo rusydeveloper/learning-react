@@ -845,3 +845,28 @@ export const formValidFalse = () => {
     dispatch({ type: "FORM_VALID_FALSE" });
   };
 };
+
+export const loadInventoryReport = (user, product) => {
+  const url_api = server;
+
+  console.log("user:" + user);
+  console.log("product:" + product);
+
+  return function action(dispatch) {
+    return axios
+      .get(
+        url_api +
+          "/api/inventory/history/user/" +
+          user +
+          "/product/" +
+          product +
+          "/report"
+      )
+      .then(
+        (response) => {
+          dispatch({ type: "LOAD_INVENTORY_REPORT", payload: response });
+        },
+        (err) => dispatch(loadFailed(err))
+      );
+  };
+};

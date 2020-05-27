@@ -21,7 +21,6 @@ import HeaderNav from "../../components/HeaderNav";
 import InventoryHistoryList from "../../components/InventoryHistoryList";
 
 function Record() {
-  Mixpanel.track("view feedback page");
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const inventory = useSelector((state) => state.recordInventory.items);

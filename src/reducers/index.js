@@ -11,6 +11,7 @@ import invoiceReducer from "./invoice";
 import walletReducer from "./wallet";
 import recordInventoryReducer from "./recordInventory";
 import selectedInventoryReducer from "./selectedInventory";
+import reportInventory from "./reportInventory";
 
 const allReducers = (history) =>
   combineReducers({
@@ -26,5 +27,6 @@ const allReducers = (history) =>
     wallet: walletReducer,
     recordInventory: recordInventoryReducer,
     selectedInventory: selectedInventoryReducer,
+    reportInventory: reportInventory,
   });
 export default allReducers;
