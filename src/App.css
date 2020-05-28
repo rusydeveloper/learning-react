@@ -537,3 +537,86 @@
   width: 100%;
   margin-bottom: 100px;
 }
+
+.card-inventory-history {
+  background-color: white;
+  border-radius: 3px;
+  margin: auto;
+  margin-top: 10px;
+}
+
+.inventory-menu-container {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-top: 200px;
+}
+
+.card-inventory-history {
+  width: 325px;
+  padding: 10px;
+}
+
+.text-grey {
+  color: #727272;
+}
+
+.small-text {
+  font-size: 10pt;
+}
+.history-status {
+  width: 135px;
+}
+.table-separator {
+  border-bottom: 1px solid lightgrey;
+}
+.table-height {
+  line-height: 40px !important;
+}
+.inventory-history-price {
+  font-weight: 700;
+  line-height: 30px !important;
+  font-size: 11pt;
+}
+
+.chart-tooltip {
+  padding: 10px;
+  font-size: 8pt;
+  width: 100px;
+}
+
+.feedback-container {
+  position: fixed;
+  top: 200px;
+  left: 0px;
+  z-index: 1000;
+  line-height: 5pt;
+  text-align: center;
+  background-color: #f3b700;
+  color: black;
+  height: 55px;
+  padding: 3px;
+  border-radius: 6px;
+}
+
+.feedback-text {
+  font-size: 9pt;
+  font-weight: 800;
+  -ms-transform: rotate(-90deg) !important; /* IE 9 */
+  transform: rotate(-90deg) !important;
+}
+
+div.feedback {
+  font-size: 10pt;
+  z-index: 1000;
+  position: fixed;
+  top: 200px;
+  left: -25px;
+  background-color: #f3b700;
+  -ms-transform: rotate(90deg); /* IE 9 */
+  transform: rotate(90deg);
+  border-radius: 6px 6px 0px 0px;
+  padding: 5px;
+  word-wrap: break-word;
+  writing-mode: vertical-lr;
+}

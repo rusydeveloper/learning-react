@@ -8,7 +8,6 @@ import { Mixpanel } from "../components/Mixpanel";
 import Swal from "sweetalert2";
 
 var i = 0;
-
 export const checkOrdered = (item, cart) => {
   if (cart.length > 0) {
     for (i = 0; i < cart.length; i++) {
@@ -569,6 +568,7 @@ export const checkout = (
     category: "User",
     action: "User Checkout",
   });
+
   Swal.fire({
     title: "Mohon tunggu pesanan sedang diproses",
     onBeforeOpen: () => {
@@ -698,5 +698,176 @@ export const checkFeedbackLogin = (user_id) => {
       );
       dispatch(push("/login"));
     }
+  };
+};
+
+export const checkInventoryLogin = (user_id) => {
+  return function action(dispatch) {
+    if (user_id) {
+      return {
+        type: "PURCHASE_RECORDING_ALLOWED",
+      };
+    } else {
+      swal(
+        "Maaf, kamu harus login atau daftar terlebih dahulu untuk melakukan pencatatan pembelian!"
+      );
+      dispatch(push("/login"));
+    }
+  };
+};
+
+export const recordPurchasing = (
+  userId,
+  recordType,
+  name,
+  brand,
+  quantity,
+  unit,
+  price,
+  recordedDate
+) => {
+  const recordPurchasingInput = {
+    user_id: userId,
+    inventory_id: recordType,
+    name: name,
+    brand: brand,
+    quantity: quantity,
+    unit: unit,
+    price: price,
+    recorded_date: recordedDate,
+  };
+
+  Swal.fire({
+    title: "Mohon tunggu pencatatan sedang diproses",
+    onBeforeOpen: () => {
+      Swal.enableLoading();
+    },
+  });
+
+  return function action(dispatch) {
+    const url_api = server;
+
+    return axios
+      .post(url_api + "/api/inventory/store", recordPurchasingInput)
+      .then(
+        (response) => {
+          dispatch(recordPurchasingSuccess(response));
+          dispatch(push("/inventory"));
+        },
+        (err) => {
+          dispatch(recordPurchasingFailed(err));
+        }
+      );
+  };
+};
+
+export const recordPurchasingSuccess = (data) => {
+  Swal.disableLoading();
+
+  Swal.close();
+  swal("Berhasil!", "Anda berhasil mencatatkan pembelian", "success");
+
+  Mixpanel.track("Successful record product purchasing");
+
+  return {
+    type: "CLEAR_INVENTORY_ITEM",
+    payload: data,
+  };
+};
+
+export const recordPurchasingFailed = (data) => {
+  swal("Gagal!", "Check kembali formulir", "error");
+  Mixpanel.track("Failed record product purchasing");
+  return {
+    type: "CURRENT_INVENTORY_ITEM",
+    payload: data,
+  };
+};
+
+export const loadInventoryList = (user) => {
+  const url_api = server;
+
+  return function action(dispatch) {
+    return axios.get(url_api + "/api/inventory/user/" + user).then(
+      (response) => {
+        dispatch({ type: "LOAD_INVENTORY_LIST", payload: response });
+      },
+      (err) => dispatch(loadFailed(err))
+    );
+  };
+};
+
+export const loadInventoryItem = (product) => {
+  const url_api = server;
+
+  return function action(dispatch) {
+    return axios.get(url_api + "/api/inventory/product/" + product).then(
+      (response) => {
+        dispatch({ type: "LOAD_INVENTORY_ITEM", payload: response });
+        dispatch(editFormInventoryName(response.data.name));
+        dispatch(editFormInventoryBrand(response.data.brand));
+        dispatch(editFormInventoryUnit(response.data.unit));
+      },
+      (err) => dispatch(loadFailed(err))
+    );
+  };
+};
+
+export const clearInventoryItem = () => {
+  return function action(dispatch) {
+    dispatch({ type: "CLEAR_INVENTORY_ITEM" });
+  };
+};
+
+export const editFormInventoryName = (name) => {
+  return function action(dispatch) {
+    dispatch({ type: "FORM_INVENTORY_NAME", payload: name });
+  };
+};
+
+export const editFormInventoryBrand = (brand) => {
+  return function action(dispatch) {
+    dispatch({ type: "FORM_INVENTORY_BRAND", payload: brand });
+  };
+};
+
+export const editFormInventoryUnit = (unit) => {
+  return function action(dispatch) {
+    dispatch({ type: "FORM_INVENTORY_UNIT", payload: unit });
+  };
+};
+
+export const formValidTrue = () => {
+  return function action(dispatch) {
+    dispatch({ type: "FORM_VALID_TRUE" });
+  };
+};
+
+export const formValidFalse = () => {
+  return function action(dispatch) {
+    dispatch({ type: "FORM_VALID_FALSE" });
+  };
+};
+
+export const loadInventoryReport = (user, product) => {
+  const url_api = server;
+
+  return function action(dispatch) {
+    return axios
+      .get(
+        url_api +
+          "/api/inventory/history/user/" +
+          user +
+          "/product/" +
+          product +
+          "/report"
+      )
+      .then(
+        (response) => {
+          dispatch({ type: "LOAD_INVENTORY_REPORT", payload: response });
+          Mixpanel.track("Successful load product purchasing report");
+        },
+        (err) => dispatch(loadFailed(err))
+      );
   };
 };
