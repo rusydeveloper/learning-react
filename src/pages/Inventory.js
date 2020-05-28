@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Mixpanel } from "../components/Mixpanel";
-import { checkInventoryLogin } from "../actions";
+import { checkInventoryLogin, clearInventoryItem } from "../actions";
 import HeaderNav from "../components/HeaderNav";
 import { Button } from "react-bootstrap";
 import { push } from "connected-react-router";
@@ -15,6 +15,7 @@ function Inventory() {
 
   useEffect(() => {
     dispatch(checkInventoryLogin(user.id));
+    dispatch(clearInventoryItem());
   }, [dispatch, user]);
 
   return (

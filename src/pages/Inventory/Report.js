@@ -91,7 +91,7 @@ function Report() {
               }}
             />
           </div>
-
+          <hr />
           <small>Riwayat Pencatatan</small>
           <InventoryHistoryList
             inventoryHistories={inventorySelect.history}
