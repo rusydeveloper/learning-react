@@ -9,7 +9,7 @@ import { Button } from "react-bootstrap";
 import { push } from "connected-react-router";
 
 function Inventory() {
-  Mixpanel.track("view feedback page");
+  Mixpanel.track("view inventory page");
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 

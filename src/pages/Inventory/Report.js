@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -8,7 +8,7 @@ import {
   clearInventoryItem,
   loadInventoryReport,
 } from "../../actions";
-import { Button, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 
 import { Mixpanel } from "../../components/Mixpanel";
 
@@ -18,12 +18,11 @@ import Chart from "react-google-charts";
 
 function Report() {
   const dispatch = useDispatch();
+  Mixpanel.track("view report inventory page");
   const user = useSelector((state) => state.user);
   const inventory = useSelector((state) => state.recordInventory.items);
   const inventorySelect = useSelector((state) => state.selectedInventory);
   const inventoryReport = useSelector((state) => state.reportInventory);
-
-  const [recordType, setRecordType] = useState("");
 
   useEffect(() => {
     dispatch(checkInventoryLogin(user.id));
@@ -48,8 +47,8 @@ function Report() {
           <select
             className="form-control"
             onChange={(event) => {
-              setRecordType(event.target.value);
               selectedInventory(user.id, event.target.value);
+              Mixpanel.track("select purchasing product report");
             }}
           >
             <option value="">Belum Memilih</option>

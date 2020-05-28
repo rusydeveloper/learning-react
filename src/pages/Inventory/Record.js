@@ -22,6 +22,7 @@ import InventoryHistoryList from "../../components/InventoryHistoryList";
 
 function Record() {
   const dispatch = useDispatch();
+  Mixpanel.track("view record inventory page");
   const user = useSelector((state) => state.user);
   const inventory = useSelector((state) => state.recordInventory.items);
   const inventorySelect = useSelector((state) => state.selectedInventory);
@@ -358,6 +359,7 @@ function Record() {
                       recordedDate
                     )
                   );
+                  Mixpanel.track("click submit purchasing record");
                 }}
                 block
               >

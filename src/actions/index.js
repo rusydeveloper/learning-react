@@ -767,6 +767,8 @@ export const recordPurchasingSuccess = (data) => {
   Swal.close();
   swal("Berhasil!", "Anda berhasil mencatatkan pembelian", "success");
 
+  Mixpanel.track("Successful record product purchasing");
+
   return {
     type: "CLEAR_INVENTORY_ITEM",
     payload: data,
@@ -775,6 +777,7 @@ export const recordPurchasingSuccess = (data) => {
 
 export const recordPurchasingFailed = (data) => {
   swal("Gagal!", "Check kembali formulir", "error");
+  Mixpanel.track("Failed record product purchasing");
   return {
     type: "CURRENT_INVENTORY_ITEM",
     payload: data,
@@ -849,9 +852,6 @@ export const formValidFalse = () => {
 export const loadInventoryReport = (user, product) => {
   const url_api = server;
 
-  console.log("user:" + user);
-  console.log("product:" + product);
-
   return function action(dispatch) {
     return axios
       .get(
@@ -865,6 +865,7 @@ export const loadInventoryReport = (user, product) => {
       .then(
         (response) => {
           dispatch({ type: "LOAD_INVENTORY_REPORT", payload: response });
+          Mixpanel.track("Successful load product purchasing report");
         },
         (err) => dispatch(loadFailed(err))
       );
