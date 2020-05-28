@@ -29,6 +29,7 @@ function Inventory() {
           block
           onClick={() => {
             dispatch(push("/record"));
+            Mixpanel.track("click to inventory record page");
           }}
         >
           Catat Pembelian
@@ -41,6 +42,7 @@ function Inventory() {
           block
           onClick={() => {
             dispatch(push("/report"));
+            Mixpanel.track("click to inventory report page");
           }}
         >
           Laporan
