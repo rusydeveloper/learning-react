@@ -6,7 +6,12 @@ import { push } from "connected-react-router";
 import OrderList from "../components/OrderList";
 
 import { Button, Col, Row } from "react-bootstrap";
-import { checkout, checkLoginBeforeCart, checkBalance } from "../actions";
+import {
+  checkout,
+  checkLoginBeforeCart,
+  checkBalance,
+  loadSupplier,
+} from "../actions";
 import Help from "../components/Help";
 import ReactGA from "react-ga";
 import { Mixpanel } from "../components/Mixpanel";
@@ -20,6 +25,7 @@ function Order() {
   const user = useSelector((state) => state.user);
   const business = useSelector((state) => state.business);
   const wallet = useSelector((state) => state.wallet);
+  const selectedSupplier = useSelector((state) => state.selectedSupplier);
   const [paymentMethod, setPaymentMethod] = useState("Transfer");
   const unique_number = Math.floor(100 + Math.random() * 900);
 
@@ -27,6 +33,7 @@ function Order() {
   useEffect(() => {
     dispatch(checkBalance(user.id));
     dispatch(checkLoginBeforeCart(user.id));
+    dispatch(loadSupplier(selectedSupplier.id));
     ReactGA.pageview("/order");
   }, [dispatch, user]);
   if (wallet.balance > cart.totalAmount + unique_number) {

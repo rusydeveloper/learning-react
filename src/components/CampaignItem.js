@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 
 import { Button } from "react-bootstrap";
 import defaultProductImage from "../assets/open-box.png";
-import { addCartOrder, checkOrdered } from "../actions";
+import {
+  addCartOrder,
+  checkOrdered,
+  checkLoginBeforeCart,
+  addSupplier,
+} from "../actions";
 import { useSelector, useDispatch } from "react-redux";
 import { server } from "../constants/server";
 import { Mixpanel } from "../components/Mixpanel";
@@ -14,6 +19,7 @@ function CampaignItem(props) {
   const [count, setCount] = useState(0);
   const [isOrdered, setOrdered] = useState(false);
   const cart = useSelector((state) => state.cart);
+  const user = useSelector((state) => state.user);
 
   let quota_left = 0;
   let tier_quota = 0;
@@ -33,8 +39,6 @@ function CampaignItem(props) {
     var progress_tiering_2 = 0;
     if (tiering2 > tiering1) {
       if (tiering3 > tiering2) {
-        console.log("tier Lv 3");
-
         if (order < tiering1) {
           //if tiering price for lv 3, order still progress for tier 1
           // setCurrentPrice(price1);
@@ -274,6 +278,11 @@ function CampaignItem(props) {
 
       <div className="card-body-campaign">
         <div className="card-text">
+          <div className="campaign-supplier-code">
+            kode supplier:
+            <br />
+            {props.campaign.business.unique_id}
+          </div>
           <div className="campaign-product-title">
             {props.campaign.product.name} [<span>{props.campaign.unit}</span>]{" "}
             <span className="campaign-title-text">{props.campaign.title}</span>
@@ -365,6 +374,9 @@ function CampaignItem(props) {
                       props.campaign.product.image
                     )
                   );
+                  dispatch(checkLoginBeforeCart(user.id));
+                  dispatch(addSupplier(props.campaign.business.unique_id));
+
                   setCount(count + 1);
                   setOrdered(true);
                   Mixpanel.track("click add campaign product to cart button");

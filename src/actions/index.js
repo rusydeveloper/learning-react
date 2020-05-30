@@ -431,6 +431,7 @@ export const addCartOrder = (item, campaign_id, campaign_image) => {
     image: campaign_image,
     campaign_id: campaign_id,
   };
+
   return function action(dispatch) {
     dispatch({ type: "ADD_CAMPAIGN_ORDER", payload: addCardInput });
   };
@@ -869,5 +870,23 @@ export const loadInventoryReport = (user, product) => {
         },
         (err) => dispatch(loadFailed(err))
       );
+  };
+};
+
+export const clearSupplier = () => {
+  return function action(dispatch) {
+    dispatch({ type: "CLEAR_SELECTED_SUPPLIERID" });
+  };
+};
+
+export const addSupplier = (data) => {
+  console.log(data);
+  return function action(dispatch) {
+    dispatch({ type: "ADD_SELECTED_SUPPLIERID", payload: data });
+  };
+};
+export const currentSupplier = () => {
+  return function action(dispatch) {
+    dispatch({ type: "CURRENT_SELECTED_SUPPLIERID" });
   };
 };
