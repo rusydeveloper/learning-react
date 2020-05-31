@@ -3,7 +3,8 @@ import React from "react";
 import { Card, Row, Col, Button } from "react-bootstrap";
 import defaultProductImage from "../assets/open-box.png";
 import { removeCart, plusCart, minusCart } from "../actions";
-import { useDispatch } from "react-redux";
+
+import { useDispatch, useSelector } from "react-redux";
 import { FaTrashAlt } from "react-icons/fa";
 import { server } from "../constants/server";
 import { Mixpanel } from "../components/Mixpanel";
@@ -11,6 +12,7 @@ import { Mixpanel } from "../components/Mixpanel";
 function OrderItem(props) {
   const dispatch = useDispatch();
   const server_url = server + "/";
+  const cart = useSelector((state) => state.cart);
 
   return (
     <div>
@@ -64,7 +66,7 @@ function OrderItem(props) {
                 size="sm"
                 variant="outline-dark"
                 onClick={() => {
-                  dispatch(removeCart(props.cart, props.index));
+                  dispatch(removeCart(props.cart, props.index, cart));
                   Mixpanel.track("click remove product button in cart");
                 }}
               >
@@ -77,7 +79,7 @@ function OrderItem(props) {
                   size="sm"
                   variant="light"
                   onClick={() => {
-                    dispatch(minusCart(props.cart));
+                    dispatch(minusCart(props.cart, cart));
                     Mixpanel.track("click decrease product button in cart");
                   }}
                 >

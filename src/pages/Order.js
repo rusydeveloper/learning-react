@@ -6,7 +6,12 @@ import { push } from "connected-react-router";
 import OrderList from "../components/OrderList";
 
 import { Button, Col, Row } from "react-bootstrap";
-import { checkout, checkLoginBeforeCart, checkBalance } from "../actions";
+import {
+  checkout,
+  checkLoginBeforeCart,
+  checkBalance,
+  checkEmptyCart,
+} from "../actions";
 import Help from "../components/Help";
 import ReactGA from "react-ga";
 import { Mixpanel } from "../components/Mixpanel";
@@ -28,9 +33,10 @@ function Order() {
   useEffect(() => {
     dispatch(checkBalance(user.id));
     dispatch(checkLoginBeforeCart(user.id));
+    dispatch(checkEmptyCart(cart));
 
     ReactGA.pageview("/order");
-  }, [dispatch, user]);
+  }, [dispatch, user, cart, selectedSupplier]);
   if (wallet.balance > cart.totalAmount + unique_number) {
     creditPayment = cart.totalAmount + unique_number;
   } else {
@@ -135,8 +141,10 @@ function Order() {
                   <span className="red-text">
                     Rp{" "}
                     {selectedSupplier.supplier.minimum_order
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                      ? selectedSupplier.supplier.minimum_order
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                      : null}
                   </span>
                 </small>
               </li>
@@ -193,8 +201,10 @@ function Order() {
         <Button size="sm" variant="danger" block disabled>
           Pemesanan tidak mencapai Rp{" "}
           {selectedSupplier.supplier.minimum_order
-            .toString()
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+            ? selectedSupplier.supplier.minimum_order
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+            : null}
         </Button>
       )}
     </div>

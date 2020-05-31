@@ -412,6 +412,18 @@ export const foundCampaignCategory = (id) => {
     );
   };
 };
+export const checkEmptyCart = (cart) => {
+  if (cart.totalItem === 0) {
+    return function action(dispatch) {
+      dispatch({ type: "CART_IS_EMPTY" });
+      dispatch(push("/"));
+    };
+  } else {
+    return function action(dispatch) {
+      dispatch({ type: "CART_NOT_EMPTY" });
+    };
+  }
+};
 
 export const addCartOrder = (item, campaign_id, campaign_image) => {
   const addCardInput = {
@@ -489,7 +501,7 @@ export const plusCart = (item) => {
   };
 };
 
-export const minusCart = (item) => {
+export const minusCart = (item, cart) => {
   const minusCardInput = {
     id: item.id,
     user_id: item.user_id,
@@ -509,20 +521,74 @@ export const minusCart = (item) => {
     category: "User",
     action: "User Remove Quantity Product in Cart",
   });
+  if (cart.totalItem === 1) {
+    return function action(dispatch) {
+      swal({
+        title: "Apakah kamu yakin akan menghapus produk dari keranjang?",
+        icon: "warning",
+        buttons: true,
+        showCancelButton: true,
+        dangerMode: true,
+      }).then((result) => {
+        if (result === null) {
+          return function action(dispatch) {
+            dispatch({ type: "CART_NOT_EMPTY" });
+          };
+        } else if (result) {
+          dispatch(clearCart());
+          dispatch(push("/"));
+          return function action(dispatch) {
+            dispatch({ type: "CART_IS_EMPTY" });
+          };
+        }
+      });
+    };
+  } else {
+    return function action(dispatch) {
+      console.log("minus");
+      dispatch({ type: "MINUS", payload: minusCardInput });
+    };
+  }
+};
 
+export const removeCart = (item, index, cart) => {
   return function action(dispatch) {
-    dispatch({ type: "MINUS", payload: minusCardInput });
+    swal({
+      title: "Apakah kamu yakin akan menghapus produk dari keranjang?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((result) => {
+      if (result === null) {
+        return function action(dispatch) {
+          dispatch({ type: "CART_NOT_EMPTY" });
+        };
+      } else if (result) {
+        if (cart.items.length === 1) {
+          dispatch(clearCart());
+          dispatch(push("/"));
+          return function action(dispatch) {
+            dispatch({ type: "CART_IS_EMPTY" });
+          };
+        } else {
+          dispatch({ type: "REMOVE", payload: item, position: index });
+        }
+      }
+    });
   };
 };
 
-export const removeCart = (item, index) => {
-  ReactGA.event({
-    category: "User",
-    action: "User Remove Product from Cart",
-  });
-  return function action(dispatch) {
-    dispatch({ type: "REMOVE", payload: item, position: index });
-  };
+export const checkClearCart = (cart) => {
+  if (cart.totalItem === 1) {
+    return function action(dispatch) {
+      dispatch({ type: "CART_IS_EMPTY" });
+      dispatch(push("/"));
+    };
+  } else {
+    return function action(dispatch) {
+      dispatch({ type: "CART_NOT_EMPTY" });
+    };
+  }
 };
 
 export const clearCart = () => {
