@@ -6,7 +6,7 @@ import {
   addCartOrder,
   checkOrdered,
   checkLoginBeforeCart,
-  addSupplier,
+  loadSupplier,
 } from "../actions";
 import { useSelector, useDispatch } from "react-redux";
 import { server } from "../constants/server";
@@ -375,7 +375,7 @@ function CampaignItem(props) {
                     )
                   );
                   dispatch(checkLoginBeforeCart(user.id));
-                  dispatch(addSupplier(props.campaign.business.unique_id));
+                  dispatch(loadSupplier(props.campaign.business.unique_id));
 
                   setCount(count + 1);
                   setOrdered(true);

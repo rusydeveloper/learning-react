@@ -13,6 +13,12 @@ const selectedSupplierReducer = (
         ...state,
         id: action.payload,
       };
+    case "LOAD_SELECTED_SUPPLIER":
+      return {
+        ...state,
+        supplier: action.payload.data,
+      };
+
     case "CURRENT_SELECTED_SUPPLIERID":
       return state;
     case "CLEAR_SELECTED_SUPPLIERID":

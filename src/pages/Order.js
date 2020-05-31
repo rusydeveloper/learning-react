@@ -6,12 +6,7 @@ import { push } from "connected-react-router";
 import OrderList from "../components/OrderList";
 
 import { Button, Col, Row } from "react-bootstrap";
-import {
-  checkout,
-  checkLoginBeforeCart,
-  checkBalance,
-  loadSupplier,
-} from "../actions";
+import { checkout, checkLoginBeforeCart, checkBalance } from "../actions";
 import Help from "../components/Help";
 import ReactGA from "react-ga";
 import { Mixpanel } from "../components/Mixpanel";
@@ -33,7 +28,7 @@ function Order() {
   useEffect(() => {
     dispatch(checkBalance(user.id));
     dispatch(checkLoginBeforeCart(user.id));
-    dispatch(loadSupplier(selectedSupplier.id));
+
     ReactGA.pageview("/order");
   }, [dispatch, user]);
   if (wallet.balance > cart.totalAmount + unique_number) {
@@ -136,7 +131,13 @@ function Order() {
             <ul>
               <li>
                 <small>
-                  Minimal pemesanan <span className="red-text">Rp 500.000</span>
+                  Minimal pemesanan{" "}
+                  <span className="red-text">
+                    Rp{" "}
+                    {selectedSupplier.supplier.minimum_order
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                  </span>
                 </small>
               </li>
               <li>
@@ -162,7 +163,7 @@ function Order() {
           </option>
         </select>
       </div>
-      {cart.totalAmount >= 500000 ? (
+      {cart.totalAmount >= selectedSupplier.supplier.minimum_order ? (
         <Button
           size="sm"
           variant="warning"
@@ -190,7 +191,10 @@ function Order() {
         </Button>
       ) : (
         <Button size="sm" variant="danger" block disabled>
-          Pemesanan tidak mencapai Rp 500.000
+          Pemesanan tidak mencapai Rp{" "}
+          {selectedSupplier.supplier.minimum_order
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
         </Button>
       )}
     </div>

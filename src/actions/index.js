@@ -890,3 +890,16 @@ export const currentSupplier = () => {
     dispatch({ type: "CURRENT_SELECTED_SUPPLIERID" });
   };
 };
+
+export const loadSupplier = (uniqueId) => {
+  const url_api = server;
+
+  return function action(dispatch) {
+    return axios.get(url_api + "/api/business/" + uniqueId).then(
+      (response) => {
+        dispatch({ type: "LOAD_SELECTED_SUPPLIER", payload: response });
+      },
+      (err) => dispatch(loadFailed(err))
+    );
+  };
+};
