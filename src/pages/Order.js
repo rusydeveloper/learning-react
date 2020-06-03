@@ -15,7 +15,7 @@ import {
 import Help from "../components/Help";
 import ReactGA from "react-ga";
 import { Mixpanel } from "../components/Mixpanel";
-import HeaderNav from "../components/HeaderNav";
+import HeaderNavSelectedSupplier from "../components/HeaderNavSelectedSupplier";
 
 function Order() {
   const dispatch = useDispatch();
@@ -49,7 +49,7 @@ function Order() {
 
   return (
     <div className="page-container">
-      <HeaderNav title="Keranjang"></HeaderNav>
+      <HeaderNavSelectedSupplier title="Keranjang"></HeaderNavSelectedSupplier>
       <Help
         phone="08211-777-0072"
         wa="6282117770072"

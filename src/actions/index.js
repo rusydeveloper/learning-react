@@ -1087,3 +1087,25 @@ export const loadSupplier = (uniqueId) => {
     );
   };
 };
+
+export const backFromSelectedSupplier = () => {
+  return function action(dispatch) {
+    swal({
+      title: "Apakah kamu yakin akan membatalkan pemesanan ini?",
+      icon: "warning",
+      buttons: true,
+      showCancelButton: true,
+      dangerMode: true,
+    }).then((result) => {
+      if (result === null) {
+        return function action(dispatch) {
+          dispatch({ type: "CART_NOT_EMPTY" });
+        };
+      } else if (result) {
+        dispatch(push("/"));
+        dispatch(clearCart());
+        dispatch(clearSupplier());
+      }
+    });
+  };
+};
