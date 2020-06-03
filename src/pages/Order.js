@@ -6,11 +6,16 @@ import { push } from "connected-react-router";
 import OrderList from "../components/OrderList";
 
 import { Button, Col, Row } from "react-bootstrap";
-import { checkout, checkLoginBeforeCart, checkBalance } from "../actions";
+import {
+  checkout,
+  checkLoginBeforeCart,
+  checkBalance,
+  checkEmptyCart,
+} from "../actions";
 import Help from "../components/Help";
 import ReactGA from "react-ga";
 import { Mixpanel } from "../components/Mixpanel";
-import HeaderNav from "../components/HeaderNav";
+import HeaderNavSelectedSupplier from "../components/HeaderNavSelectedSupplier";
 
 function Order() {
   const dispatch = useDispatch();
@@ -20,6 +25,7 @@ function Order() {
   const user = useSelector((state) => state.user);
   const business = useSelector((state) => state.business);
   const wallet = useSelector((state) => state.wallet);
+  const selectedSupplier = useSelector((state) => state.selectedSupplier);
   const [paymentMethod, setPaymentMethod] = useState("Transfer");
   const unique_number = Math.floor(100 + Math.random() * 900);
 
@@ -27,8 +33,10 @@ function Order() {
   useEffect(() => {
     dispatch(checkBalance(user.id));
     dispatch(checkLoginBeforeCart(user.id));
+    dispatch(checkEmptyCart(cart));
+
     ReactGA.pageview("/order");
-  }, [dispatch, user]);
+  }, [dispatch, user, cart, selectedSupplier]);
   if (wallet.balance > cart.totalAmount + unique_number) {
     creditPayment = cart.totalAmount + unique_number;
   } else {
@@ -41,7 +49,7 @@ function Order() {
 
   return (
     <div className="page-container">
-      <HeaderNav title="Keranjang"></HeaderNav>
+      <HeaderNavSelectedSupplier title="Keranjang"></HeaderNavSelectedSupplier>
       <Help
         phone="08211-777-0072"
         wa="6282117770072"
@@ -52,7 +60,7 @@ function Order() {
         type="submit"
         value="Submit"
         variant="outline-danger"
-        onClick={() => dispatch(push("/"))}
+        onClick={() => dispatch(push("/selectedSupplierProduct"))}
         block
       >
         Tambah Produk
@@ -129,7 +137,15 @@ function Order() {
             <ul>
               <li>
                 <small>
-                  Minimal pemesanan <span className="red-text">Rp 500.000</span>
+                  Minimal pemesanan{" "}
+                  <span className="red-text">
+                    Rp{" "}
+                    {selectedSupplier.supplier.minimum_order
+                      ? selectedSupplier.supplier.minimum_order
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                      : null}
+                  </span>
                 </small>
               </li>
               <li>
@@ -155,7 +171,7 @@ function Order() {
           </option>
         </select>
       </div>
-      {cart.totalAmount >= 500000 ? (
+      {cart.totalAmount >= selectedSupplier.supplier.minimum_order ? (
         <Button
           size="sm"
           variant="warning"
@@ -183,7 +199,12 @@ function Order() {
         </Button>
       ) : (
         <Button size="sm" variant="danger" block disabled>
-          Pemesanan tidak mencapai Rp 500.000
+          Pemesanan tidak mencapai Rp{" "}
+          {selectedSupplier.supplier.minimum_order
+            ? selectedSupplier.supplier.minimum_order
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+            : null}
         </Button>
       )}
     </div>

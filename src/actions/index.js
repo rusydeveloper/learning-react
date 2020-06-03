@@ -300,6 +300,25 @@ export const loadProducts = () => {
   };
 };
 
+export const loadProductsSelectedSupplier = (supplierId) => {
+  const url_api = server;
+  ReactGA.event({
+    category: "User",
+    action: "User See Product",
+  });
+
+  Mixpanel.track("Successful load product");
+
+  return function action(dispatch) {
+    return axios.get(url_api + "/api/product/supplier/" + supplierId).then(
+      (response) => {
+        dispatch({ type: "LOAD_PRODUCT", payload: response });
+      },
+      (err) => dispatch(loadFailed(err))
+    );
+  };
+};
+
 export const searchProduct = (event) => {
   ReactGA.event({
     category: "User",
@@ -312,6 +331,22 @@ export const searchProduct = (event) => {
     } else {
       // dispatch(loadProducts());
       dispatch(loadCampaigns());
+    }
+  };
+};
+
+export const searchProductSelectedSupplier = (event, supplierId) => {
+  ReactGA.event({
+    category: "User",
+    action: "User Search Product",
+  });
+  return function action(dispatch) {
+    if (event) {
+      // dispatch(foundProduct(event));
+      dispatch(foundCampaignSelectedSupplier(event, supplierId));
+    } else {
+      // dispatch(loadProducts());
+      dispatch(loadCampaignsSelectedSupplier(supplierId));
     }
   };
 };
@@ -341,6 +376,19 @@ export const loadCampaigns = () => {
   };
 };
 
+export const loadCampaignsSelectedSupplier = (supplierId) => {
+  const url_api = server;
+
+  return function action(dispatch) {
+    return axios.get(url_api + "/api/campaigns/supplier/" + supplierId).then(
+      (response) => {
+        dispatch({ type: "LOAD_CAMPAIGN", payload: response });
+      },
+      (err) => dispatch(loadFailed(err))
+    );
+  };
+};
+
 export const foundCampaign = (event) => {
   const url_api = server;
   return function action(dispatch) {
@@ -350,6 +398,22 @@ export const foundCampaign = (event) => {
       },
       (err) => dispatch(loadFailed(err))
     );
+  };
+};
+
+export const foundCampaignSelectedSupplier = (event, SupplierId) => {
+  const url_api = server;
+  return function action(dispatch) {
+    return axios
+      .get(
+        url_api + "/api/campaign/search/" + event + "/supplier/" + SupplierId
+      )
+      .then(
+        (response) => {
+          dispatch({ type: "LOAD_CAMPAIGN", payload: response });
+        },
+        (err) => dispatch(loadFailed(err))
+      );
   };
 };
 
@@ -382,10 +446,35 @@ export const loadCategories = () => {
   };
 };
 
+export const loadCategoriesSelectedSupplier = (supplierId) => {
+  const url_api = server;
+
+  ReactGA.event({
+    category: "User",
+    action: "User Filter Product based Category",
+  });
+
+  return function action(dispatch) {
+    return axios.get(url_api + "/api/category").then(
+      (response) => {
+        dispatch({ type: "LOAD_CATEGORY", payload: response });
+      },
+      (err) => dispatch(loadFailed(err))
+    );
+  };
+};
+
 export const selectCategory = (id) => {
   return function action(dispatch) {
     dispatch(foundProductCategory(id));
     dispatch(foundCampaignCategory(id));
+  };
+};
+
+export const selectCategorySelectedSupplier = (id, supplierId) => {
+  return function action(dispatch) {
+    // dispatch(foundProductCategorySelectedSupplier(id, supplierId));
+    dispatch(foundCampaignCategorySelectedSupplier(id, supplierId));
   };
 };
 
@@ -413,6 +502,48 @@ export const foundCampaignCategory = (id) => {
   };
 };
 
+export const foundProductCategorySelectedSupplier = (id, supplierId) => {
+  const url_api = server;
+  return function action(dispatch) {
+    return axios
+      .get(url_api + "/api/product/category/" + id + "/supplier/" + supplierId)
+      .then(
+        (response) => {
+          dispatch({ type: "LOAD_PRODUCT", payload: response });
+        },
+        (err) => dispatch(loadFailed(err))
+      );
+  };
+};
+
+export const foundCampaignCategorySelectedSupplier = (id, supplierId) => {
+  console.log(supplierId);
+  const url_api = server;
+  return function action(dispatch) {
+    return axios
+      .get(url_api + "/api/campaign/category/" + id + "/supplier/" + supplierId)
+      .then(
+        (response) => {
+          dispatch({ type: "LOAD_CAMPAIGN", payload: response });
+        },
+        (err) => dispatch(loadFailed(err))
+      );
+  };
+};
+
+export const checkEmptyCart = (cart) => {
+  if (cart.totalItem === 0) {
+    return function action(dispatch) {
+      dispatch({ type: "CART_IS_EMPTY" });
+      dispatch(push("/"));
+    };
+  } else {
+    return function action(dispatch) {
+      dispatch({ type: "CART_NOT_EMPTY" });
+    };
+  }
+};
+
 export const addCartOrder = (item, campaign_id, campaign_image) => {
   const addCardInput = {
     id: item.product.id,
@@ -431,6 +562,7 @@ export const addCartOrder = (item, campaign_id, campaign_image) => {
     image: campaign_image,
     campaign_id: campaign_id,
   };
+
   return function action(dispatch) {
     dispatch({ type: "ADD_CAMPAIGN_ORDER", payload: addCardInput });
   };
@@ -488,7 +620,7 @@ export const plusCart = (item) => {
   };
 };
 
-export const minusCart = (item) => {
+export const minusCart = (item, cart) => {
   const minusCardInput = {
     id: item.id,
     user_id: item.user_id,
@@ -508,20 +640,74 @@ export const minusCart = (item) => {
     category: "User",
     action: "User Remove Quantity Product in Cart",
   });
+  if (cart.totalItem === 1) {
+    return function action(dispatch) {
+      swal({
+        title: "Apakah kamu yakin akan menghapus produk dari keranjang?",
+        icon: "warning",
+        buttons: true,
+        showCancelButton: true,
+        dangerMode: true,
+      }).then((result) => {
+        if (result === null) {
+          return function action(dispatch) {
+            dispatch({ type: "CART_NOT_EMPTY" });
+          };
+        } else if (result) {
+          dispatch(clearCart());
+          dispatch(push("/"));
+          return function action(dispatch) {
+            dispatch({ type: "CART_IS_EMPTY" });
+          };
+        }
+      });
+    };
+  } else {
+    return function action(dispatch) {
+      console.log("minus");
+      dispatch({ type: "MINUS", payload: minusCardInput });
+    };
+  }
+};
 
+export const removeCart = (item, index, cart) => {
   return function action(dispatch) {
-    dispatch({ type: "MINUS", payload: minusCardInput });
+    swal({
+      title: "Apakah kamu yakin akan menghapus produk dari keranjang?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((result) => {
+      if (result === null) {
+        return function action(dispatch) {
+          dispatch({ type: "CART_NOT_EMPTY" });
+        };
+      } else if (result) {
+        if (cart.items.length === 1) {
+          dispatch(clearCart());
+          dispatch(push("/"));
+          return function action(dispatch) {
+            dispatch({ type: "CART_IS_EMPTY" });
+          };
+        } else {
+          dispatch({ type: "REMOVE", payload: item, position: index });
+        }
+      }
+    });
   };
 };
 
-export const removeCart = (item, index) => {
-  ReactGA.event({
-    category: "User",
-    action: "User Remove Product from Cart",
-  });
-  return function action(dispatch) {
-    dispatch({ type: "REMOVE", payload: item, position: index });
-  };
+export const checkClearCart = (cart) => {
+  if (cart.totalItem === 1) {
+    return function action(dispatch) {
+      dispatch({ type: "CART_IS_EMPTY" });
+      dispatch(push("/"));
+    };
+  } else {
+    return function action(dispatch) {
+      dispatch({ type: "CART_NOT_EMPTY" });
+    };
+  }
 };
 
 export const clearCart = () => {
@@ -869,5 +1055,58 @@ export const loadInventoryReport = (user, product) => {
         },
         (err) => dispatch(loadFailed(err))
       );
+  };
+};
+
+export const clearSupplier = () => {
+  return function action(dispatch) {
+    dispatch({ type: "CLEAR_SELECTED_SUPPLIERID" });
+  };
+};
+
+export const addSupplier = (data) => {
+  console.log(data);
+  return function action(dispatch) {
+    dispatch({ type: "ADD_SELECTED_SUPPLIERID", payload: data });
+  };
+};
+export const currentSupplier = () => {
+  return function action(dispatch) {
+    dispatch({ type: "CURRENT_SELECTED_SUPPLIERID" });
+  };
+};
+
+export const loadSupplier = (uniqueId) => {
+  const url_api = server;
+
+  return function action(dispatch) {
+    return axios.get(url_api + "/api/business/" + uniqueId).then(
+      (response) => {
+        dispatch({ type: "LOAD_SELECTED_SUPPLIER", payload: response });
+      },
+      (err) => dispatch(loadFailed(err))
+    );
+  };
+};
+
+export const backFromSelectedSupplier = () => {
+  return function action(dispatch) {
+    swal({
+      title: "Apakah kamu yakin akan membatalkan pemesanan ini?",
+      icon: "warning",
+      buttons: true,
+      showCancelButton: true,
+      dangerMode: true,
+    }).then((result) => {
+      if (result === null) {
+        return function action(dispatch) {
+          dispatch({ type: "CART_NOT_EMPTY" });
+        };
+      } else if (result) {
+        dispatch(push("/"));
+        dispatch(clearCart());
+        dispatch(clearSupplier());
+      }
+    });
   };
 };

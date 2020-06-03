@@ -65,7 +65,7 @@ function CampaignItem(props) {
                 <span className="bar-text"></span>
               </div>
               <div
-                className="progress-bar bg-custom"
+                class="progress-bar bg-custom"
                 role="progressbar"
                 style={{
                   width: progress_tiering_1 + "%",
@@ -76,7 +76,7 @@ function CampaignItem(props) {
                 aria-valuemax="100"
               ></div>
               <div
-                className="progress-bar bg-custom-2"
+                class="progress-bar bg-custom-2"
                 role="progressbar"
                 style={{
                   width: progress_tiering_2 + "%",

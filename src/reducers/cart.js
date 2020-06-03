@@ -83,6 +83,10 @@ const cartReducer = (state = initialCartState, action) => {
         totalItem: 0,
         totalAmount: 0,
       };
+    case "CART_IS_EMPTY":
+      return state;
+    case "CART_NOT_EMPTY":
+      return state;
     default:
       return state;
   }

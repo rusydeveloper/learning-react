@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Mixpanel } from "../components/Mixpanel";
 import { checkFeedbackLogin } from "../actions";
 import HeaderNav from "../components/HeaderNav";
+import BottomNav from "../components/BottomNav";
 
 function Feedback() {
   Mixpanel.track("view feedback page");
@@ -30,6 +31,7 @@ function Feedback() {
       >
         Harap tunggu
       </iframe>
+      <BottomNav></BottomNav>
     </div>
   );
 }

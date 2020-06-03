@@ -5,43 +5,50 @@ import { Badge, Navbar } from "react-bootstrap";
 import Cart from "../components/Cart";
 import { Mixpanel } from "../components/Mixpanel";
 import {
-  loadProducts,
-  loadCategories,
-  loadCampaigns,
-  searchProduct,
-  selectCategory,
+  loadProductsSelectedSupplier,
+  loadCategoriesSelectedSupplier,
+  loadCampaignsSelectedSupplier,
+  searchProductSelectedSupplier,
+  selectCategorySelectedSupplier,
   checkBalance,
+  checkEmptyCart,
 } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
 import ReactGA from "react-ga";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import BottomNav from "../components/BottomNav";
 
 function Product() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  Mixpanel.track("view product page");
+  const cart = useSelector((state) => state.cart);
+  const supplier = useSelector((state) => state.selectedSupplier);
+
+  Mixpanel.track("view product selected supplier page");
 
   useEffect(() => {
-    dispatch(loadCampaigns());
-    dispatch(loadCategories());
+    dispatch(loadCampaignsSelectedSupplier(supplier.supplier.unique_id));
+    dispatch(loadCategoriesSelectedSupplier(supplier.supplier.unique_id));
+    dispatch(checkEmptyCart(cart));
     dispatch(checkBalance(user.id));
     ReactGA.pageview("/product");
-  }, [dispatch, user]);
+  }, [dispatch, user, supplier, cart]);
 
   const campaigns = useSelector((state) => state.campaign.items);
   const categories = useSelector((state) => state.product.categories);
 
   return (
     <div className="page-container">
-      <Header></Header>
-
       <Navbar sticky="top">
         <div className="search-container">
           <input
             className="search-box"
-            onChange={(event) => dispatch(searchProduct(event.target.value))}
+            onChange={(event) =>
+              dispatch(
+                searchProductSelectedSupplier(
+                  event.target.value,
+                  supplier.supplier.unique_id
+                )
+              )
+            }
             placeholder="Cari nama barang"
           />
         </div>
@@ -59,8 +66,10 @@ function Product() {
           variant="warning"
           className="horizontal-menu "
           onClick={() => {
-            dispatch(loadProducts());
-            dispatch(loadCampaigns());
+            dispatch(loadProductsSelectedSupplier(supplier.supplier.unique_id));
+            dispatch(
+              loadCampaignsSelectedSupplier(supplier.supplier.unique_id)
+            );
           }}
         >
           Semua
@@ -70,7 +79,14 @@ function Product() {
             key={i}
             variant="warning"
             className="horizontal-menu "
-            onClick={() => dispatch(selectCategory(category.id))}
+            onClick={() =>
+              dispatch(
+                selectCategorySelectedSupplier(
+                  category.id,
+                  supplier.supplier.unique_id
+                )
+              )
+            }
           >
             {category.name}
           </Badge>
@@ -79,10 +95,11 @@ function Product() {
       <hr />
       <CampaignList campaigns={campaigns} />
       <hr />
-      <Footer />
+      <br />
+      <br />
+      <br />
 
       <Cart></Cart>
-      <BottomNav></BottomNav>
     </div>
   );
 }

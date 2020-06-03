@@ -19,6 +19,7 @@ import { Mixpanel } from "../../components/Mixpanel";
 
 import HeaderNav from "../../components/HeaderNav";
 import InventoryHistoryList from "../../components/InventoryHistoryList";
+import BottomNav from "../../components/BottomNav";
 
 function Record() {
   const dispatch = useDispatch();
@@ -390,6 +391,7 @@ function Record() {
           ></InventoryHistoryList>
         </div>
       ) : null}
+      <BottomNav></BottomNav>
     </div>
   );
 }
