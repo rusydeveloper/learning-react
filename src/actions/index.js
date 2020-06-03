@@ -300,6 +300,25 @@ export const loadProducts = () => {
   };
 };
 
+export const loadProductsSelectedSupplier = (supplierId) => {
+  const url_api = server;
+  ReactGA.event({
+    category: "User",
+    action: "User See Product",
+  });
+
+  Mixpanel.track("Successful load product");
+
+  return function action(dispatch) {
+    return axios.get(url_api + "/api/product/supplier/" + supplierId).then(
+      (response) => {
+        dispatch({ type: "LOAD_PRODUCT", payload: response });
+      },
+      (err) => dispatch(loadFailed(err))
+    );
+  };
+};
+
 export const searchProduct = (event) => {
   ReactGA.event({
     category: "User",
@@ -312,6 +331,22 @@ export const searchProduct = (event) => {
     } else {
       // dispatch(loadProducts());
       dispatch(loadCampaigns());
+    }
+  };
+};
+
+export const searchProductSelectedSupplier = (event, supplierId) => {
+  ReactGA.event({
+    category: "User",
+    action: "User Search Product",
+  });
+  return function action(dispatch) {
+    if (event) {
+      // dispatch(foundProduct(event));
+      dispatch(foundCampaignSelectedSupplier(event, supplierId));
+    } else {
+      // dispatch(loadProducts());
+      dispatch(loadCampaignsSelectedSupplier(supplierId));
     }
   };
 };
@@ -341,6 +376,19 @@ export const loadCampaigns = () => {
   };
 };
 
+export const loadCampaignsSelectedSupplier = (supplierId) => {
+  const url_api = server;
+
+  return function action(dispatch) {
+    return axios.get(url_api + "/api/campaigns/supplier/" + supplierId).then(
+      (response) => {
+        dispatch({ type: "LOAD_CAMPAIGN", payload: response });
+      },
+      (err) => dispatch(loadFailed(err))
+    );
+  };
+};
+
 export const foundCampaign = (event) => {
   const url_api = server;
   return function action(dispatch) {
@@ -350,6 +398,22 @@ export const foundCampaign = (event) => {
       },
       (err) => dispatch(loadFailed(err))
     );
+  };
+};
+
+export const foundCampaignSelectedSupplier = (event, SupplierId) => {
+  const url_api = server;
+  return function action(dispatch) {
+    return axios
+      .get(
+        url_api + "/api/campaign/search/" + event + "/supplier/" + SupplierId
+      )
+      .then(
+        (response) => {
+          dispatch({ type: "LOAD_CAMPAIGN", payload: response });
+        },
+        (err) => dispatch(loadFailed(err))
+      );
   };
 };
 
@@ -382,10 +446,35 @@ export const loadCategories = () => {
   };
 };
 
+export const loadCategoriesSelectedSupplier = (supplierId) => {
+  const url_api = server;
+
+  ReactGA.event({
+    category: "User",
+    action: "User Filter Product based Category",
+  });
+
+  return function action(dispatch) {
+    return axios.get(url_api + "/api/category").then(
+      (response) => {
+        dispatch({ type: "LOAD_CATEGORY", payload: response });
+      },
+      (err) => dispatch(loadFailed(err))
+    );
+  };
+};
+
 export const selectCategory = (id) => {
   return function action(dispatch) {
     dispatch(foundProductCategory(id));
     dispatch(foundCampaignCategory(id));
+  };
+};
+
+export const selectCategorySelectedSupplier = (id, supplierId) => {
+  return function action(dispatch) {
+    dispatch(foundProductCategorySelectedSupplier(id, supplierId));
+    dispatch(foundCampaignCategorySelectedSupplier(id, supplierId));
   };
 };
 
@@ -412,6 +501,35 @@ export const foundCampaignCategory = (id) => {
     );
   };
 };
+
+export const foundProductCategorySelectedSupplier = (id, supplierId) => {
+  const url_api = server;
+  return function action(dispatch) {
+    return axios
+      .get(url_api + "/api/product/category/" + id + "/supplier/" + supplierId)
+      .then(
+        (response) => {
+          dispatch({ type: "LOAD_PRODUCT", payload: response });
+        },
+        (err) => dispatch(loadFailed(err))
+      );
+  };
+};
+
+export const foundCampaignCategorySelectedSupplier = (id, supplierId) => {
+  const url_api = server;
+  return function action(dispatch) {
+    return axios
+      .get(url_api + "/api/campaign/category/" + id + "/supplier/" + supplierId)
+      .then(
+        (response) => {
+          dispatch({ type: "LOAD_CAMPAIGN", payload: response });
+        },
+        (err) => dispatch(loadFailed(err))
+      );
+  };
+};
+
 export const checkEmptyCart = (cart) => {
   if (cart.totalItem === 0) {
     return function action(dispatch) {

@@ -12,6 +12,7 @@ import Invoice from "./pages/Invoice";
 import ReactGA from "react-ga";
 import Feedback from "./pages/Feedback";
 import Inventory from "./pages/Inventory";
+import SelectedSupplierProduct from "./pages/SelectedSupplierProduct";
 import Record from "./pages/Inventory/Record";
 import Report from "./pages/Inventory/Report";
 
@@ -32,6 +33,10 @@ function App() {
             <Route path="/inventory" component={Inventory} />
             <Route path="/record" component={Record} />
             <Route path="/report" component={Report} />
+            <Route
+              path="/selectedSupplierProduct"
+              component={SelectedSupplierProduct}
+            />
           </Switch>
         </Col>
       </Row>

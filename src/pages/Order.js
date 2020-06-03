@@ -60,7 +60,7 @@ function Order() {
         type="submit"
         value="Submit"
         variant="outline-danger"
-        onClick={() => dispatch(push("/"))}
+        onClick={() => dispatch(push("/selectedSupplierProduct"))}
         block
       >
         Tambah Produk
