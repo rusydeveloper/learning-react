@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ReactGA from "react-ga";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import BottomNav from "../components/BottomNav";
 
 function Product() {
   const dispatch = useDispatch();
@@ -81,6 +82,7 @@ function Product() {
       <Footer />
 
       <Cart></Cart>
+      <BottomNav></BottomNav>
     </div>
   );
 }

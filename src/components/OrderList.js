@@ -10,7 +10,7 @@ function OrderList(props) {
 
       {props.carts.map((cart, index) => (
         <div>
-          <OrderItem cart={cart} index={index} />
+          <OrderItem cart={cart} index={index} key={index} />
         </div>
       ))}
     </div>

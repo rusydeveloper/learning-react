@@ -473,7 +473,7 @@ export const selectCategory = (id) => {
 
 export const selectCategorySelectedSupplier = (id, supplierId) => {
   return function action(dispatch) {
-    dispatch(foundProductCategorySelectedSupplier(id, supplierId));
+    // dispatch(foundProductCategorySelectedSupplier(id, supplierId));
     dispatch(foundCampaignCategorySelectedSupplier(id, supplierId));
   };
 };
@@ -517,6 +517,7 @@ export const foundProductCategorySelectedSupplier = (id, supplierId) => {
 };
 
 export const foundCampaignCategorySelectedSupplier = (id, supplierId) => {
+  console.log(supplierId);
   const url_api = server;
   return function action(dispatch) {
     return axios

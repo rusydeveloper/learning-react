@@ -3,7 +3,6 @@ import "./App.css";
 import Product from "./pages/Product";
 import Login from "./pages/Login";
 import User from "./pages/User";
-import BottomNav from "./components/BottomNav";
 import { Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row, Col } from "react-bootstrap";
@@ -40,7 +39,6 @@ function App() {
           </Switch>
         </Col>
       </Row>
-      <BottomNav></BottomNav>
     </Container>
   );
 }
