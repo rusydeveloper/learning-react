@@ -8,6 +8,7 @@ import { loadInvoices } from "../actions";
 import ReactGA from "react-ga";
 import { Mixpanel } from "../components/Mixpanel";
 import HeaderNav from "../components/HeaderNav";
+import BottomNav from "../components/BottomNav";
 
 function Invoice() {
   Mixpanel.track("view invoice page");
@@ -29,7 +30,7 @@ function Invoice() {
         wa="6281325368885"
         message="Saya mau bertanya tentang cara pembayaran program belanja bersama"
       ></Help>
-      <InvoiceList invoices={invoices} />{" "}
+      <InvoiceList invoices={invoices} /> <BottomNav></BottomNav>
     </div>
   );
 }

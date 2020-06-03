@@ -15,6 +15,7 @@ import { Mixpanel } from "../../components/Mixpanel";
 import HeaderNav from "../../components/HeaderNav";
 import InventoryHistoryList from "../../components/InventoryHistoryList";
 import Chart from "react-google-charts";
+import BottomNav from "../../components/BottomNav";
 
 function Report() {
   const dispatch = useDispatch();
@@ -99,6 +100,7 @@ function Report() {
           ></InventoryHistoryList>
         </div>
       ) : null}
+      <BottomNav></BottomNav>
     </div>
   );
 }

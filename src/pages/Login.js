@@ -7,6 +7,7 @@ import Help from "../components/Help";
 import ReactGA from "react-ga";
 import { Mixpanel } from "../components/Mixpanel";
 import HeaderNav from "../components/HeaderNav";
+import BottomNav from "../components/BottomNav";
 
 function Login() {
   Mixpanel.track("view login page");
@@ -510,6 +511,7 @@ function Login() {
           </Card>
         </div>
       )}
+      <BottomNav></BottomNav>
     </div>
   );
 }

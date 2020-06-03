@@ -620,3 +620,8 @@ div.feedback {
   word-wrap: break-word;
   writing-mode: vertical-lr;
 }
+
+.campaign-supplier-code {
+  font-size: 7.5pt;
+  color: grey;
+}

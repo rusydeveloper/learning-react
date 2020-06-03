@@ -7,6 +7,7 @@ import { checkInventoryLogin, clearInventoryItem } from "../actions";
 import HeaderNav from "../components/HeaderNav";
 import { Button } from "react-bootstrap";
 import { push } from "connected-react-router";
+import BottomNav from "../components/BottomNav";
 
 function Inventory() {
   Mixpanel.track("view inventory page");
@@ -48,6 +49,7 @@ function Inventory() {
           Laporan
         </Button>
       </div>
+      <BottomNav></BottomNav>
     </div>
   );
 }
