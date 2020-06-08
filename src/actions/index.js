@@ -841,6 +841,7 @@ export const checkLoginBeforeCart = (user_id) => {
   return function action(dispatch) {
     if (user_id) {
       dispatch(push("/order"));
+      // dispatch({ type: "CART_NOT_EMPTY" });
     } else {
       swal(
         "Maaf, kamu harus login atau daftar terlebih dahulu untuk melanjutkan pemesanan!"

@@ -60,7 +60,7 @@ function Order() {
         type="submit"
         value="Submit"
         variant="outline-danger"
-        onClick={() => dispatch(push("/selectedSupplierProduct"))}
+        onClick={() => dispatch(push("/"))}
         block
       >
         Tambah Produk
@@ -140,11 +140,7 @@ function Order() {
                   Minimal pemesanan{" "}
                   <span className="red-text">
                     Rp{" "}
-                    {selectedSupplier.supplier.minimum_order
-                      ? selectedSupplier.supplier.minimum_order
-                          .toString()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-                      : null}
+                    {(500000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                   </span>
                 </small>
               </li>
@@ -171,7 +167,7 @@ function Order() {
           </option>
         </select>
       </div>
-      {cart.totalAmount >= selectedSupplier.supplier.minimum_order ? (
+      {cart.totalAmount >= 500000 ? (
         <Button
           size="sm"
           variant="warning"
@@ -200,11 +196,7 @@ function Order() {
       ) : (
         <Button size="sm" variant="danger" block disabled>
           Pemesanan tidak mencapai Rp{" "}
-          {selectedSupplier.supplier.minimum_order
-            ? selectedSupplier.supplier.minimum_order
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-            : null}
+          {(500000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
         </Button>
       )}
     </div>
