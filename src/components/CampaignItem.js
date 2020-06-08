@@ -374,8 +374,8 @@ function CampaignItem(props) {
                       props.campaign.product.image
                     )
                   );
-                  dispatch(checkLoginBeforeCart(user.id));
-                  dispatch(loadSupplier(props.campaign.business.unique_id));
+                  // dispatch(checkLoginBeforeCart(user.id));
+                  // dispatch(loadSupplier(props.campaign.business.unique_id));
 
                   setCount(count + 1);
                   setOrdered(true);
