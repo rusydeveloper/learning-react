@@ -278,11 +278,6 @@ function CampaignItem(props) {
 
       <div className="card-body-campaign">
         <div className="card-text">
-          <div className="campaign-supplier-code">
-            kode supplier:
-            <br />
-            {props.campaign.business.unique_id}
-          </div>
           <div className="campaign-product-title">
             {props.campaign.product.name} [<span>{props.campaign.unit}</span>]{" "}
             <span className="campaign-title-text">{props.campaign.title}</span>
