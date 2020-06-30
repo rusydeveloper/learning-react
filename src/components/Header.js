@@ -7,12 +7,12 @@ function Header() {
   return (
     <div className="header-container">
       <div className="flex-container-brand">
-        {/* <div>
+        <div>
           <img src={logoDinasBandung} className="dinas-logo" alt="logo" />
         </div>
         <div>
           <img src={logoSejuk} className="sejuk-logo" alt="logo" />
-        </div> */}
+        </div>
         <div>
           <img
             src={logoPoweredNectico}
