@@ -85,20 +85,22 @@ function Order() {
         </Row>
 
         <Row>
-          <Col>
-            Biaya Administrasi (3%)
-            <ul>
-              <li>
-                <small>Termasuk biaya pengantaran, pengemasan dan jasa</small>
-              </li>
-            </ul>
-          </Col>
+          <Col>Biaya Administrasi (3%)</Col>
           <Col>
             <div className="text-right">
               {((cart.totalAmount * 3) / 100)
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
             </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <ul>
+              <li>
+                <small>Termasuk biaya pengantaran, pengemasan dan jasa</small>
+              </li>
+            </ul>
           </Col>
         </Row>
         <Row>
