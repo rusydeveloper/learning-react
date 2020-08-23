@@ -45,7 +45,11 @@ function Order() {
   if (!user.id) {
     creditPayment = 0;
   }
-  const final_invoice = cart.totalAmount + unique_number - creditPayment;
+  const final_invoice =
+    cart.totalAmount +
+    unique_number +
+    (cart.totalAmount * 3) / 100 -
+    creditPayment;
 
   return (
     <div className="page-container">
@@ -77,6 +81,26 @@ function Order() {
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
             </div>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>Biaya Administrasi (3%)</Col>
+          <Col>
+            <div className="text-right">
+              {((cart.totalAmount * 3) / 100)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <ul>
+              <li>
+                <small>Termasuk biaya pengantaran, pengemasan dan jasa</small>
+              </li>
+            </ul>
           </Col>
         </Row>
         <Row>
@@ -142,12 +166,6 @@ function Order() {
                     Rp{" "}
                     {(500000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                   </span>
-                </small>
-              </li>
-              <li>
-                <small>
-                  Biaya kirim <span className="red-text">GRATIS</span> untuk
-                  Kota Bandung
                 </small>
               </li>
             </ul>
