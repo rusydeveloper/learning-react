@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { Lazy } from "react-lazy";
 import { Button } from "react-bootstrap";
 import defaultProductImage from "../assets/open-box.png";
 import {
@@ -258,22 +258,36 @@ function CampaignItem(props) {
       {props.campaign.product.image ? (
         <div>
           {" "}
-          <img
-            className="card-img-top campaign-icon image-fit"
-            src={server_url + props.campaign.product.image}
-            alt="tidak ada gambar"
-            onError={(e) => {
-              e.target.src = defaultProductImage;
-              e.target.alt = "broken";
-            }}
-          />
+          <Lazy
+            component="a"
+            href="/"
+            className="image-link image-link--100px"
+            ltIE9
+          >
+            <img
+              className="card-img-top campaign-icon image-fit"
+              src={server_url + props.campaign.product.image}
+              alt="tidak ada gambar"
+              onError={(e) => {
+                e.target.src = defaultProductImage;
+                e.target.alt = "broken";
+              }}
+            />
+          </Lazy>
         </div>
       ) : (
-        <img
-          className="card-img-top campaign-icon image-fit"
-          src={defaultProductImage}
-          alt="no link"
-        />
+        <Lazy
+          component="a"
+          href="/"
+          className="image-link image-link--100px"
+          ltIE9
+        >
+          <img
+            className="card-img-top campaign-icon image-fit"
+            src={defaultProductImage}
+            alt="no link"
+          />
+        </Lazy>
       )}
 
       <div className="card-body-campaign">
