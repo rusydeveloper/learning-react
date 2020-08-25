@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/static/css/main.bcb129cb.chunk.css",
-    "main.js": "/static/js/main.0b10d063.chunk.js",
-    "main.js.map": "/static/js/main.0b10d063.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.a4bd9d66.js",
-    "runtime-main.js.map": "/static/js/runtime-main.a4bd9d66.js.map",
-    "static/css/2.47e06e2e.chunk.css": "/static/css/2.47e06e2e.chunk.css",
-    "static/js/2.1b0436c7.chunk.js": "/static/js/2.1b0436c7.chunk.js",
-    "static/js/2.1b0436c7.chunk.js.map": "/static/js/2.1b0436c7.chunk.js.map",
+    "main.css": "/static/css/main.843ff809.chunk.css",
+    "main.js": "/static/js/main.381fba4e.chunk.js",
+    "main.js.map": "/static/js/main.381fba4e.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.05b044cc.js",
+    "runtime-main.js.map": "/static/js/runtime-main.05b044cc.js.map",
+    "static/css/2.de424728.chunk.css": "/static/css/2.de424728.chunk.css",
+    "static/js/2.8a6afaf1.chunk.js": "/static/js/2.8a6afaf1.chunk.js",
+    "static/js/2.8a6afaf1.chunk.js.map": "/static/js/2.8a6afaf1.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.8c0ea9657d5513bc2d422f59bbfb1290.js": "/precache-manifest.8c0ea9657d5513bc2d422f59bbfb1290.js",
+    "precache-manifest.e69e9e8d1193088d65843a5f36b92289.js": "/precache-manifest.e69e9e8d1193088d65843a5f36b92289.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/2.47e06e2e.chunk.css.map": "/static/css/2.47e06e2e.chunk.css.map",
-    "static/css/main.bcb129cb.chunk.css.map": "/static/css/main.bcb129cb.chunk.css.map",
-    "static/js/2.1b0436c7.chunk.js.LICENSE.txt": "/static/js/2.1b0436c7.chunk.js.LICENSE.txt",
+    "static/css/2.de424728.chunk.css.map": "/static/css/2.de424728.chunk.css.map",
+    "static/css/main.843ff809.chunk.css.map": "/static/css/main.843ff809.chunk.css.map",
+    "static/js/2.8a6afaf1.chunk.js.LICENSE.txt": "/static/js/2.8a6afaf1.chunk.js.LICENSE.txt",
     "static/media/logo-DT.png": "/static/media/logo-DT.a8788338.png",
     "static/media/logo-powered-nectico.png": "/static/media/logo-powered-nectico.dd164326.png",
     "static/media/open-box.png": "/static/media/open-box.a3e203d3.png",
     "static/media/product-not-found.png": "/static/media/product-not-found.d717674b.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.a4bd9d66.js",
-    "static/css/2.47e06e2e.chunk.css",
-    "static/js/2.1b0436c7.chunk.js",
-    "static/css/main.bcb129cb.chunk.css",
-    "static/js/main.0b10d063.chunk.js"
+    "static/js/runtime-main.05b044cc.js",
+    "static/css/2.de424728.chunk.css",
+    "static/js/2.8a6afaf1.chunk.js",
+    "static/css/main.843ff809.chunk.css",
+    "static/js/main.381fba4e.chunk.js"
   ]
 }
